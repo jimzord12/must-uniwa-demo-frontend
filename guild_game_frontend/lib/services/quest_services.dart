@@ -1,0 +1,180 @@
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+
+import "../models/quest.dart";
+
+class QuestService {
+  static const String baseURILocal = "http://localhost:3000/";
+  static const String baseURIWeb =
+      "https://must-uniwa-game-server.onrender.com/";
+
+  Future<List<Quest>> fetchAllAvailableQuests() async {
+    final url = Uri.parse('${baseURILocal}api/guildboard/quests');
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      List<dynamic> questsJson = json.decode(response.body);
+      return questsJson.map((json) => Quest.fromJson(json)).toList();
+    } else {
+      throw Exception('Failed to load quests: ${response.body}');
+    }
+  }
+
+  Future<Quest> createQuest(Quest quest) async {
+    final url = Uri.parse('${baseURILocal}quests'); // Adjusted endpoint
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode(quest.toJson()),
+    );
+
+    if (response.statusCode == 201) {
+      return Quest.fromJson(json.decode(response.body));
+    } else if (response.statusCode == 400) {
+      throw Exception('Duplicate questId or title');
+    } else {
+      throw Exception('Failed to create quest: ${response.body}');
+    }
+  }
+
+  // If Status: 200 OK, the quest is accepted
+  Future<bool> acceptQuest(String walletAddress, int questId) async {
+    final url = Uri.parse(
+        '${baseURILocal}api/user/$walletAddress/acceptQuest/$questId'); // Adjusted endpoint
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else if (response.statusCode == 404) {
+      throw Exception('User, Quest, or GuildBoard not found');
+    } else if (response.statusCode == 403) {
+      throw Exception('Only students can accept quests');
+    } else {
+      throw Exception('Failed to accept quest: ${response.body}');
+    }
+  }
+
+  // If Status: 200 OK, the quest is accepted
+  Future<bool> sumbitQuest(String pdfName, String pdfString,
+      String walletAddress, int questId) async {
+    final url = Uri.parse(
+        '${baseURILocal}api/user/$walletAddress/submitQuest/$questId');
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({'pdfName': pdfName, 'pdfString': pdfString}),
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else if (response.statusCode == 400) {
+      throw Exception('No PDF file uploaded');
+    } else if (response.statusCode == 403) {
+      throw Exception('Only students can submit quests');
+    } else if (response.statusCode == 404) {
+      throw Exception('User or Quest not found');
+    } else {
+      throw Exception('Failed to submit quest: ${response.body}');
+    }
+  }
+
+  Future<bool> forfeitQuest(String walletAddress, int questId) async {
+    final url = Uri.parse(
+        '${baseURILocal}api/user/$walletAddress/forfeitQuest/$questId');
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else if (response.statusCode == 403) {
+      throw Exception('Only students can forfeit quests');
+    } else if (response.statusCode == 404) {
+      throw Exception('User, Quest, or GuildBoard not found');
+    } else {
+      throw Exception('Failed to forfeit quest: ${response.body}');
+    }
+  }
+
+  Future<bool> retryQuest(String walletAddress, int questId) async {
+    final url =
+        Uri.parse('${baseURILocal}api/user/$walletAddress/retryQuest/$questId');
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else if (response.statusCode == 400) {
+      throw Exception('Quest not found in rejected quests');
+    } else if (response.statusCode == 404) {
+      throw Exception('User, Quest, Quest Creator not found');
+    } else {
+      throw Exception('Failed to retry quest: ${response.body}');
+    }
+  }
+
+  Future<bool> completeQuest(String walletAddress, int questId) async {
+    final url = Uri.parse(
+        '${baseURILocal}api/user/$walletAddress/completeQuest/$questId');
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else if (response.statusCode == 403) {
+      throw Exception('Only professors can complete quests');
+    } else if (response.statusCode == 404) {
+      throw Exception('User or Quest not found');
+    } else {
+      throw Exception('Failed to complete quest: ${response.body}');
+    }
+  }
+
+  Future<bool> needsRevision(
+      String rejectionReason, String walletAddress, int questId) async {
+    final url = Uri.parse('${baseURILocal}api/quest/$questId/needsRevision');
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({'rejection_reason_text': rejectionReason}),
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else if (response.statusCode == 404) {
+      throw Exception('Quest not found or no rejection_reason_text');
+    } else {
+      throw Exception('Failed to mark quest for revision: ${response.body}');
+    }
+  }
+
+  Future<bool> deleteQuest(String walletAddress, int questId) async {
+    final url = Uri.parse(
+        '${baseURILocal}api/professor/$walletAddress/deleteQuest/$questId');
+    final response = await http.delete(
+      url,
+      headers: {'Content-Type': 'application/json'},
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else if (response.statusCode == 403) {
+      throw Exception('Only professors can delete quests');
+    } else if (response.statusCode == 404) {
+      throw Exception('Quest not found');
+    } else {
+      throw Exception('Failed to delete quest: ${response.body}');
+    }
+  }
+
+  // ... other methods
+}
