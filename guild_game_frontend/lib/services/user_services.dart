@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:http/http.dart' as http;
 
@@ -24,14 +25,14 @@ class UserService {
 
 // >> Add the WalletAddress as the userId so that I do not have to change a lot of staff in the backend
 
-  Future<User> createUser(String name, String address, String role) async {
+  Future<User> createUser(String address, String role) async {
     final url = Uri.parse('${baseURILocal}api/user/create');
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
       body: json.encode({
         'userId': address,
-        'name': name,
+        'name': _randomName(role),
         'address': address,
         'role': role,
       }),
@@ -44,6 +45,13 @@ class UserService {
     } else {
       throw Exception('Failed to create user: ${response.body}');
     }
+  }
+
+  String _randomName(String role) {
+    final random = Random();
+    final randomNumber =
+        random.nextInt(99999); // Generates a random number up to 99999
+    return '${role}_$randomNumber';
   }
 
   // ... other methods
