@@ -1,6 +1,6 @@
 class UserResponse {
   final String id;
-  final int userId;
+  final String userId;
   final String name;
   final int xp;
   final String role;

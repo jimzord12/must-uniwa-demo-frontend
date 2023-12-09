@@ -8,9 +8,10 @@ class QuestService {
   static const String baseURILocal = "http://localhost:3000/";
   static const String baseURIWeb =
       "https://must-uniwa-game-server.onrender.com/";
+  static const String baseURI = baseURILocal;
 
   Future<List<Quest>> fetchAllAvailableQuests() async {
-    final url = Uri.parse('${baseURILocal}api/guildboard/quests');
+    final url = Uri.parse('${baseURI}api/guildboard/quests');
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
@@ -22,7 +23,7 @@ class QuestService {
   }
 
   Future<Quest> createQuest(Quest quest) async {
-    final url = Uri.parse('${baseURILocal}quests'); // Adjusted endpoint
+    final url = Uri.parse('${baseURI}quests'); // Adjusted endpoint
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -41,7 +42,7 @@ class QuestService {
   // If Status: 200 OK, the quest is accepted
   Future<bool> acceptQuest(String walletAddress, int questId) async {
     final url = Uri.parse(
-        '${baseURILocal}api/user/$walletAddress/acceptQuest/$questId'); // Adjusted endpoint
+        '${baseURI}api/user/$walletAddress/acceptQuest/$questId'); // Adjusted endpoint
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -61,8 +62,8 @@ class QuestService {
   // If Status: 200 OK, the quest is accepted
   Future<bool> sumbitQuest(String pdfName, String pdfString,
       String walletAddress, int questId) async {
-    final url = Uri.parse(
-        '${baseURILocal}api/user/$walletAddress/submitQuest/$questId');
+    final url =
+        Uri.parse('${baseURI}api/user/$walletAddress/submitQuest/$questId');
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -83,8 +84,8 @@ class QuestService {
   }
 
   Future<bool> forfeitQuest(String walletAddress, int questId) async {
-    final url = Uri.parse(
-        '${baseURILocal}api/user/$walletAddress/forfeitQuest/$questId');
+    final url =
+        Uri.parse('${baseURI}api/user/$walletAddress/forfeitQuest/$questId');
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -103,7 +104,7 @@ class QuestService {
 
   Future<bool> retryQuest(String walletAddress, int questId) async {
     final url =
-        Uri.parse('${baseURILocal}api/user/$walletAddress/retryQuest/$questId');
+        Uri.parse('${baseURI}api/user/$walletAddress/retryQuest/$questId');
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -121,8 +122,8 @@ class QuestService {
   }
 
   Future<bool> completeQuest(String walletAddress, int questId) async {
-    final url = Uri.parse(
-        '${baseURILocal}api/user/$walletAddress/completeQuest/$questId');
+    final url =
+        Uri.parse('${baseURI}api/user/$walletAddress/completeQuest/$questId');
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -141,7 +142,7 @@ class QuestService {
 
   Future<bool> needsRevision(
       String rejectionReason, String walletAddress, int questId) async {
-    final url = Uri.parse('${baseURILocal}api/quest/$questId/needsRevision');
+    final url = Uri.parse('${baseURI}api/quest/$questId/needsRevision');
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -159,7 +160,7 @@ class QuestService {
 
   Future<bool> deleteQuest(String walletAddress, int questId) async {
     final url = Uri.parse(
-        '${baseURILocal}api/professor/$walletAddress/deleteQuest/$questId');
+        '${baseURI}api/professor/$walletAddress/deleteQuest/$questId');
     final response = await http.delete(
       url,
       headers: {'Content-Type': 'application/json'},
