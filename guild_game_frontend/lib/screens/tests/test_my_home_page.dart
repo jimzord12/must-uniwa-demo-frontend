@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:guild_game_frontend/providers/quest_provider.dart';
 import 'package:guild_game_frontend/providers/user_provider.dart';
+import 'package:guild_game_frontend/widgets/quest_viewer_modal.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -103,50 +104,12 @@ class _MyHomePageState extends State<MyHomePage> {
               alignment: WrapAlignment.center,
               children: [
                 TextButton(
-                  onPressed: () async {
-                    try {
-                      // Assuming you want to use the values from the text fields to create the user
-                      String address = textEditingController1
-                          .text; // Example: use text from text field
-                      String role = textEditingController2
-                          .text; // Example: use text from another text field
-
-                      // Validate inputs here if necessary
-                      if (address.isEmpty || role.isEmpty) {
-                        throw Exception("Address and role cannot be empty");
-                      }
-
-                      if (role != "student" && role != "professor") {
-                        throw Exception(
-                            "Role must be either student or professor");
-                      }
-
-                      print("Creating user with address: $address");
-                      print("Creating user with role: $role");
-
-                      // Call createUser from userProvider
-                      await userProvider.createUser(address, role);
-
-                      // Update the UI after the user is created
-                      if (userProvider.user != null) {
-                        setState(() {
-                          message =
-                              "The new User ID: ${userProvider.user!.userId}";
-                        });
-                      } else {
-                        // Handle the case where the user is not created
-                        setState(() {
-                          message = "User creation failed";
-                        });
-                      }
-                    } catch (error) {
-                      // Handle any errors here
-                      setState(() {
-                        message = "Error: ${error.toString()}";
-                      });
-                    }
-                  },
+                  onPressed: handleUserCreation,
                   child: const Text('Create User'),
+                ),
+                ElevatedButton(
+                  onPressed: () => showCustomModal(context),
+                  child: const Text('Open Modal'),
                 ),
                 TextButton(
                   onPressed: () {
@@ -221,5 +184,47 @@ class _MyHomePageState extends State<MyHomePage> {
     textEditingController1.dispose();
     textEditingController2.dispose();
     super.dispose();
+  }
+
+  void handleUserCreation() async {
+    try {
+      // Assuming you want to use the values from the text fields to create the user
+      String address =
+          textEditingController1.text; // Example: use text from text field
+      String role = textEditingController2
+          .text; // Example: use text from another text field
+
+      // Validate inputs here if necessary
+      if (address.isEmpty || role.isEmpty) {
+        throw Exception("Address and role cannot be empty");
+      }
+
+      if (role != "student" && role != "professor") {
+        throw Exception("Role must be either student or professor");
+      }
+
+      print("Creating user with address: $address");
+      print("Creating user with role: $role");
+
+      // Call createUser from userProvider
+      await userProvider.createUser(address, role);
+
+      // Update the UI after the user is created
+      if (userProvider.user != null) {
+        setState(() {
+          message = "The new User ID: ${userProvider.user!.userId}";
+        });
+      } else {
+        // Handle the case where the user is not created
+        setState(() {
+          message = "User creation failed";
+        });
+      }
+    } catch (error) {
+      // Handle any errors here
+      setState(() {
+        message = "Error: ${error.toString()}";
+      });
+    }
   }
 }
