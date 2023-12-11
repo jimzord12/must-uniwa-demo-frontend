@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import "../models/quest.dart";
 
 class QuestService {
-  static const String baseURILocal = "http://localhost:3000/";
+  static const String baseURILocal = "http://10.0.2.2:3000/";
   static const String baseURIWeb =
       "https://must-uniwa-game-server.onrender.com/";
   static const String baseURI = baseURILocal;
@@ -40,7 +40,7 @@ class QuestService {
   }
 
   // If Status: 200 OK, the quest is accepted
-  Future<bool> acceptQuest(String walletAddress, int questId) async {
+  Future<bool> acceptQuest(String walletAddress, String questId) async {
     final url = Uri.parse(
         '${baseURI}api/user/$walletAddress/acceptQuest/$questId'); // Adjusted endpoint
     final response = await http.post(
@@ -61,7 +61,7 @@ class QuestService {
 
   // If Status: 200 OK, the quest is accepted
   Future<bool> sumbitQuest(String pdfName, String pdfString,
-      String walletAddress, int questId) async {
+      String walletAddress, String questId) async {
     final url =
         Uri.parse('${baseURI}api/user/$walletAddress/submitQuest/$questId');
     final response = await http.post(
@@ -83,7 +83,7 @@ class QuestService {
     }
   }
 
-  Future<bool> forfeitQuest(String walletAddress, int questId) async {
+  Future<bool> forfeitQuest(String walletAddress, String questId) async {
     final url =
         Uri.parse('${baseURI}api/user/$walletAddress/forfeitQuest/$questId');
     final response = await http.post(
@@ -102,7 +102,7 @@ class QuestService {
     }
   }
 
-  Future<bool> retryQuest(String walletAddress, int questId) async {
+  Future<bool> retryQuest(String walletAddress, String questId) async {
     final url =
         Uri.parse('${baseURI}api/user/$walletAddress/retryQuest/$questId');
     final response = await http.post(
@@ -121,7 +121,7 @@ class QuestService {
     }
   }
 
-  Future<bool> completeQuest(String walletAddress, int questId) async {
+  Future<bool> completeQuest(String walletAddress, String questId) async {
     final url =
         Uri.parse('${baseURI}api/user/$walletAddress/completeQuest/$questId');
     final response = await http.post(
@@ -141,7 +141,7 @@ class QuestService {
   }
 
   Future<bool> needsRevision(
-      String rejectionReason, String walletAddress, int questId) async {
+      String rejectionReason, String walletAddress, String questId) async {
     final url = Uri.parse('${baseURI}api/quest/$questId/needsRevision');
     final response = await http.post(
       url,
@@ -158,7 +158,7 @@ class QuestService {
     }
   }
 
-  Future<bool> deleteQuest(String walletAddress, int questId) async {
+  Future<bool> deleteQuest(String walletAddress, String questId) async {
     final url = Uri.parse(
         '${baseURI}api/professor/$walletAddress/deleteQuest/$questId');
     final response = await http.delete(

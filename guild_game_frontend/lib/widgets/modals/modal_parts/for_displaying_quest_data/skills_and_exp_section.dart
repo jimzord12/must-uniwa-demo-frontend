@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:guild_game_frontend/widgets/modal/modal_parts/generic/custom_label.dart';
+import 'package:guild_game_frontend/widgets/modals/modal_parts/generic/custom_label.dart';
 
 class SkillsAndEXP extends StatelessWidget {
   final String skills;

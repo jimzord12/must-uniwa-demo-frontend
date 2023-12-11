@@ -19,39 +19,39 @@ class QuestProvider with ChangeNotifier {
     await fetchQuests(); // Refresh the quests list
   }
 
-  Future<void> acceptQuest(String walletAddress, int questId) async {
+  Future<void> acceptQuest(String walletAddress, String questId) async {
     await _questService.acceptQuest(walletAddress, questId);
     await fetchQuests(); // Refresh the quests list
   }
 
   Future<void> submitQuest(String pdfName, String pdfString,
-      String walletAddress, int questId) async {
+      String walletAddress, String questId) async {
     await _questService.sumbitQuest(pdfName, pdfString, walletAddress, questId);
     await fetchQuests(); // Refresh the quests list
   }
 
-  Future<void> forfeitQuest(String walletAddress, int questId) async {
+  Future<void> forfeitQuest(String walletAddress, String questId) async {
     await _questService.forfeitQuest(walletAddress, questId);
     await fetchQuests(); // Refresh the quests list
   }
 
-  Future<void> retryQuest(String walletAddress, int questId) async {
+  Future<void> retryQuest(String walletAddress, String questId) async {
     await _questService.retryQuest(walletAddress, questId);
     await fetchQuests(); // Refresh the quests list
   }
 
-  Future<void> completeQuest(String walletAddress, int questId) async {
+  Future<void> completeQuest(String walletAddress, String questId) async {
     await _questService.completeQuest(walletAddress, questId);
     await fetchQuests(); // Refresh the quests list
   }
 
   Future<void> needsRevision(
-      String rejectionReason, String walletAddress, int questId) async {
+      String rejectionReason, String walletAddress, String questId) async {
     await _questService.needsRevision(rejectionReason, walletAddress, questId);
     await fetchQuests(); // Refresh the quests list
   }
 
-  Future<void> deleteQuest(String walletAddress, int questId) async {
+  Future<void> deleteQuest(String walletAddress, String questId) async {
     await _questService.deleteQuest(walletAddress, questId);
     await fetchQuests(); // Refresh the quests list
   }

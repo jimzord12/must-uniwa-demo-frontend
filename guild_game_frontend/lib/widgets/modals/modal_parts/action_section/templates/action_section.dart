@@ -7,26 +7,27 @@ class ActionsSection extends StatelessWidget {
   final double spaceBetweenButtons; // Add this
 
   const ActionsSection({
-    Key? key,
+    super.key,
     required this.buttons,
     this.backgroundColor = Colors.transparent,
     // const Color.fromARGB(117, 195, 183, 21), // Default color
     this.borderRadius = 8.0, // Default radius
-    this.spaceBetweenButtons = 8.0, // Default spacing
-  }) : super(key: key);
+    this.spaceBetweenButtons = 12.0, // Default spacing
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(8), // Add padding if needed
+      padding: const EdgeInsets.all(0),
+      alignment: AlignmentDirectional.center, // Add padding if needed
       decoration: BoxDecoration(
         color: backgroundColor, // Use the passed background color
         borderRadius:
             BorderRadius.circular(borderRadius), // Use the passed border radius
         // Optionally, add a border, shadow, etc.
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween, // Use spaceBetween
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center, // Use spaceBetween
         children: _buildButtonsWithSpacing(), // Use the helper method
       ),
     );
@@ -37,7 +38,7 @@ class ActionsSection extends StatelessWidget {
     for (int i = 0; i < buttons.length; i++) {
       buttonsWithSpacing.add(buttons[i]);
       if (i != buttons.length - 1) {
-        buttonsWithSpacing.add(SizedBox(width: spaceBetweenButtons));
+        buttonsWithSpacing.add(SizedBox(height: spaceBetweenButtons));
       }
     }
     return buttonsWithSpacing;

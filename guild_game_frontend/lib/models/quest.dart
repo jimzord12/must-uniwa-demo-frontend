@@ -1,13 +1,14 @@
 class Quest {
-  final int questId;
+  final String? questId;
   final int xp;
+  final String desc;
   final String title;
   final DateTime creationDate;
   final List<DateTime> submissionDates;
   final int revisions;
   final List<String> requiredSkills;
-  final int createdBy;
-  final int assignedTo;
+  final String createdBy;
+  final String? assignedTo;
   final bool isDone;
   final DateTime? completedDate;
   final String? rejectedReason;
@@ -16,6 +17,7 @@ class Quest {
   Quest({
     required this.questId,
     required this.xp,
+    required this.desc,
     required this.title,
     required this.creationDate,
     required this.submissionDates,
@@ -29,11 +31,29 @@ class Quest {
     this.pdfFilename,
   });
 
+  // New Quest
+  Quest.newQuest({
+    required this.requiredSkills,
+    required this.xp,
+    required this.desc,
+    required this.title,
+    required this.createdBy,
+  })  : questId = null,
+        creationDate = DateTime.now(),
+        submissionDates = [],
+        revisions = 0,
+        assignedTo = null, // You might want to assign later
+        isDone = false,
+        completedDate = null,
+        rejectedReason = null,
+        pdfFilename = null;
+
   // From JSON
   factory Quest.fromJson(Map<String, dynamic> json) {
     return Quest(
       questId: json['questId'],
       xp: json['xp'] ?? 0,
+      desc: json['desc'],
       title: json['title'],
       creationDate: DateTime.parse(json['creationDate']),
       submissionDates: (json['submissionDate'] as List)

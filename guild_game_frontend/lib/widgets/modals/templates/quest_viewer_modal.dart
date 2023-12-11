@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:guild_game_frontend/widgets/modal/modal_parts/action_section/action_section.dart';
-import 'package:guild_game_frontend/widgets/modal/modal_parts/action_section/action_section_button.dart';
-import 'package:guild_game_frontend/widgets/modal/modal_parts/for_displaying_quest_data/quest_desc.dart';
-import 'package:guild_game_frontend/widgets/modal/modal_parts/for_displaying_quest_data/quest_title.dart';
-import 'package:guild_game_frontend/widgets/modal/modal_parts/for_displaying_quest_data/skills_and_exp_section.dart';
+import 'package:guild_game_frontend/widgets/modals/modal_parts/action_section/templates/action_section.dart';
+import 'package:guild_game_frontend/widgets/modals/modal_parts/action_section/templates/action_section_button.dart';
+import 'package:guild_game_frontend/widgets/modals/modal_parts/for_displaying_quest_data/quest_desc.dart';
+import 'package:guild_game_frontend/widgets/modals/modal_parts/for_displaying_quest_data/quest_title.dart';
+import 'package:guild_game_frontend/widgets/modals/modal_parts/for_displaying_quest_data/skills_and_exp_section.dart';
 
-void showCustomModal(BuildContext context) {
+void showQuestViewerModal(BuildContext context) {
   showModalBottomSheet(
     context: context,
     isScrollControlled:

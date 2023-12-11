@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:guild_game_frontend/providers/quest_provider.dart';
 import 'package:guild_game_frontend/providers/user_provider.dart';
-import 'package:guild_game_frontend/widgets/quest_viewer_modal.dart';
+import 'package:guild_game_frontend/widgets/modals/submit_or_forfeit_quest_modal.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -108,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: const Text('Create User'),
                 ),
                 ElevatedButton(
-                  onPressed: () => showCustomModal(context),
+                  onPressed: () => showSubmitOrForfeitQuestModal(context),
                   child: const Text('Open Modal'),
                 ),
                 TextButton(
