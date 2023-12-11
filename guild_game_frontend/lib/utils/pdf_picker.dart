@@ -4,8 +4,6 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:guild_game_frontend/providers/quest_provider.dart';
-import 'package:guild_game_frontend/widgets/modals/error_modal.dart';
-import 'package:guild_game_frontend/widgets/modals/success_modal.dart';
 import 'package:provider/provider.dart';
 
 // This is for when Students want to upload a PDF file //
@@ -35,7 +33,7 @@ Future<String?> _convertToBase64(PlatformFile file) async {
   return null;
 }
 
-void uploadFile(
+Future<void> uploadFile(
     BuildContext context, String walletAddress, String questId) async {
   try {
     final result = await _pickFile();
@@ -57,11 +55,10 @@ void uploadFile(
             result.files.single.name, base64String, walletAddress, questId);
 
         // Optionally handle post-submission logic
-        showSuccessDialog(context, "Your PDF Files was uploaded successfully!");
       }
     }
   } catch (e) {
-    showErrorDialog(context, e.toString());
     print(e.toString());
+    rethrow;
   }
 }

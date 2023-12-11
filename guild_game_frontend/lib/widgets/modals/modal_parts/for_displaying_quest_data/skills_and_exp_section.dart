@@ -7,11 +7,11 @@ class SkillsAndEXP extends StatelessWidget {
   final TextAlign textAlign;
 
   const SkillsAndEXP({
-    Key? key,
+    super.key,
     required this.skills,
     required this.exp,
     this.textAlign = TextAlign.start,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

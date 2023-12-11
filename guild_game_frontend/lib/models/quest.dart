@@ -1,5 +1,6 @@
 class Quest {
-  final String? questId;
+  final String? id;
+  final int? questId;
   final int xp;
   final String desc;
   final String title;
@@ -15,6 +16,7 @@ class Quest {
   final String? pdfFilename;
 
   Quest({
+    required this.id,
     required this.questId,
     required this.xp,
     required this.desc,
@@ -38,7 +40,8 @@ class Quest {
     required this.desc,
     required this.title,
     required this.createdBy,
-  })  : questId = null,
+  })  : id = null,
+        questId = null,
         creationDate = DateTime.now(),
         submissionDates = [],
         revisions = 0,
@@ -51,30 +54,29 @@ class Quest {
   // From JSON
   factory Quest.fromJson(Map<String, dynamic> json) {
     return Quest(
-      questId: json['questId'],
-      xp: json['xp'] ?? 0,
-      desc: json['desc'],
-      title: json['title'],
-      creationDate: DateTime.parse(json['creationDate']),
-      submissionDates: (json['submissionDate'] as List)
-          .map((e) => DateTime.parse(e))
-          .toList(),
-      revisions: json['revisions'] ?? 0,
-      requiredSkills: List<String>.from(json['requiredSkills'] ?? []),
-      createdBy: json['createdBy'],
-      assignedTo: json['assignedTo'],
-      isDone: json['isDone'] ?? false,
-      completedDate: json['completedDate'] != null
-          ? DateTime.parse(json['completedDate'])
-          : null,
-      rejectedReason: json['rejectedReason'],
-      pdfFilename: json['pdfFilename'],
+      id: json['_id'] as String? ?? '',
+      questId: json['questId'] as int? ?? 0,
+      xp: json['xp'] as int? ?? 0,
+      desc: json['desc'] as String? ?? '',
+      title: json['title'] as String? ?? '',
+      creationDate: DateTime.parse(
+          json['creationDate'] as String? ?? DateTime.now().toString()),
+      submissionDates:
+          (json['submissionDates'] as List<dynamic>? ?? []).cast<DateTime>(),
+      revisions: json['revisions'] as int? ?? 0,
+      requiredSkills:
+          (json['requiredSkills'] as List<dynamic>? ?? []).cast<String>(),
+      createdBy: json['createdBy'] as String? ?? '',
+      assignedTo: json['assignedTo'] as String? ?? '',
+      isDone: json['isDone'] as bool? ?? false,
+      pdfFilename: json['pdfFilename'] as String? ?? '',
     );
   }
 
   // To JSON
   Map<String, dynamic> toJson() {
     return {
+      '_id': id,
       'questId': questId,
       'xp': xp,
       'title': title,

@@ -15,6 +15,7 @@ class QuestDescription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
       padding: const EdgeInsets.all(16.0), // Padding inside the container
       margin: const EdgeInsets.symmetric(
           vertical: 4.0), // Space around the container
@@ -40,8 +41,8 @@ class QuestDescription extends StatelessWidget {
             content,
             textAlign: textAlign,
             style: const TextStyle(
-                color: Colors.white,
-                ), // Changed color to white for contrast
+              color: Colors.white,
+            ), // Changed color to white for contrast
             softWrap: true,
           ),
         ],

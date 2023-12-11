@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:guild_game_frontend/providers/quest_provider.dart';
 import 'package:guild_game_frontend/providers/user_provider.dart';
-import 'package:guild_game_frontend/widgets/modals/submit_or_forfeit_quest_modal.dart';
+import 'package:guild_game_frontend/widgets/modals/professor/create_quest_modal.dart';
+import 'package:guild_game_frontend/widgets/modals/professor/manage_submitted_quest_modal.dart';
+import 'package:guild_game_frontend/widgets/modals/student/accept_quest_modal.dart';
+import 'package:guild_game_frontend/widgets/modals/student/submit_or_forfeit_quest_modal.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -24,6 +27,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   String message = "Hello World!";
+  // Quest dummyQuest =
   // Create an instance of the UserProvider
   final UserProvider userProvider = UserProvider();
   // Create an instance of the QuestProvider
@@ -100,8 +104,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 // ... other widgets
               ],
             ),
-            Wrap(
-              alignment: WrapAlignment.center,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton(
                   onPressed: handleUserCreation,
@@ -109,61 +113,28 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 ElevatedButton(
                   onPressed: () => showSubmitOrForfeitQuestModal(context),
-                  child: const Text('Open Modal'),
+                  child: const Text('Submit or Forfeit Quest'),
                 ),
-                TextButton(
-                  onPressed: () {
-                    setState(() {});
-                  },
+                ElevatedButton(
+                  onPressed: () => showCreateQuestModal(
+                      context, "0xProfessor______01______"),
                   child: const Text('Create Quest'),
                 ),
-                TextButton(
-                  onPressed: () {
-                    setState(() {});
-                  },
-                  child: const Text('Fetch Quests'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    setState(() {});
-                  },
+                ElevatedButton(
+                  onPressed: () => showAcceptQuestModal(
+                      context: context,
+                      walletAddress: "0xStudent___01___",
+                      questId: "657743cd4b16ec5e0204a9e0",
+                      quest: questProvider.currentQuest!),
                   child: const Text('Accept Quest'),
                 ),
-                TextButton(
-                  onPressed: () {
-                    setState(() {});
-                  },
-                  child: const Text('Submit Quest'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    setState(() {});
-                  },
-                  child: const Text('Forfeit Quest'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    setState(() {});
-                  },
-                  child: const Text('Retry Quest'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    setState(() {});
-                  },
-                  child: const Text('Complete Quest'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    setState(() {});
-                  },
-                  child: const Text('Needs Revision'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    setState(() {});
-                  },
-                  child: const Text('Delete Quest'),
+                ElevatedButton(
+                  onPressed: () => showQuestManagerModal(
+                      context: context,
+                      walletAddress: "0xStudent___01___",
+                      questId: "657743cd4b16ec5e0204a9e0",
+                      quest: questProvider.currentQuest!),
+                  child: const Text('Download Quest PDF'),
                 ),
               ],
             ),

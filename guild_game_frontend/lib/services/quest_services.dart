@@ -1,14 +1,26 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
 import "../models/quest.dart";
 
 class QuestService {
-  static const String baseURILocal = "http://10.0.2.2:3000/";
+  static const String baseURILocalAndroid = "http://10.0.2.2:3000/";
+  static const String baseURILocalWindows = "http://localhost:3000/";
   static const String baseURIWeb =
       "https://must-uniwa-game-server.onrender.com/";
-  static const String baseURI = baseURILocal;
+
+  static String get baseURI {
+    if (Platform.isAndroid) {
+      return baseURILocalAndroid;
+    } else if (Platform.isWindows) {
+      return baseURILocalWindows;
+    } else {
+      // You can add more platform checks if needed
+      return baseURIWeb;
+    }
+  }
 
   Future<List<Quest>> fetchAllAvailableQuests() async {
     final url = Uri.parse('${baseURI}api/guildboard/quests');
@@ -174,6 +186,20 @@ class QuestService {
       throw Exception('Quest not found');
     } else {
       throw Exception('Failed to delete quest: ${response.body}');
+    }
+  }
+
+  Future<String> fetchPdfContent(String pdfName) async {
+    final url = Uri.parse('${baseURI}api/pdf/$pdfName');
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> pdfJson = json.decode(response.body);
+      return pdfJson['content'];
+    } else if (response.statusCode == 404) {
+      throw Exception('PDF not found');
+    } else {
+      throw Exception('Failed to load PDF content: ${response.body}');
     }
   }
 

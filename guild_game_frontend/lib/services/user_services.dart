@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:http/http.dart' as http;
@@ -6,12 +7,24 @@ import 'package:http/http.dart' as http;
 import '../models/user.dart';
 
 class UserService {
-  static const String baseURILocal = "http://10.0.2.2:3000/";
+  static const String baseURILocalAndroid = "http://10.0.2.2:3000/";
+  static const String baseURILocalWindows = "http://localhost:3000/";
   static const String baseURIWeb =
       "https://must-uniwa-game-server.onrender.com/";
 
+  static String get baseURI {
+    if (Platform.isAndroid) {
+      return baseURILocalAndroid;
+    } else if (Platform.isWindows) {
+      return baseURILocalWindows;
+    } else {
+      // You can add more platform checks if needed
+      return baseURIWeb;
+    }
+  }
+
   Future<User> fetchUserData(String walletAddress) async {
-    final url = Uri.parse('${baseURILocal}api/user/$walletAddress');
+    final url = Uri.parse('${baseURI}api/user/$walletAddress');
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
@@ -26,7 +39,7 @@ class UserService {
 // >> Add the WalletAddress as the userId so that I do not have to change a lot of staff in the backend
 
   Future<User> createUser(String address, String role) async {
-    final url = Uri.parse('${baseURILocal}api/user/create');
+    final url = Uri.parse('${baseURI}api/user/create');
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},

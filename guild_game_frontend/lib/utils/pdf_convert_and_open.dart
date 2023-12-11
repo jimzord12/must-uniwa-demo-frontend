@@ -11,9 +11,16 @@ Uint8List _base64ToBytes(String base64String) {
   return base64Decode(base64String);
 }
 
+// Future<File> _writeToFile(Uint8List bytes, String filename) async {
+//   final directory = await getApplicationDocumentsDirectory();
+//   print("THE PATH IS: ${directory.path}");
+//   final file = File('${directory.path}/$filename');
+//   return file.writeAsBytes(bytes);
+// }
+
 Future<File> _writeToFile(Uint8List bytes, String filename) async {
-  final directory = await getApplicationDocumentsDirectory();
-  final file = File('${directory.path}/$filename');
+  final directory = await getExternalCacheDirectories();
+  final file = File('${directory!.first.path}/$filename');
   return file.writeAsBytes(bytes);
 }
 
@@ -21,7 +28,7 @@ void _openPdf(File file) {
   OpenFile.open(file.path);
 }
 
-void convertAndOpenPdf(
+Future<void> convertAndOpenPdf(
     BuildContext context, String base64String, String filename) async {
   try {
     final bytes = _base64ToBytes(base64String);

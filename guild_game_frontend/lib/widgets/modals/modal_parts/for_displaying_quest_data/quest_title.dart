@@ -4,11 +4,13 @@ class QuestTitle extends StatelessWidget {
   final String title;
   final String content;
   final TextAlign textAlign;
+  final Color contentColor;
 
   const QuestTitle({
     Key? key,
     required this.title,
     required this.content,
+    this.contentColor = Colors.amber,
     this.textAlign = TextAlign.start,
   }) : super(key: key);
 
@@ -23,8 +25,8 @@ class QuestTitle extends StatelessWidget {
         children: [
           Text(content,
               textAlign: textAlign,
-              style: const TextStyle(
-                color: Colors.amber,
+              style: TextStyle(
+                color: contentColor,
                 fontSize: 20,
               ),
               softWrap: true),

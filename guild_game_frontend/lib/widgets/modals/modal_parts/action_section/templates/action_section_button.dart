@@ -31,7 +31,7 @@ class ActionSectionButton extends StatelessWidget {
       ),
       onPressed: onPressed,
       child: Container(
-        width: double.infinity,
+        width: 280,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment:
