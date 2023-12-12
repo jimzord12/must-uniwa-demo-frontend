@@ -16,7 +16,7 @@ class Quest {
   final String? pdfFilename;
 
   Quest({
-    required this.id,
+    this.id,
     required this.questId,
     required this.xp,
     required this.desc,
@@ -76,7 +76,7 @@ class Quest {
   // To JSON
   Map<String, dynamic> toJson() {
     return {
-      '_id': id,
+      // '_id': id,
       'questId': questId,
       'xp': xp,
       'title': title,

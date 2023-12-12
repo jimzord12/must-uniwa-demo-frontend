@@ -18,10 +18,24 @@ Uint8List _base64ToBytes(String base64String) {
 //   return file.writeAsBytes(bytes);
 // }
 
+// Future<File> _writeToFile(Uint8List bytes, String filename) async {
+//   final directory = await getExternalCacheDirectories();
+//   final file = File('${directory!.first.path}/$filename');
+//   return file.writeAsBytes(bytes);
+// }
+
 Future<File> _writeToFile(Uint8List bytes, String filename) async {
-  final directory = await getExternalCacheDirectories();
-  final file = File('${directory!.first.path}/$filename');
-  return file.writeAsBytes(bytes);
+  if (Platform.isAndroid) {
+    final directory = await getExternalCacheDirectories();
+    final file = File('${directory!.first.path}/$filename');
+    return file.writeAsBytes(bytes);
+  } else if (Platform.isWindows) {
+    final directory = Directory.current; // Use the current directory
+    final file = File('${directory.path}/$filename');
+    return file.writeAsBytes(bytes);
+  } else {
+    throw UnsupportedError('This platform is not supported');
+  }
 }
 
 void _openPdf(File file) {

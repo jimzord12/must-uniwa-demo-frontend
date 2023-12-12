@@ -134,9 +134,11 @@ void showCreateQuestModal(BuildContext context, String walletAddress) {
                               createdBy: createdBy);
 
                           await questProvider.createQuest(quest);
-
-                          showSuccessDialog(
-                              context, "Quest created successfully!");
+                          // if (ModalRoute.of(context)?.isCurrent ?? false) {
+                            showSuccessDialog(
+                                context, "Quest created successfully!");
+                            // Navigator.of(context).pop(); // Close current modal
+                          // }
                         } on FormatException catch (e) {
                           print('Error parsing XP: ${e.message} | $xp');
                           // Handle the error, such as showing a user-friendly error message

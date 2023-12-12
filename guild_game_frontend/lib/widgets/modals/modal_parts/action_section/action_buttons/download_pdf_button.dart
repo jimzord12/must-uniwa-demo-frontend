@@ -5,9 +5,11 @@ import 'package:guild_game_frontend/widgets/modals/modal_parts/action_section/te
 
 class DownloadPdfButton extends StatelessWidget {
   final QuestProvider questProvider = QuestProvider();
+  final String pdfName;
 
   DownloadPdfButton({
     super.key,
+    required this.pdfName,
   });
 
   @override
@@ -21,7 +23,7 @@ class DownloadPdfButton extends StatelessWidget {
   }
 
   void _downloadFile(BuildContext context) async {
-    final pdfName = questProvider.currentQuest!.pdfFilename!;
+    // final pdfName = questProvider.currentQuest!.pdfFilename!;
     final pdfBase64content = await questProvider.fetchPdfContent(pdfName);
     await convertAndOpenPdf(context, pdfBase64content, pdfName);
   }

@@ -4,27 +4,27 @@ import 'package:guild_game_frontend/widgets/modals/error_modal.dart';
 import 'package:guild_game_frontend/widgets/modals/modal_parts/action_section/templates/action_section_button.dart';
 import 'package:guild_game_frontend/widgets/modals/success_modal.dart';
 
-class ForfeitQuestButton extends StatelessWidget {
+class DeleteQuestButton extends StatelessWidget {
   final String walletAddress;
   final String questId;
   final QuestProvider _questProvider = QuestProvider();
 
-  ForfeitQuestButton({
+  DeleteQuestButton({
     super.key,
     required this.walletAddress,
     required this.questId,
   });
 
-  Future<void> _forfeitQuest(BuildContext context) async {
+  Future<void> _deleteQuest(BuildContext context) async {
     try {
-      await _questProvider.forfeitQuest(walletAddress, questId);
+      await _questProvider.deleteQuest(walletAddress, questId);
       // if (ModalRoute.of(context)?.isCurrent ?? false) {
-        showSuccessDialog(context, "The Quest was successfully forfeited.");
+        showSuccessDialog(context, "You have successfully deleted the quest!");
         // Navigator.of(context).pop(); // Close current modal
       // }
     } catch (e) {
-      print('Failed to retry quest: $e');
-      showErrorDialog(context, "Failed to forfeit quest. Please try again.");
+      print('Failed to delete quest: $e');
+      showErrorDialog(context, "Failed to delete quest. Please try again.");
       // Optionally, show an error dialog or snackbar
     }
   }
@@ -32,11 +32,11 @@ class ForfeitQuestButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ActionSectionButton(
-      text: "Forfeit Quest",
-      icon: Icons.cancel,
+      text: "Delete Quest",
+      icon: Icons.delete,
       backgroundColor: Colors.red.shade700,
       textColor: Colors.white,
-      onPressed: () => _forfeitQuest(context),
+      onPressed: () => _deleteQuest(context),
     );
   }
 }

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:guild_game_frontend/providers/quest_provider.dart';
 import 'package:guild_game_frontend/providers/user_provider.dart';
 import 'package:guild_game_frontend/widgets/modals/professor/create_quest_modal.dart';
+import 'package:guild_game_frontend/widgets/modals/professor/delete_quest_modal.dart';
 import 'package:guild_game_frontend/widgets/modals/professor/manage_submitted_quest_modal.dart';
 import 'package:guild_game_frontend/widgets/modals/student/accept_quest_modal.dart';
+import 'package:guild_game_frontend/widgets/modals/student/retry_quest_modal.dart';
 import 'package:guild_game_frontend/widgets/modals/student/submit_or_forfeit_quest_modal.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -27,6 +29,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   String message = "Hello World!";
+  String? selectedRole;
   // Quest dummyQuest =
   // Create an instance of the UserProvider
   final UserProvider userProvider = UserProvider();
@@ -34,8 +37,9 @@ class _MyHomePageState extends State<MyHomePage> {
   final QuestProvider questProvider = QuestProvider();
 
   // Initialize the text editing controllers
-  final TextEditingController textEditingController1 = TextEditingController();
-  final TextEditingController textEditingController2 = TextEditingController();
+  final TextEditingController walletAddressController = TextEditingController();
+  final TextEditingController questIdController = TextEditingController();
+  final TextEditingController pdfNameController = TextEditingController();
 
   void _incrementCounter() {
     setState(() {
@@ -87,19 +91,51 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 TextField(
-                  controller: textEditingController1,
+                  controller: walletAddressController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Input 1',
+                    labelText: 'Wallet Address OR Rejection Reason',
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 16),
                 TextField(
-                  controller: textEditingController2,
+                  controller: questIdController,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Input 2',
+                    labelText: 'Quest ID (from MongoDB)',
                   ),
+                ),
+                const SizedBox(height: 16),
+
+                TextField(
+                  controller: pdfNameController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "PDF File's Name (from MongoDB)",
+                  ),
+                ),
+                const SizedBox(height: 16),
+                DropdownButtonFormField<String>(
+                  value: selectedRole,
+                  onChanged: (newValue) {
+                    setState(() {
+                      selectedRole = newValue;
+                    });
+                  },
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Role',
+                  ),
+                  items: const [
+                    DropdownMenuItem(
+                      value: 'student',
+                      child: Text('Student'),
+                    ),
+                    DropdownMenuItem(
+                      value: 'professor',
+                      child: Text('Professor'),
+                    ),
+                  ],
                 ),
                 // ... other widgets
               ],
@@ -112,29 +148,52 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: const Text('Create User'),
                 ),
                 ElevatedButton(
-                  onPressed: () => showSubmitOrForfeitQuestModal(context),
-                  child: const Text('Submit or Forfeit Quest'),
+                  onPressed: () => showAcceptQuestModal(
+                      context: context,
+                      walletAddress: walletAddressController.text,
+                      questId: questIdController.text,
+                      quest: questProvider.currentQuest!),
+                  child: const Text('1. Accept/Select Quest'),
+                ),
+                ElevatedButton(
+                  onPressed: () => showSubmitOrForfeitQuestModal(
+                      context,
+                      walletAddressController.text,
+                      questIdController.text,
+                      questProvider.currentQuest!),
+                  child: const Text('2. Submit(Upload) or Forfeit Quest'),
+                ),
+                ElevatedButton(
+                  onPressed: () => showRetryQuestModal(
+                    context,
+                    walletAddressController.text,
+                    questIdController.text,
+                    questProvider.currentQuest!,
+                  ),
+                  child: const Text('3.1 - Retry Quest'),
                 ),
                 ElevatedButton(
                   onPressed: () => showCreateQuestModal(
-                      context, "0xProfessor______01______"),
-                  child: const Text('Create Quest'),
-                ),
-                ElevatedButton(
-                  onPressed: () => showAcceptQuestModal(
-                      context: context,
-                      walletAddress: "0xStudent___01___",
-                      questId: "657743cd4b16ec5e0204a9e0",
-                      quest: questProvider.currentQuest!),
-                  child: const Text('Accept Quest'),
+                      context, walletAddressController.text),
+                  child: const Text('PROF - Create Quest'),
                 ),
                 ElevatedButton(
                   onPressed: () => showQuestManagerModal(
                       context: context,
-                      walletAddress: "0xStudent___01___",
-                      questId: "657743cd4b16ec5e0204a9e0",
+                      walletAddress: walletAddressController.text,
+                      pdfName: pdfNameController.text,
+                      questId: questIdController.text,
                       quest: questProvider.currentQuest!),
-                  child: const Text('Download Quest PDF'),
+                  child: const Text(
+                      'PROF - Examine Submitted Quest (Accept/Reject)'),
+                ),
+                ElevatedButton(
+                  onPressed: () => showDeleteQuestModal(
+                      context: context,
+                      walletAddress: walletAddressController.text,
+                      questId: questIdController.text,
+                      quest: questProvider.currentQuest!),
+                  child: const Text('PROF - Delete Quest'),
                 ),
               ],
             ),
@@ -152,8 +211,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
-    textEditingController1.dispose();
-    textEditingController2.dispose();
+    walletAddressController.dispose();
+    questIdController.dispose();
     super.dispose();
   }
 
@@ -161,9 +220,8 @@ class _MyHomePageState extends State<MyHomePage> {
     try {
       // Assuming you want to use the values from the text fields to create the user
       String address =
-          textEditingController1.text; // Example: use text from text field
-      String role = textEditingController2
-          .text; // Example: use text from another text field
+          walletAddressController.text; // Example: use text from text field
+      String role = selectedRole ?? '';
 
       // Validate inputs here if necessary
       if (address.isEmpty || role.isEmpty) {

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:guild_game_frontend/providers/quest_provider.dart';
 import 'package:guild_game_frontend/widgets/modals/modal_parts/action_section/templates/action_section_button.dart';
 
 class CreateQuestButton extends StatelessWidget {
-  final QuestProvider questProvider = QuestProvider();
+  // final QuestProvider questProvider = QuestProvider();
   final VoidCallback onCreate; // A callback function for creation
 
   // final String title;
@@ -12,7 +11,7 @@ class CreateQuestButton extends StatelessWidget {
   // final String xp;
   // final String createdBy;
 
-  CreateQuestButton({
+  const CreateQuestButton({
     super.key,
     required this.onCreate,
     // required this.title,
