@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guild_game_frontend/screens/loaded_screen.dart';
 import 'package:micro_guild_game/screens/loaded_screen.dart';
 import 'package:micro_guild_game/widgets/stayros130/custom_button.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:micro_guild_game/widgets/stayros130/custom_button.dart';
+import 'package:guild_game_frontend/widgets/stayros130/custom_button.dart';
 
 class AcceptedQuestModal extends StatelessWidget {
   final String title;
@@ -21,16 +21,17 @@ class AcceptedQuestModal extends StatelessWidget {
       buttonText: title,
       onPressed: () {
         showModalBottomSheet(
-  context: context,
-  isScrollControlled: true,
-  builder: (BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.9, // 90% of screen height
-      child: SingleChildScrollView(
-        child: Stack(
-          children: <Widget>[
-            Center(
-                    child: Column(
+          context: context,
+          isScrollControlled: true,
+          builder: (BuildContext context) {
+            return SizedBox(
+              height: MediaQuery.of(context).size.height *
+                  0.9, // 90% of screen height
+              child: SingleChildScrollView(
+                child: Stack(
+                  children: <Widget>[
+                    Center(
+                      child: Column(
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.all(18.0),
@@ -53,21 +54,21 @@ class AcceptedQuestModal extends StatelessWidget {
                         ],
                       ),
                     ),
-            Positioned(
-              right: 0,
-              child: IconButton(
-                icon: Icon(Icons.close),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
+                    Positioned(
+                      right: 0,
+                      child: IconButton(
+                        icon: Icon(Icons.close),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  },
-);
+            );
+          },
+        );
       },
     );
   }
