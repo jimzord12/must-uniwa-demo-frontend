@@ -1,28 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:micro_guild_game/screens/loaded_screen.dart';
-import 'package:micro_guild_game/widgets/stayros130/custom_button.dart';
-import 'package:micro_guild_game/widgets/stayros130/ranks.dart';
+import 'package:guild_game_frontend/models/ranks.dart';
+import 'package:guild_game_frontend/providers/quest_provider.dart';
+import 'package:guild_game_frontend/providers/user_provider.dart';
+import 'package:guild_game_frontend/widgets/modals/professor/view_completed_quest_modal.dart';
+import 'package:guild_game_frontend/widgets/stayros130/custom_button.dart';
+import 'package:provider/provider.dart';
 
 class PortfolioScreen extends StatelessWidget {
   PortfolioScreen({super.key});
 
-  final int dummyXp = 420;
-  final int dummyQuestsCompleted = 22;
   String skillColumn1 = '';
   String skillColumn2 = '';
-  List<String> dummySkills = [
-    'Skill #1', 'Skill #2', 'Skill #3', 'Skill #4', 'Skill #5', 'Skill #6'
-  ];
-  
+
   @override
   Widget build(BuildContext context) {
-    // dummySkills1 += '\ntest2';
-    // print(dummySkills1);
-    for (var i = 0; i < dummySkills.length; i++) {
-      if (i < dummySkills.length / 2) {
-        skillColumn1 += '${dummySkills[i]}\n';
+    final questProvider = Provider.of<QuestProvider>(context, listen: true);
+    final UserProvider userProvider =
+        Provider.of<UserProvider>(context, listen: true);
+
+    List<String> userSkills = [];
+    // List<String> userSkills = userProvider.user!.skills;
+    final int dummyXp = userProvider.user!.xp;
+    final int dummyQuestsCompleted = userProvider.user!.successfulQuests;
+
+    for (var i = 0; i < userSkills.length; i++) {
+      if (i < userSkills.length / 2) {
+        skillColumn1 += '${userSkills[i]}\n';
       } else {
-        skillColumn2 += '${dummySkills[i]}\n';
+        skillColumn2 += '${userSkills[i]}\n';
       }
     }
 
@@ -45,8 +50,15 @@ class PortfolioScreen extends StatelessWidget {
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                       TextSpan(
-                          text: Ranks().getRank(dummyXp).toString().split('.').last,
-                          style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                          text: Ranks()
+                              .getRank(dummyXp)
+                              .toString()
+                              .split('.')
+                              .last,
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold)),
                     ],
                   ),
                 ),
@@ -61,11 +73,17 @@ class PortfolioScreen extends StatelessWidget {
                     children: <TextSpan>[
                       const TextSpan(
                         text: 'Total XP: ',
-                        style: TextStyle(color: Colors.white, fontSize: 18,),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
                       ),
                       TextSpan(
                           text: dummyXp.toString(),
-                          style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold)),
                     ],
                   ),
                 ),
@@ -79,11 +97,17 @@ class PortfolioScreen extends StatelessWidget {
                     children: <TextSpan>[
                       const TextSpan(
                         text: 'Quest completed in total: ',
-                        style: TextStyle(color: Colors.white, fontSize: 18,),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
                       ),
                       TextSpan(
                           text: dummyQuestsCompleted.toString(),
-                          style: const TextStyle(color: Colors.white,  fontSize: 18, fontWeight: FontWeight.bold)),
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold)),
                     ],
                   ),
                 ),
@@ -94,18 +118,19 @@ class PortfolioScreen extends StatelessWidget {
               child: ListTile(
                 title: const Text('Available Skills:'),
                 subtitle: Row(
-                  children: [
-                    Column(
-                        children: [
-                          Text(skillColumn1),
-                        ]),
-                    Expanded(
-                        child: Column(
-                      children: [
-                        Text(skillColumn2),
-                      ],
-                    ))
-                  ],
+                  children: userSkills.isEmpty
+                      ? [const Text("You have no available skills")]
+                      : [
+                          Column(children: [
+                            Text(skillColumn1),
+                          ]),
+                          Expanded(
+                              child: Column(
+                            children: [
+                              Text(skillColumn2),
+                            ],
+                          ))
+                        ],
                 ),
               ),
             ),
@@ -114,74 +139,36 @@ class PortfolioScreen extends StatelessWidget {
               'All the completed Quests:',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
-            Expanded(
-              child: ListView(
-                children: <Widget>[
-                  CustomButton(
-                      buttonText: 'Quest Example #1',
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const LoadedScreen()));
-                      }),
-                  SizedBox(height: 20),
-                  CustomButton(
-                      buttonText: 'Quest Example #2',
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const LoadedScreen()));
-                      }),
-                  SizedBox(height: 20),
-                  CustomButton(
-                      buttonText: 'Quest Example #3',
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const LoadedScreen()));
-                      }),
-                  SizedBox(height: 20),
-                  CustomButton(
-                      buttonText: 'Quest Example #4',
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const LoadedScreen()));
-                      }),
-                  SizedBox(height: 20),
-                  CustomButton(
-                      buttonText: 'Quest Example #5',
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const LoadedScreen()));
-                      }),
-                  SizedBox(height: 20),
-                  CustomButton(
-                      buttonText: 'Quest Example #6',
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const LoadedScreen()));
-                      }),
-                  SizedBox(height: 20),
-                  CustomButton(
-                      buttonText: 'Quest Example #7',
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const LoadedScreen()));
-                      }),
-                ],
+            if (userSkills.isEmpty)
+              const Center(
+                child: Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: Text(
+                    'You have no completed quests',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
               ),
-            ),
+            if (!userSkills.isEmpty)
+              Expanded(
+                child: ListView.separated(
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 12),
+                  itemCount: userProvider.user!.completedQuests.length,
+                  itemBuilder: (context, index) {
+                    final quest = userProvider.user!.completedQuests[index];
+                    return CustomButton(
+                        buttonText: quest.title,
+                        onPressed: () {
+                          showQuestDetailsModal(
+                              context: context,
+                              walletAddress: userProvider.pubAddress!,
+                              questId: quest.id,
+                              quest: quest);
+                        });
+                  },
+                ),
+              ),
           ],
         ),
       ),

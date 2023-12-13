@@ -67,5 +67,17 @@ class UserService {
     return '${role}_$randomNumber';
   }
 
+  Future<Map<String, dynamic>> getUserQuests(String address) async {
+    final response = await http.get(Uri.parse('${baseURI}api/user/$address/quests'));
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else if (response.statusCode == 404) {
+      throw Exception('User not found. While Getting User\'s Quests');
+    } else {
+      throw Exception('Failed to get user quests: ${response.body}');
+    }
+  }
+
   // ... other methods
 }

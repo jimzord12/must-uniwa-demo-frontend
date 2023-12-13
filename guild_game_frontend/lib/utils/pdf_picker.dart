@@ -3,8 +3,6 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:guild_game_frontend/providers/quest_provider.dart';
-import 'package:provider/provider.dart';
 
 // This is for when Students want to upload a PDF file //
 
@@ -33,7 +31,7 @@ Future<String?> _convertToBase64(PlatformFile file) async {
   return null;
 }
 
-Future<void> uploadFile(
+Future<Map<String, String>?> uploadFile(
     BuildContext context, String walletAddress, String questId) async {
   try {
     final result = await _pickFile();
@@ -42,23 +40,16 @@ Future<void> uploadFile(
     if (result != null && result.files.isNotEmpty) {
       final base64String = await _convertToBase64(result.files.single);
 
-      // Capture the provider before the async gap
-      final questProvider = Provider.of<QuestProvider>(context, listen: false);
-
-      // Continue after the async gap
       if (base64String != null) {
-        // String walletAddress =
-        //     '0x872...3dfv'; // Replace with actual wallet address
-        // String questId = "123asd7a6sd7asd68"; // Replace with actual quest ID
-
-        await questProvider.submitQuest(
-            result.files.single.name, base64String, walletAddress, questId);
-
-        // Optionally handle post-submission logic
+        return {
+          "fileName": result.files.single.name,
+          "base64String": base64String
+        };
       }
     }
   } catch (e) {
-    print(e.toString());
+    print("Error from: uploadFile, " + e.toString());
     rethrow;
   }
+  return null;
 }

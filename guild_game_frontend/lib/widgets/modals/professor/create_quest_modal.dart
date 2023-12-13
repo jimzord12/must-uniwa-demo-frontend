@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:guild_game_frontend/models/quest.dart';
 import 'package:guild_game_frontend/providers/quest_provider.dart';
+import 'package:guild_game_frontend/providers/user_provider.dart';
 import 'package:guild_game_frontend/utils/parse_skills.dart';
 import 'package:guild_game_frontend/widgets/modals/error_modal.dart';
 import 'package:guild_game_frontend/widgets/modals/modal_parts/action_section/action_buttons/create_quest_button.dart';
@@ -8,6 +9,7 @@ import 'package:guild_game_frontend/widgets/modals/modal_parts/action_section/ac
 import 'package:guild_game_frontend/widgets/modals/modal_parts/action_section/templates/action_section.dart';
 import 'package:guild_game_frontend/widgets/modals/modal_parts/generic/custom_input_field.dart';
 import 'package:guild_game_frontend/widgets/modals/success_modal.dart';
+import 'package:provider/provider.dart';
 
 void showCreateQuestModal(BuildContext context, String walletAddress) {
   final TextEditingController titleController = TextEditingController();
@@ -15,7 +17,10 @@ void showCreateQuestModal(BuildContext context, String walletAddress) {
   final TextEditingController expController = TextEditingController();
   final TextEditingController descController = TextEditingController();
 
-  final QuestProvider questProvider = QuestProvider();
+  // final QuestProvider questProvider = QuestProvider();
+  final questProvider = Provider.of<QuestProvider>(context, listen: false);
+  final UserProvider userProvider =
+      Provider.of<UserProvider>(context, listen: false);
 
   showModalBottomSheet(
     context: context,
@@ -134,10 +139,11 @@ void showCreateQuestModal(BuildContext context, String walletAddress) {
                               createdBy: createdBy);
 
                           await questProvider.createQuest(quest);
+                          userProvider.fetchUserData(walletAddress);
                           // if (ModalRoute.of(context)?.isCurrent ?? false) {
-                            showSuccessDialog(
-                                context, "Quest created successfully!");
-                            // Navigator.of(context).pop(); // Close current modal
+                          showSuccessDialog(
+                              context, "Quest created successfully!");
+                          // Navigator.of(context).pop(); // Close current modal
                           // }
                         } on FormatException catch (e) {
                           print('Error parsing XP: ${e.message} | $xp');

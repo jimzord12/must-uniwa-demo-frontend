@@ -7,7 +7,7 @@ import 'package:guild_game_frontend/widgets/modals/modal_parts/for_displaying_qu
 import 'package:guild_game_frontend/widgets/modals/modal_parts/for_displaying_quest_data/quest_title.dart';
 import 'package:guild_game_frontend/widgets/modals/modal_parts/for_displaying_quest_data/skills_and_exp_section.dart';
 
-void showAcceptQuestModal({
+void showQuestDetailsModal({
   required BuildContext context,
   required String walletAddress,
   required String questId,

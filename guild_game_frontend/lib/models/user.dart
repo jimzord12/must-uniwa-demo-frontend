@@ -7,10 +7,10 @@ class User {
   int failedQuests;
   String address;
   List<String> skills;
-  List<String> completedQuests; // Assuming IDs are strings
-  List<String> ongoingQuests; // Assuming IDs are strings
-  List<String> pendingReviewQuests; // Assuming IDs are strings
-  List<String> rejectedQuests; // Assuming IDs are strings
+  List<dynamic> completedQuests; // Assuming IDs are strings
+  List<dynamic> ongoingQuests; // Assuming IDs are strings
+  List<dynamic> pendingReviewQuests; // Assuming IDs are strings
+  List<dynamic> rejectedQuests; // Assuming IDs are strings
 
   User({
     required this.userId,

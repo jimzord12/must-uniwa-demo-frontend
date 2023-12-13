@@ -7,8 +7,9 @@ void showErrorDialog(BuildContext context, String errorMessage) {
       return AlertDialog(
         title: const Text('Error'),
         content: Text(errorMessage),
+        backgroundColor: Colors.red.shade700, // Set the background color here
         actions: <Widget>[
-          TextButton(
+          ElevatedButton(
             child: const Text('Close'),
             onPressed: () {
               Navigator.of(context).pop();

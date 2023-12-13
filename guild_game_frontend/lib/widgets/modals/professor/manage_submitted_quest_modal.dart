@@ -22,7 +22,7 @@ void showQuestManagerModal({
   required String pdfName,
 }) {
   final QuestProvider questProvider = QuestProvider();
-  final TextEditingController rejectionReasonController =
+final TextEditingController rejectionReasonController =
       TextEditingController();
 
   showModalBottomSheet(
@@ -70,7 +70,7 @@ void showQuestManagerModal({
                       textAlign: TextAlign.justify,
                       content: quest.desc),
                   CustomInputField(
-                      labelTitle: "Rejection Reason (In case of revision)",
+                      labelTitle: "Rejection Reason\n(In case of revision)",
                       inputPlaceholder: "Enter what the student did wrong...",
                       controller:
                           rejectionReasonController), // Add the description of the quest here
