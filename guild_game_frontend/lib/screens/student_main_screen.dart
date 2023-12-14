@@ -13,13 +13,18 @@ import 'package:provider/provider.dart';
 class StudentMainScreen extends StatelessWidget {
   StudentMainScreen({super.key});
 
-  Color pendingNotificationColor = Colors.red;
-  Color rejectedNotificationColor = Colors.red;
-
   @override
   Widget build(BuildContext context) {
     final UserProvider userProvider =
         Provider.of<UserProvider>(context, listen: true);
+
+    final String userRole = userProvider.user!.role;
+
+    Color pendingNotificationColor =
+        userRole == 'professor' ? Colors.red : Colors.transparent;
+    Color rejectedNotificationColor =
+        userRole == 'student' ? Colors.red : Colors.transparent;
+    ;
 
     if (userProvider.user!.pendingReviewQuests.isEmpty) {
       pendingNotificationColor = Colors.transparent;
@@ -105,8 +110,8 @@ class StudentMainScreen extends StatelessWidget {
             CustomButton(
               buttonText: 'Available Quests',
               onPressed: () {
-                navigator
-                    ?.pushScreen(GuildBoardScreen()); // Using custom navigation
+                navigator?.pushScreen(
+                    const GuildBoardScreen()); // Using custom navigation
               },
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 20),

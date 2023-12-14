@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:guild_game_frontend/navigation/custom_navigation.dart';
 
@@ -23,22 +24,27 @@ class CustomGoBackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Check if the platform is Android
+    bool isAndroid = defaultTargetPlatform == TargetPlatform.android;
+
+    double adjustedIconSize = isAndroid ? iconSize * 0.5 : iconSize;
+    double adjustedButtonSize = isAndroid ? buttonSize * 0.5 : buttonSize;
+
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.amber.shade700,
+        backgroundColor: buttonColor ?? Colors.amber.shade700,
         shape: const CircleBorder(),
-        padding: const EdgeInsets.all(
-            36), // Increase the padding value for a bigger button
+        padding: EdgeInsets.all(adjustedButtonSize / 2),
       ),
       onPressed: onPressed ??
           () {
-            // Using custom navigation system to pop the screen
             GuildGameNavigator? navigator = GuildGameNavigator.of(context);
             navigator?.popScreen();
           },
-      child: Transform.scale(
-        scale: 2, // Increase the scale value for a bigger icon
-        child: Icon(icon, color: iconColor),
+      child: Icon(
+        icon,
+        color: iconColor ?? Colors.black,
+        size: adjustedIconSize,
       ),
     );
   }
