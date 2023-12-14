@@ -12,6 +12,7 @@ void showSuccessDialog(BuildContext context, String successMessage) {
             child: const Text('OK'),
             onPressed: () {
               Navigator.of(context).pop();
+              Navigator.of(context).pop();
             },
           ),
         ],
