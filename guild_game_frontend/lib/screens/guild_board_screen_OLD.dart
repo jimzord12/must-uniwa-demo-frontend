@@ -68,7 +68,8 @@ class GuildBoardScreen extends StatelessWidget {
                                   quest: quest,
                                 );
                               }
-                            }),
+                            }
+                            ),
                       );
                     }),
                 ]

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:guild_game_frontend/navigation/go_back_button.dart'; // Import your CustomGoBackButton
+import 'package:guild_game_frontend/navigation/go_back_button.dart';
 import 'package:guild_game_frontend/providers/quest_provider.dart';
 import 'package:guild_game_frontend/providers/user_provider.dart';
+import 'package:guild_game_frontend/widgets/modals/professor/view_completed_quest_modal.dart';
+import 'package:guild_game_frontend/widgets/modals/student/accept_quest_modal.dart';
 import 'package:guild_game_frontend/widgets/stayros130/custom_button.dart';
 import 'package:provider/provider.dart';
 
 class GuildBoardScreen extends StatelessWidget {
-  const GuildBoardScreen({Key? key}) : super(key: key);
+  const GuildBoardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,20 +22,10 @@ class GuildBoardScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          Positioned(
-            top: 0,
-            left: 0,
-            child: SafeArea(
-              child: CustomGoBackButton(
-                icon: Icons.arrow_back,
-                iconColor: Colors.black,
-              ),
-            ),
-          ),
           SingleChildScrollView(
             padding: EdgeInsets.only(
                 top: MediaQuery.of(context).padding.top +
-                    48), // Adjust padding to prevent overlap
+                    56), // Increased top padding
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Center(
@@ -58,12 +50,38 @@ class GuildBoardScreen extends StatelessWidget {
                             child: CustomButton(
                               buttonText: quest.title,
                               onPressed: () {
-                                // Handle button press based on role
+                                if (userProvider.user!.role == 'student') {
+                                  showAcceptQuestModal(
+                                    context: context,
+                                    walletAddress: userProvider.pubAddress!,
+                                    questId: quest.id!,
+                                    quest: quest,
+                                  );
+                                } else {
+                                  showQuestDetailsModal(
+                                    context: context,
+                                    walletAddress: userProvider.pubAddress!,
+                                    questId: quest.id!,
+                                    quest: quest,
+                                  );
+                                }
                               },
                             ),
                           );
                         }).toList(),
                 ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: MediaQuery.of(context)
+                .padding
+                .top, // Align with top of screen, accounting for status bar
+            left: 0,
+            child: const SafeArea(
+              child: CustomGoBackButton(
+                icon: Icons.arrow_back,
+                iconColor: Colors.black,
               ),
             ),
           ),
