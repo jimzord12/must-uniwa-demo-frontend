@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:guild_game_frontend/navigation/go_back_button.dart';
 import 'package:guild_game_frontend/providers/quest_provider.dart';
 import 'package:guild_game_frontend/providers/user_provider.dart';
+import 'package:guild_game_frontend/widgets/modals/error_modal.dart';
 import 'package:guild_game_frontend/widgets/modals/professor/view_completed_quest_modal.dart';
 import 'package:guild_game_frontend/widgets/modals/student/accept_quest_modal.dart';
+import 'package:guild_game_frontend/widgets/modals/success_modal.dart';
 import 'package:guild_game_frontend/widgets/stayros130/custom_button.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +20,24 @@ class GuildBoardScreen extends StatelessWidget {
     final List<dynamic> quests = questProvider.quests ?? [];
 
     double screenHeight = MediaQuery.of(context).size.height;
+
+    Future<void> acceptQuest(String questId) async {
+      try {
+        await questProvider.acceptQuest(userProvider.pubAddress!, questId);
+        await userProvider.fetchUserData(userProvider.pubAddress!);
+
+        // if (ModalRoute.of(context)?.isCurrent ?? false) {
+        showSuccessDialog(context,
+            "You have successfully accepted the quest!\n You can now find it in the Current Quests menu.");
+
+        // Navigator.of(context).pop(); // Close current modal
+        // }
+      } catch (e) {
+        print('Failed to accept quest: $e');
+        showErrorDialog(context, "Failed to accept quest. Please try again.");
+        // Optionally, show an error dialog or snackbar
+      }
+    }
 
     return Scaffold(
       body: Stack(
@@ -56,6 +76,7 @@ class GuildBoardScreen extends StatelessWidget {
                                     walletAddress: userProvider.pubAddress!,
                                     questId: quest.id!,
                                     quest: quest,
+                                    acceptQuest: acceptQuest,
                                   );
                                 } else {
                                   showQuestDetailsModal(

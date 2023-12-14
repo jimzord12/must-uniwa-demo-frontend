@@ -13,6 +13,7 @@ void showAcceptQuestModal({
   required String walletAddress,
   required String questId,
   required Quest quest,
+  required Function(String) acceptQuest,
 }) {
   showModalBottomSheet(
     context: context,
@@ -68,7 +69,7 @@ void showAcceptQuestModal({
                   ActionsSection(
                     buttons: [
                       AcceptQuestButton(
-                          walletAddress: walletAddress, questId: questId),
+                          acceptQuest: acceptQuest, questId: questId),
                       const GoBackButton(),
                       // Add more buttons as needed
                     ],
