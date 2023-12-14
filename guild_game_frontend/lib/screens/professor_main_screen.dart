@@ -30,7 +30,6 @@ class ProfessorMainScreen extends StatelessWidget {
               const Icon(Icons.arrow_back), // change this to your desired icon
           onPressed: () {
             Navigator.pop(context);
-            Navigator.pop(context);
             // Navigator.pop(context);
           },
         ),

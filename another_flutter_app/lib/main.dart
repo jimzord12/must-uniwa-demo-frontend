@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
             CustomButton(
                 buttonText: "Guild Game",
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const GuildGameModuleWidget(
