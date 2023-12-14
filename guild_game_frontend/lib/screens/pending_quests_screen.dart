@@ -13,6 +13,9 @@ class PendingQuestsScreen extends StatelessWidget {
     final UserProvider userProvider =
         Provider.of<UserProvider>(context, listen: true);
 
+    final List<dynamic> quests = userProvider.user!.ongoingQuests;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Pending Quests'),
@@ -25,7 +28,18 @@ class PendingQuestsScreen extends StatelessWidget {
             padding: const EdgeInsets.all(8.0), // Add padding here
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children:
+              children: quests.isEmpty
+                  ? [
+            SizedBox(height: screenHeight/3),
+            const Text('You have do not have any quests pending',
+              style: TextStyle(
+                fontSize: 21,
+                color: Color.fromARGB(127, 255, 255, 255),
+                fontWeight: FontWeight.w400,
+                ),
+              textAlign: TextAlign.center,
+              )
+            ] :
                   userProvider.user!.pendingReviewQuests.map<Widget>((quest) {
                 return CustomButton(
                     buttonText: quest.title,

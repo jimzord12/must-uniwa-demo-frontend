@@ -6,11 +6,11 @@ class QuestDescription extends StatelessWidget {
   final TextAlign textAlign;
 
   const QuestDescription({
-    Key? key,
+    super.key,
     required this.title,
     required this.content,
     this.textAlign = TextAlign.start,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

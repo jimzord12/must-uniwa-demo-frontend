@@ -25,6 +25,7 @@ class QuestService {
   Future<List<Quest>> fetchAllAvailableQuests() async {
     final url = Uri.parse('${baseURI}api/guildboard/quests');
     final response = await http.get(url);
+    print("RESPONSE BODY: ${response.body}");
 
     if (response.statusCode == 200) {
       List<dynamic> questsJson = json.decode(response.body);

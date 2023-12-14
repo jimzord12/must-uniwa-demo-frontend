@@ -18,8 +18,9 @@ class PortfolioScreen extends StatelessWidget {
     final UserProvider userProvider =
         Provider.of<UserProvider>(context, listen: true);
 
-    List<String> userSkills = [];
-    // List<String> userSkills = userProvider.user!.skills;
+    // List<String> userSkills = [];
+    List<String> userSkills = userProvider.user!.skills;
+
     final int dummyXp = userProvider.user!.xp;
     final int dummyQuestsCompleted = userProvider.user!.successfulQuests;
 

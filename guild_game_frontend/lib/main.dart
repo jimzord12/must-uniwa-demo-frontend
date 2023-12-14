@@ -10,14 +10,14 @@ void main() {
   // Coming from Maria's App
 
   // Account #01 - Professor
-  const String role = 'professor';
-  const String privKey =
-      "2e0a0ee77631554530414c4a68385fd8328c837a1d5986f1e409f42d58a1a2f1";
+  // const String role = 'professor';
+  // const String privKey =
+  //     "2e0a0ee77631554530414c4a68385fd8328c837a1d5986f1e409f42d58a1a2f1";
 
   // Account #02 - Student
-  // const String role = 'student';
-  // const String privKey =
-  //     "9ca15b4b9dd7edebefa71fc3bc4c2ec3bde908a9de3bf057495b0c0ceffda798";
+  const String role = 'student';
+  const String privKey =
+      "9ca15b4b9dd7edebefa71fc3bc4c2ec3bde908a9de3bf057495b0c0ceffda798";
 
   runApp(
     MultiProvider(

@@ -12,6 +12,9 @@ class CurrentQuestsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context, listen: true);
     final String userRole = userProvider.user!.role;
+    final List<dynamic> quests = userProvider.user!.ongoingQuests;
+
+    double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: AppBar(
@@ -26,42 +29,45 @@ class CurrentQuestsScreen extends StatelessWidget {
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: userProvider.user!.ongoingQuests.map<Widget>((quest) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12.0),
-                  child: CustomButton(
-                    buttonText: quest.title,
-                    onPressed: () {
-                      if (userRole == 'student') {
-                        showSubmitOrForfeitQuestModal(
-                          context,
-                          userProvider.pubAddress!,
-                          quest.id!,
-                          quest,
-                        );
-                      } else {
-                        showDeleteQuestModal(
-                          context: context,
-                          walletAddress: userProvider.pubAddress!,
-                          questId: quest.id!,
-                          quest: quest,
-                        );
-                      }
-                    },
-                  ),
-                );
-              }).toList(),
+              children: quests.isEmpty
+                  ? [
+                      SizedBox(height: screenHeight / 3),
+                      const Text(
+                        'You have not accepted any quests',
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: Color.fromARGB(127, 255, 255, 255),
+                          fontWeight: FontWeight.w400,
+                        ),
+                        textAlign: TextAlign.center,
+                      )
+                    ]
+                  : userProvider.user!.ongoingQuests.map<Widget>((quest) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 12.0),
+                        child: CustomButton(
+                          buttonText: quest.title,
+                          onPressed: () {
+                            if (userRole == 'student') {
+                              showSubmitOrForfeitQuestModal(
+                                context,
+                                userProvider.pubAddress!,
+                                quest.id!,
+                                quest,
+                              );
+                            } else {
+                              showDeleteQuestModal(
+                                context: context,
+                                walletAddress: userProvider.pubAddress!,
+                                questId: quest.id!,
+                                quest: quest,
+                              );
+                            }
+                          },
+                        ),
+                      );
+                    }).toList(),
 
-              // userProvider!.user!.ongoingQuests.map((quest) {
-              //   return (
-              //     buttonText: quest.title,
-              //     onPressed: () => showAcceptQuestModal(
-              //         context: context,
-              //         walletAddress: userProvider.pubAddress!,
-              //         questId: quest.id!,
-              //         quest: quest),
-              //   );
-              // }).toList(),
             ),
           ),
         ),

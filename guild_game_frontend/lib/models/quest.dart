@@ -1,6 +1,6 @@
 class Quest {
   final String? id;
-  final int? questId;
+  // final int? questId;
   final int xp;
   final String desc;
   final String title;
@@ -17,7 +17,7 @@ class Quest {
 
   Quest({
     this.id,
-    required this.questId,
+    // required this.questId,
     required this.xp,
     required this.desc,
     required this.title,
@@ -41,7 +41,7 @@ class Quest {
     required this.title,
     required this.createdBy,
   })  : id = null,
-        questId = null,
+        // questId = null,
         creationDate = DateTime.now(),
         submissionDates = [],
         revisions = 0,
@@ -55,9 +55,9 @@ class Quest {
   factory Quest.fromJson(Map<String, dynamic> json) {
     return Quest(
       id: json['_id'] as String? ?? '',
-      questId: json['questId'] as int? ?? 0,
+      // questId: json['questId'] as int? ?? 0,
       xp: json['xp'] as int? ?? 0,
-      desc: json['desc'] as String? ?? '',
+      desc: json['description'] as String? ?? '',
       title: json['title'] as String? ?? '',
       creationDate: DateTime.parse(
           json['creationDate'] as String? ?? DateTime.now().toString()),
@@ -77,10 +77,11 @@ class Quest {
   Map<String, dynamic> toJson() {
     return {
       // '_id': id,
-      'questId': questId,
+      // 'questId': questId,
       'xp': xp,
       'title': title,
       'creationDate': creationDate.toIso8601String(),
+      'description': desc,
       'submissionDate':
           submissionDates.map((e) => e.toIso8601String()).toList(),
       'revisions': revisions,

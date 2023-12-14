@@ -11,7 +11,8 @@ class LoadingScreen extends StatefulWidget {
   final String privateKey;
   final Roles role;
 
-  LoadingScreen({super.key, required this.privateKey, required this.role});
+  const LoadingScreen(
+      {super.key, required this.privateKey, required this.role});
 
   @override
   _LoadingScreenState createState() => _LoadingScreenState();
