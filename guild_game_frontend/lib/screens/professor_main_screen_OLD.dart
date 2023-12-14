@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:guild_game_frontend/models/ranks.dart';
-import 'package:guild_game_frontend/navigation/custom_navigation.dart';
 import 'package:guild_game_frontend/providers/user_provider.dart';
 import 'package:guild_game_frontend/screens/current_quests_screen.dart';
 import 'package:guild_game_frontend/screens/guild_board_screen.dart';
 import 'package:guild_game_frontend/screens/pending_quests_screen.dart';
 import 'package:guild_game_frontend/screens/portfolio_screen.dart';
+import 'package:guild_game_frontend/widgets/modals/professor/create_quest_modal.dart';
 import 'package:guild_game_frontend/widgets/stayros130/custom_button.dart';
 import 'package:provider/provider.dart';
 
-class StudentMainScreen extends StatelessWidget {
-  StudentMainScreen({Key? key}) : super(key: key);
+class ProfessorMainScreen extends StatelessWidget {
+  ProfessorMainScreen({super.key});
 
   Color notificationColor = Colors.red;
 
   @override
-  Widget build(BuildContext context) {
+  build(BuildContext context) {
     final UserProvider userProvider =
         Provider.of<UserProvider>(context, listen: true);
 
@@ -23,32 +23,52 @@ class StudentMainScreen extends StatelessWidget {
       notificationColor = Colors.transparent;
     }
 
-    GuildGameNavigator? navigator = GuildGameNavigator.of(context);
-
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon:
+              const Icon(Icons.arrow_back), // change this to your desired icon
+          onPressed: () {
+            Navigator.pop(context);
+            // Navigator.pop(context);
+          },
+        ),
         title: Text(
-            'Rank: ${Ranks().getRank(userProvider.user!.xp).toString().split('.').last}'),
+            'Rank: ${Ranks().getRank(userProvider.user!.xp).toString().split('.').last}'), // Get rank from xp
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+
+            CustomButton(
+              buttonText: 'Create Quest',
+              onPressed: () =>
+                  showCreateQuestModal(context, userProvider.pubAddress!),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height / 20),
+
             CustomButton(
               buttonText: 'Current Quests',
               onPressed: () {
-                navigator?.pushScreen(
-                    const CurrentQuestsScreen()); // Using custom navigation
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CurrentQuestsScreen()));
               },
             ),
-            SizedBox(height: MediaQuery.of(context).size.height / 20),
+            SizedBox(
+                height:
+                    MediaQuery.of(context).size.height / 20), // Add some space
             Stack(
               children: [
                 CustomButton(
                   buttonText: 'Pending Quests',
                   onPressed: () {
-                    navigator?.pushScreen(
-                        const PendingQuestsScreen()); // Using custom navigation
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const PendingQuestsScreen()));
                   },
                 ),
                 Positioned(
@@ -72,19 +92,23 @@ class StudentMainScreen extends StatelessWidget {
             CustomButton(
               buttonText: 'Available Quests',
               onPressed: () {
-                navigator
-                    ?.pushScreen(GuildBoardScreen()); // Using custom navigation
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => GuildBoardScreen()));
               },
-            ),
+            ), // Add some space
             SizedBox(height: MediaQuery.of(context).size.height / 20),
             CustomButton(
               buttonText: 'History of Quests',
               onPressed: () {
-                navigator
-                    ?.pushScreen(PortfolioScreen()); // Using custom navigation
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => PortfolioScreen()));
               },
             ),
-            SizedBox(height: MediaQuery.of(context).size.height / 20),
+            SizedBox(
+                height:
+                    MediaQuery.of(context).size.height / 20), // Add some space
           ],
         ),
       ),

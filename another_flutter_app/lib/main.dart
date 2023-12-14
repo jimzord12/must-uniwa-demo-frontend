@@ -68,9 +68,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => const GuildGameModuleWidget(
-                        role: 'professor',
+                        // role: 'professor',
+                        // privKey:
+                        //     "2e0a0ee77631554530414c4a68385fd8328c837a1d5986f1e409f42d58a1a2f1",
+                        role: 'student',
                         privKey:
-                            "2e0a0ee77631554530414c4a68385fd8328c837a1d5986f1e409f42d58a1a2f1",
+                            "9ca15b4b9dd7edebefa71fc3bc4c2ec3bde908a9de3bf057495b0c0ceffda798",
                       ),
                     ),
                   );

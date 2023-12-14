@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:guild_game_frontend/models/ranks.dart';
-import 'package:guild_game_frontend/navigation/custom_navigation.dart';
 import 'package:guild_game_frontend/providers/user_provider.dart';
 import 'package:guild_game_frontend/screens/current_quests_screen.dart';
 import 'package:guild_game_frontend/screens/guild_board_screen.dart';
@@ -10,12 +9,13 @@ import 'package:guild_game_frontend/widgets/stayros130/custom_button.dart';
 import 'package:provider/provider.dart';
 
 class StudentMainScreen extends StatelessWidget {
-  StudentMainScreen({Key? key}) : super(key: key);
+  StudentMainScreen({super.key});
 
   Color notificationColor = Colors.red;
 
   @override
-  Widget build(BuildContext context) {
+  build(BuildContext context) {
+    // final questProvider = Provider.of<QuestProvider>(context, listen: false);
     final UserProvider userProvider =
         Provider.of<UserProvider>(context, listen: true);
 
@@ -23,12 +23,10 @@ class StudentMainScreen extends StatelessWidget {
       notificationColor = Colors.transparent;
     }
 
-    GuildGameNavigator? navigator = GuildGameNavigator.of(context);
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            'Rank: ${Ranks().getRank(userProvider.user!.xp).toString().split('.').last}'),
+            'Rank: ${Ranks().getRank(userProvider.user!.xp).toString().split('.').last}'), // Get rank from xp
       ),
       body: Center(
         child: Column(
@@ -37,18 +35,24 @@ class StudentMainScreen extends StatelessWidget {
             CustomButton(
               buttonText: 'Current Quests',
               onPressed: () {
-                navigator?.pushScreen(
-                    const CurrentQuestsScreen()); // Using custom navigation
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CurrentQuestsScreen()));
               },
             ),
-            SizedBox(height: MediaQuery.of(context).size.height / 20),
+            SizedBox(
+                height:
+                    MediaQuery.of(context).size.height / 20), // Add some space
             Stack(
               children: [
                 CustomButton(
                   buttonText: 'Pending Quests',
                   onPressed: () {
-                    navigator?.pushScreen(
-                        const PendingQuestsScreen()); // Using custom navigation
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const PendingQuestsScreen()));
                   },
                 ),
                 Positioned(
@@ -68,23 +72,31 @@ class StudentMainScreen extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: MediaQuery.of(context).size.height / 20),
+            SizedBox(
+                height:
+                    MediaQuery.of(context).size.height / 20), // Add some space
             CustomButton(
               buttonText: 'Available Quests',
               onPressed: () {
-                navigator
-                    ?.pushScreen(GuildBoardScreen()); // Using custom navigation
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const GuildBoardScreen()));
               },
             ),
-            SizedBox(height: MediaQuery.of(context).size.height / 20),
+            SizedBox(
+                height:
+                    MediaQuery.of(context).size.height / 20), // Add some space
             CustomButton(
               buttonText: 'History of Quests',
               onPressed: () {
-                navigator
-                    ?.pushScreen(PortfolioScreen()); // Using custom navigation
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => PortfolioScreen()));
               },
             ),
-            SizedBox(height: MediaQuery.of(context).size.height / 20),
+            SizedBox(
+                height:
+                    MediaQuery.of(context).size.height / 20), // Add some space
           ],
         ),
       ),
