@@ -9,8 +9,14 @@ import 'package:guild_game_frontend/widgets/modals/modal_parts/for_displaying_qu
 import 'package:guild_game_frontend/widgets/modals/modal_parts/for_displaying_quest_data/quest_title.dart';
 import 'package:guild_game_frontend/widgets/modals/modal_parts/for_displaying_quest_data/skills_and_exp_section.dart';
 
-void showSubmitOrForfeitQuestModal(
-    BuildContext context, String walletAddress, String questId, Quest quest) {
+void showSubmitOrForfeitQuestModal({
+  required BuildContext context,
+  required Function uploadFileHandler,
+  required Function forfeitQuest,
+  required String walletAddress,
+  required String questId,
+  required Quest quest,
+}) {
   showModalBottomSheet(
     context: context,
     isScrollControlled:
@@ -43,9 +49,9 @@ void showSubmitOrForfeitQuestModal(
                   const SizedBox(
                     height: 24,
                   ),
-
                   SkillsAndEXP(
-                      exp: 420, skills: skillsToString(quest.requiredSkills)),
+                      exp: quest.xp,
+                      skills: skillsToString(quest.requiredSkills)),
                   const SizedBox(
                     height: 16,
                   ),
@@ -53,21 +59,17 @@ void showSubmitOrForfeitQuestModal(
                       title: 'Description',
                       textAlign: TextAlign.justify,
                       content: quest.desc),
-                  //     "In the ancient and mystical land of Eldoria, a legendary quest awaits the bravest of souls. Known as \"The Quest for the Celestial Crystal,\" it is a journey fraught with peril, mystery, and the promise of eternal glory. The crystal, believed to be a shard of the fallen star of Eldar, holds immense power and is said to grant its possessor untold strength and wisdom. It lies hidden in the treacherous depths of the Dark Forest, guarded by the enigmatic Forest Spirit—a creature of both beauty and terror, whose riddles have baffled many a brave heart. Along the way, adventurers must traverse through the treacherous paths of the Whispering Woods, cross the tumultuous waters of the River of Sorrow, and face the trials set by the ancient Order of the Starlit Knights, who test the purity of one's heart and the strength of one's resolve. Only those of true valor and noble spirit can hope to claim the Celestial Crystal and emerge as legends in the annals of Eldoria. The quest is a beacon for heroes far and wide, calling to those who dare to dream and are bold enough to embark on a journey that promises to be as rewarding as it is dangerous."
-
                   const SizedBox(
                     height: 24,
                   ),
-
-                  // Removed the Row for single child
                   ActionsSection(
                     buttons: [
                       UploadPdfButton(
-                        questId: questId,
-                        walletAddress: walletAddress,
+                        onCreate: () => uploadFileHandler(questId),
                       ),
                       ForfeitQuestButton(
-                          walletAddress: walletAddress, questId: questId),
+                        onCreate: () => forfeitQuest(questId),
+                      ),
                       const GoBackButton(),
                       // Add more buttons as needed
                     ],

@@ -6,13 +6,15 @@ import 'package:guild_game_frontend/screens/current_quests_screen.dart';
 import 'package:guild_game_frontend/screens/guild_board_screen.dart';
 import 'package:guild_game_frontend/screens/pending_quests_screen.dart';
 import 'package:guild_game_frontend/screens/portfolio_screen.dart';
+import 'package:guild_game_frontend/screens/rejection_quests_screen.dart';
 import 'package:guild_game_frontend/widgets/stayros130/custom_button.dart';
 import 'package:provider/provider.dart';
 
 class StudentMainScreen extends StatelessWidget {
-  StudentMainScreen({Key? key}) : super(key: key);
+  StudentMainScreen({super.key});
 
-  Color notificationColor = Colors.red;
+  Color pendingNotificationColor = Colors.red;
+  Color rejectedNotificationColor = Colors.red;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,11 @@ class StudentMainScreen extends StatelessWidget {
         Provider.of<UserProvider>(context, listen: true);
 
     if (userProvider.user!.pendingReviewQuests.isEmpty) {
-      notificationColor = Colors.transparent;
+      pendingNotificationColor = Colors.transparent;
+    }
+
+    if (userProvider.user!.rejectedQuests.isEmpty) {
+      rejectedNotificationColor = Colors.transparent;
     }
 
     GuildGameNavigator? navigator = GuildGameNavigator.of(context);
@@ -57,7 +63,34 @@ class StudentMainScreen extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(2),
                     decoration: BoxDecoration(
-                      color: notificationColor,
+                      color: pendingNotificationColor,
+                      borderRadius: BorderRadius.circular(32),
+                    ),
+                    constraints: const BoxConstraints(
+                      minWidth: 38,
+                      minHeight: 38,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height / 20),
+            Stack(
+              children: [
+                CustomButton(
+                  buttonText: 'Rejected Quests',
+                  onPressed: () {
+                    navigator?.pushScreen(
+                        const RejectionQuestsScreen()); // Using custom navigation
+                  },
+                ),
+                Positioned(
+                  right: 2,
+                  top: 2,
+                  child: Container(
+                    padding: const EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      color: rejectedNotificationColor,
                       borderRadius: BorderRadius.circular(32),
                     ),
                     constraints: const BoxConstraints(

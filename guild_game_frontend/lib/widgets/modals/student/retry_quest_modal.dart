@@ -8,8 +8,8 @@ import 'package:guild_game_frontend/widgets/modals/modal_parts/for_displaying_qu
 import 'package:guild_game_frontend/widgets/modals/modal_parts/for_displaying_quest_data/quest_title.dart';
 import 'package:guild_game_frontend/widgets/modals/modal_parts/for_displaying_quest_data/skills_and_exp_section.dart';
 
-void showRetryQuestModal(
-    BuildContext context, String walletAddress, String questId, Quest quest) {
+void showRetryQuestModal(BuildContext context, String walletAddress,
+    String questId, Quest quest, Function retryQuest) {
   showModalBottomSheet(
     context: context,
     isScrollControlled:
@@ -44,7 +44,8 @@ void showRetryQuestModal(
                   ),
 
                   SkillsAndEXP(
-                      exp: 420, skills: skillsToString(quest.requiredSkills)),
+                      exp: quest.xp,
+                      skills: skillsToString(quest.requiredSkills)),
                   const SizedBox(
                     height: 16,
                   ),
@@ -59,8 +60,7 @@ void showRetryQuestModal(
                   // Removed the Row for single child
                   ActionsSection(
                     buttons: [
-                      RetryQuestButton(
-                          walletAddress: walletAddress, questId: questId),
+                      RetryQuestButton(onCreate: () => retryQuest(questId)),
                       const GoBackButton(),
                       // Add more buttons as needed
                     ],

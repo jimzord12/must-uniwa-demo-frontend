@@ -13,6 +13,7 @@ void showDeleteQuestModal({
   required String walletAddress,
   required String questId,
   required Quest quest,
+  required Function deleteQuest,
 }) {
   showModalBottomSheet(
     context: context,
@@ -67,8 +68,7 @@ void showDeleteQuestModal({
                   // Removed the Row for single child
                   ActionsSection(
                     buttons: [
-                      DeleteQuestButton(
-                          questId: questId, walletAddress: walletAddress),
+                      DeleteQuestButton(onCreate: () => deleteQuest(questId)),
                       const GoBackButton(),
                       // Add more buttons as needed
                     ],

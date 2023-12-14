@@ -141,7 +141,7 @@ packages:
     description:
       path: guild_game_frontend
       ref: HEAD
-      resolved-ref: "8189113dc16d4570cf388f37073df18639444817"
+      resolved-ref: "8b02236c491ae7204e03a213c4e581a9da470ab2"
       url: "https://github.com/jimzord12/must-uniwa-demo-frontend.git"
     source: git
     version: "1.0.0+1"
