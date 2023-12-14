@@ -25,6 +25,14 @@ class ProfessorMainScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon:
+              const Icon(Icons.arrow_back), // change this to your desired icon
+          onPressed: () {
+            Navigator.pop(context);
+            Navigator.pop(context);
+          },
+        ),
         title: Text(
             'Rank: ${Ranks().getRank(userProvider.user!.xp).toString().split('.').last}'), // Get rank from xp
       ),
@@ -32,6 +40,15 @@ class ProfessorMainScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // ElevatedButton(
+            //     onPressed: () {
+            //       Navigator.pop(context);
+            //       Navigator.pop(context);
+            //     },
+            //     child: Text("Go Back")),
+
+            // SizedBox(height: MediaQuery.of(context).size.height / 20),
+
             CustomButton(
               buttonText: 'Create Quest',
               onPressed: () =>

@@ -1,6 +1,6 @@
 import 'package:another_flutter_app/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
-import 'package:guild_game_frontend/main.dart';
+import 'package:guild_game_frontend/guild_game_module_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => GuildGameModuleWidget(
+                      builder: (context) => const GuildGameModuleWidget(
                         role: 'professor',
                         privKey:
                             "2e0a0ee77631554530414c4a68385fd8328c837a1d5986f1e409f42d58a1a2f1",
