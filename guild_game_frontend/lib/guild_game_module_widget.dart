@@ -20,16 +20,11 @@ class GuildGameModuleWidget extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => QuestProvider()),
         ],
         builder: ((context, child) {
-          return LoadingScreen(
-            privateKey: privKey,
-            role: RoleExtension.fromValue(role),
+          return Builder(
+            builder: (context) => LoadingScreen(
+                privateKey: privKey, role: RoleExtension.fromValue(role)),
           );
-        })
-        // Builder(
-        //   builder: (context) => LoadingScreen(
-        //       privateKey: privKey, role: RoleExtension.fromValue(role)),
-        // ),
-        );
+        }));
   }
 }
 
