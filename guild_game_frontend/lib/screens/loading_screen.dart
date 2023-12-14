@@ -51,8 +51,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     final UserProvider userProvider =
         Provider.of<UserProvider>(context, listen: true);
 
-    Navigator.pushReplacement(
-      context,
+    Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (context) => ProfessorMainScreen()),
     );
 
