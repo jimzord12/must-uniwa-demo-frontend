@@ -20,17 +20,10 @@ class CurrentQuestsScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          Positioned(
-            top: 0,
-            left: 0,
-            child: SafeArea(
-              child: CustomGoBackButton(
-                icon: Icons.arrow_back,
-                iconColor: Colors.black,
-              ),
-            ),
-          ),
           SingleChildScrollView(
+            padding: EdgeInsets.only(
+                top: MediaQuery.of(context).padding.top +
+                    48), // Adjust padding to prevent overlap
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Center(
@@ -75,6 +68,18 @@ class CurrentQuestsScreen extends StatelessWidget {
                     }),
                   ],
                 ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: MediaQuery.of(context)
+                .padding
+                .top, // Align with top of screen, accounting for status bar
+            left: 0,
+            child: SafeArea(
+              child: CustomGoBackButton(
+                icon: Icons.arrow_back,
+                iconColor: Colors.black,
               ),
             ),
           ),
