@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:guild_game_frontend/models/quest.dart';
 import 'package:guild_game_frontend/providers/quest_provider.dart';
 import 'package:guild_game_frontend/utils/parse_skills.dart';
-import 'package:guild_game_frontend/widgets/modals/error_modal.dart';
 import 'package:guild_game_frontend/widgets/modals/modal_parts/action_section/action_buttons/complete_quest_button.dart';
 import 'package:guild_game_frontend/widgets/modals/modal_parts/action_section/action_buttons/download_pdf_button.dart';
 import 'package:guild_game_frontend/widgets/modals/modal_parts/action_section/action_buttons/go_back_button.dart';
@@ -12,7 +11,6 @@ import 'package:guild_game_frontend/widgets/modals/modal_parts/for_displaying_qu
 import 'package:guild_game_frontend/widgets/modals/modal_parts/for_displaying_quest_data/quest_title.dart';
 import 'package:guild_game_frontend/widgets/modals/modal_parts/for_displaying_quest_data/skills_and_exp_section.dart';
 import 'package:guild_game_frontend/widgets/modals/modal_parts/generic/custom_input_field.dart';
-import 'package:guild_game_frontend/widgets/modals/success_modal.dart';
 
 void showQuestManagerModal({
   required BuildContext context,
@@ -20,9 +18,13 @@ void showQuestManagerModal({
   required String questId,
   required Quest quest,
   required String pdfName,
+  required Future<void> Function(
+          {required String rejectionReason, required String questId})
+      needsRevision,
+  required Function(String) completeQuest,
 }) {
   final QuestProvider questProvider = QuestProvider();
-final TextEditingController rejectionReasonController =
+  final TextEditingController rejectionReasonController =
       TextEditingController();
 
   showModalBottomSheet(
@@ -84,27 +86,11 @@ final TextEditingController rejectionReasonController =
                     buttons: [
                       DownloadPdfButton(pdfName: pdfName),
                       CompleteQuestButton(
-                          walletAddress: walletAddress, questId: questId),
-                      QuestNeedsRevisiontButton(onCreate: () async {
-                        String rejectionReason = rejectionReasonController.text;
-
-                        try {
-                          print('-  rejectionReason: $rejectionReason');
-
-                          await questProvider.needsRevision(
-                              rejectionReason, walletAddress, questId);
-                          // if (ModalRoute.of(context)?.isCurrent ?? false) {
-                          showSuccessDialog(context,
-                              "The Quest was successfully sent back for revison.");
-                          // Navigator.of(context).pop(); // Close current modal
-                          // }
-                        } catch (e) {
-                          print('Failed to retry quest: $e');
-                          showErrorDialog(context,
-                              "Failed to sent back quest for revision. Rejection Reason is mandatory. Please try again.");
-                          // Optionally, show an error dialog or snackbar
-                        }
-                      }),
+                          onCreate: () => completeQuest(questId)),
+                      QuestNeedsRevisiontButton(
+                          onCreate: () => needsRevision(
+                              rejectionReason: rejectionReasonController.text,
+                              questId: questId)),
                       const GoBackButton(),
                       // Add more buttons as needed
                     ],
