@@ -1,6 +1,6 @@
 class BlockchainConfig {
-  static String rpcUrl = "http://localhost:7545";
-  static String chainId = "1337";
+  static String rpcUrl = "http://195.251.68.23:8545/";
+  static String chainId = "20241";
 
   static String questContractAddress =
       "0x5FbDB2315678afecb367f032d93F642f64180aa3";

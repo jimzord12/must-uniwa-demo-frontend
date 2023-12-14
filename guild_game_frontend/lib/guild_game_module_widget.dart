@@ -5,28 +5,56 @@ import 'package:guild_game_frontend/providers/user_provider.dart';
 import 'package:guild_game_frontend/screens/loading_screen.dart';
 import 'package:provider/provider.dart';
 
-class GuildGameModule {
-  static void startApp({required String role, required String privKey}) {
-    runApp(
-      MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => UserProvider()),
-          ChangeNotifierProvider(create: (_) => QuestProvider()),
-        ],
-        child: MaterialApp(
-          home: LoadingScreen(
-              privateKey: privKey, role: RoleExtension.fromValue(role)),
-          themeMode: ThemeMode.dark, // Use dark theme
-          darkTheme: ThemeData(
-            // Define dark theme
-            brightness: Brightness.dark,
-            primarySwatch: Colors.blue,
-          ),
+class GuildGameModuleWidget extends StatelessWidget {
+  final String role;
+  final String privKey;
+
+  const GuildGameModuleWidget(
+      {super.key, required this.role, required this.privKey});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => QuestProvider()),
+      ],
+      child: MaterialApp(
+        home: LoadingScreen(
+            privateKey: privKey, role: RoleExtension.fromValue(role)),
+        themeMode: ThemeMode.dark, // Use dark theme
+        darkTheme: ThemeData(
+          // Define dark theme
+          brightness: Brightness.dark,
+          primarySwatch: Colors.blue,
         ),
       ),
     );
   }
 }
+
+// class GuildGameModule {
+//   static void startApp({required String role, required String privKey}) {
+//     runApp(
+//       MultiProvider(
+//         providers: [
+//           ChangeNotifierProvider(create: (_) => UserProvider()),
+//           ChangeNotifierProvider(create: (_) => QuestProvider()),
+//         ],
+//         child: MaterialApp(
+//           home: LoadingScreen(
+//               privateKey: privKey, role: RoleExtension.fromValue(role)),
+//           themeMode: ThemeMode.dark, // Use dark theme
+//           darkTheme: ThemeData(
+//             // Define dark theme
+//             brightness: Brightness.dark,
+//             primarySwatch: Colors.blue,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 // import 'package:flutter/material.dart';
 // import 'package:guild_game_frontend/models/roles.dart';
