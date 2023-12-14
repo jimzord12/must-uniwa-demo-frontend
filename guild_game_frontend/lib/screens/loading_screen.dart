@@ -41,7 +41,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
       // Navigate to the mainScreen
       if (mainScreen != null) {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => mainScreen!),
         );
