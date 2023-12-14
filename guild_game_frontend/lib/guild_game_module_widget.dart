@@ -1,90 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:guild_game_frontend/models/roles.dart';
+import 'package:guild_game_frontend/navigation/custom_navigation.dart';
 import 'package:guild_game_frontend/providers/quest_provider.dart';
 import 'package:guild_game_frontend/providers/user_provider.dart';
 import 'package:guild_game_frontend/screens/loading_screen.dart';
 import 'package:provider/provider.dart';
 
-class GuildGameModuleWidget extends StatelessWidget {
+class GuildGameModuleWidget extends StatefulWidget {
   final String role;
   final String privKey;
 
   const GuildGameModuleWidget(
-      {super.key, required this.role, required this.privKey});
+      {Key? key, required this.role, required this.privKey})
+      : super(key: key);
+
+  @override
+  _GuildGameModuleWidgetState createState() => _GuildGameModuleWidgetState();
+}
+
+class _GuildGameModuleWidgetState extends State<GuildGameModuleWidget> {
+  final List<Widget> _navigationStack = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // Push the initial screen onto the stack
+    pushScreen(LoadingScreen(
+        privateKey: widget.privKey,
+        role: RoleExtension.fromValue(widget.role)));
+  }
+
+  void pushScreen(Widget screen) {
+    setState(() {
+      _navigationStack.add(screen);
+    });
+  }
+
+  void popScreen() {
+    if (_navigationStack.length > 1) {
+      setState(() {
+        _navigationStack.removeLast();
+      });
+    } else {
+      // Handle behavior when trying to pop the last screen (e.g., exit the module)
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => UserProvider()),
-        ChangeNotifierProvider(create: (_) => QuestProvider()),
-      ],
-      child: LoadingScreen(
-          privateKey: privKey, role: RoleExtension.fromValue(role)),
+    return GuildGameNavigator(
+      pushScreen: pushScreen,
+      popScreen: popScreen,
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => UserProvider()),
+          ChangeNotifierProvider(create: (_) => QuestProvider()),
+        ],
+        child: Scaffold(
+          body: _navigationStack.last,
+        ),
+      ),
     );
   }
 }
-
-// class GuildGameModule {
-//   static void startApp({required String role, required String privKey}) {
-//     runApp(
-//       MultiProvider(
-//         providers: [
-//           ChangeNotifierProvider(create: (_) => UserProvider()),
-//           ChangeNotifierProvider(create: (_) => QuestProvider()),
-//         ],
-//         child: MaterialApp(
-//           home: LoadingScreen(
-//               privateKey: privKey, role: RoleExtension.fromValue(role)),
-//           themeMode: ThemeMode.dark, // Use dark theme
-//           darkTheme: ThemeData(
-//             // Define dark theme
-//             brightness: Brightness.dark,
-//             primarySwatch: Colors.blue,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// import 'package:flutter/material.dart';
-// import 'package:guild_game_frontend/models/roles.dart';
-// import 'package:guild_game_frontend/providers/quest_provider.dart';
-// import 'package:guild_game_frontend/providers/user_provider.dart';
-// import 'package:guild_game_frontend/screens/loading_screen.dart';
-// // import 'package:guild_game_frontend/screens/tests/test_my_app.dart';
-// import 'package:provider/provider.dart';
-
-// void main() {
-//   // Coming from Maria's App
-
-//   // Account #01 - Professor
-//   const String role = 'professor';
-//   const String privKey =
-//       "2e0a0ee77631554530414c4a68385fd8328c837a1d5986f1e409f42d58a1a2f1";
-
-//   // Account #02 - Student
-//   // const String role = 'student';
-//   // const String privKey =
-//   //     "9ca15b4b9dd7edebefa71fc3bc4c2ec3bde908a9de3bf057495b0c0ceffda798";
-
-//   runApp(
-//     MultiProvider(
-//       providers: [
-//         ChangeNotifierProvider(create: (_) => UserProvider()),
-//         ChangeNotifierProvider(create: (_) => QuestProvider()),
-//       ],
-//       child: MaterialApp(
-//         home: LoadingScreen(
-//             privateKey: privKey, role: RoleExtension.fromValue(role)),
-//         themeMode: ThemeMode.dark, // Use dark theme
-//         darkTheme: ThemeData(
-//           // Define dark theme
-//           brightness: Brightness.dark,
-//           primarySwatch: Colors.blue,
-//         ),
-//       ),
-//     ),
-//   );
-// }
