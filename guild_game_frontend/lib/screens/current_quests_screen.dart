@@ -32,7 +32,10 @@ class CurrentQuestsScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 if (quests.isEmpty)
-                  const CustomGoBackButton(icon: Icons.arrow_back),
+                  const CustomGoBackButton(
+                    icon: Icons.arrow_back,
+                    iconColor: Colors.black,
+                  ),
                 if (quests.isEmpty) SizedBox(height: screenHeight / 3),
                 if (quests.isEmpty)
                   const Text(

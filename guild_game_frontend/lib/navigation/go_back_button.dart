@@ -23,7 +23,8 @@ class CustomGoBackButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.amber.shade700,
         shape: const CircleBorder(),
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(
+            36), // Increase the padding value for a bigger button
       ),
       onPressed: onPressed ??
           () {
@@ -31,7 +32,10 @@ class CustomGoBackButton extends StatelessWidget {
             GuildGameNavigator? navigator = GuildGameNavigator.of(context);
             navigator?.popScreen();
           },
-      child: Icon(icon, color: iconColor),
+      child: Transform.scale(
+        scale: 2, // Increase the scale value for a bigger icon
+        child: Icon(icon, color: iconColor),
+      ),
     );
   }
 }
