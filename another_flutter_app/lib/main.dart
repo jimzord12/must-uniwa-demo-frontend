@@ -43,6 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    print("SKATAATTATATTATATATATATAT");
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -63,16 +64,16 @@ class _MyHomePageState extends State<MyHomePage> {
             CustomButton(
                 buttonText: "Guild Game",
                 onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const GuildGameModuleWidget(
-                          role: 'professor',
-                          privKey:
-                              "2e0a0ee77631554530414c4a68385fd8328c837a1d5986f1e409f42d58a1a2f1",
-                        ),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const GuildGameModuleWidget(
+                        role: 'professor',
+                        privKey:
+                            "2e0a0ee77631554530414c4a68385fd8328c837a1d5986f1e409f42d58a1a2f1",
                       ),
-                      ModalRoute.withName(Navigator.defaultRouteName));
+                    ),
+                  );
                 })
           ],
         ),

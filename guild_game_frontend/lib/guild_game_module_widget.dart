@@ -19,15 +19,9 @@ class GuildGameModuleWidget extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => QuestProvider()),
       ],
-      child: MaterialApp(
-        home: LoadingScreen(
+      child: Builder(
+        builder: (context) => LoadingScreen(
             privateKey: privKey, role: RoleExtension.fromValue(role)),
-        themeMode: ThemeMode.dark, // Use dark theme
-        darkTheme: ThemeData(
-          // Define dark theme
-          brightness: Brightness.dark,
-          primarySwatch: Colors.blue,
-        ),
       ),
     );
   }
