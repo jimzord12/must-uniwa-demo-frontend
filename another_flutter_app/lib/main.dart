@@ -72,6 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             "2e0a0ee77631554530414c4a68385fd8328c837a1d5986f1e409f42d58a1a2f1",
                       ),
                     ),
+                    (Route<dynamic> route) => false,
                   );
                 })
           ],
