@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:guild_game_frontend/models/roles.dart';
 import 'package:guild_game_frontend/providers/quest_provider.dart';
 import 'package:guild_game_frontend/providers/user_provider.dart';
-import 'package:guild_game_frontend/screens/professor_main_screen.dart';
 import 'package:provider/provider.dart';
 
 class LoadingScreen extends StatefulWidget {
@@ -51,10 +50,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
     final UserProvider userProvider =
         Provider.of<UserProvider>(context, listen: false);
 
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => ProfessorMainScreen()),
-    );
+    // Navigator.pushReplacement(
+    //   context,
+    //   MaterialPageRoute(builder: (context) => ProfessorMainScreen()),
+    // );
 
     var screenSize = MediaQuery.of(context).size; // Get screen size
     var width = screenSize.width / 2;
