@@ -7,10 +7,14 @@ class CustomGoBackButton extends StatelessWidget {
   final Color? iconColor;
   final Color? buttonColor;
   final VoidCallback? onPressed;
+  final double iconSize;
+  final double buttonSize;
 
   const CustomGoBackButton({
     super.key,
     required this.icon,
+    this.iconSize = 1.25,
+    this.buttonSize = 24.0,
     this.tooltip = '',
     this.iconColor,
     this.buttonColor,
