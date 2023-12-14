@@ -19,7 +19,7 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  Widget? mainScreen;
+  late Widget Function(BuildContext) mainScreenBuilder;
 
   @override
   void initState() {
@@ -34,18 +34,16 @@ class _LoadingScreenState extends State<LoadingScreen> {
     // Check if user data is fetched successfully
     if (wasSuccessful) {
       setState(() {
-        mainScreen = widget.role == Roles.professor
-            ? ProfessorMainScreen()
-            : StudentMainScreen();
+        mainScreenBuilder = widget.role == Roles.professor
+            ? (context) => ProfessorMainScreen()
+            : (context) => StudentMainScreen();
       });
 
       // Navigate to the mainScreen
-      if (mainScreen != null) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => mainScreen!),
-        );
-      }
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: mainScreenBuilder),
+      );
     }
   }
 
