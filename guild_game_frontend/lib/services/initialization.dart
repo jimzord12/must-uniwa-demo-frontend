@@ -48,7 +48,11 @@ Future<bool> initializeData(
     return true;
   } catch (error) {
     if (error.toString().contains('User not found')) {
+      print('');
+      print('------------------------------------------------------------');
       print(" --> The User was not found. Creating a new one!!!.");
+      print('');
+
       final String name = randomName(role);
       await userProvider
           .createUser(wallet.address.hex, role.toString().split('.').last, name)
@@ -63,6 +67,11 @@ Future<bool> initializeData(
           content: "A Transaction is been sent for the creation of a new user.",
           title: "Creating User",
           context: context);
+
+      print('');
+      print('------------------------------------------------------------');
+      print(" --> Blockchain: <Creating a new User>");
+      print('');
 
       // Send the transaction
       await web3client.sendTransaction(
