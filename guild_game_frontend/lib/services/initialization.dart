@@ -46,6 +46,13 @@ Future<bool> initializeData(
   print('------------------------------------------------------------');
   print(" --> User Contract: ${userContract.self}");
   print('');
+
+  print('');
+  print('------------------------------------------------------------');
+  web3client.getBalance(wallet.address).then((value) => print(
+      " --> Wallet Balance: ${value.getValueInUnit(EtherUnit.ether).toString()}"));
+  print('');
+  print('------------------------------------------------------------');
   // final addQuestToUserFunction = userContract.self.function('addQuestToUser');
   // final params_02 = [userAddress, questId];
 
