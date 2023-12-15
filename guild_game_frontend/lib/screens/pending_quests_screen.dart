@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:guild_game_frontend/navigation/go_back_button.dart';
 import 'package:guild_game_frontend/providers/quest_provider.dart';
 import 'package:guild_game_frontend/providers/user_provider.dart';
+import 'package:guild_game_frontend/utils/pdf_convert_and_open.dart';
 import 'package:guild_game_frontend/widgets/modals/error_modal.dart';
 import 'package:guild_game_frontend/widgets/modals/professor/manage_submitted_quest_modal.dart';
 import 'package:guild_game_frontend/widgets/modals/student/view_completed_quest_modal.dart';
@@ -56,6 +57,11 @@ class PendingQuestsScreen extends StatelessWidget {
       }
     }
 
+    void downloadFile(String pdfName) async {
+      final pdfBase64content = await questProvider.fetchPdfContent(pdfName);
+      await convertAndOpenPdf(context, pdfBase64content, pdfName);
+    }
+
     return Scaffold(
       body: Stack(
         children: [
@@ -94,6 +100,7 @@ class PendingQuestsScreen extends StatelessWidget {
                                       quest: quest);
                                 } else {
                                   showQuestManagerModal(
+                                      downloadFile: downloadFile,
                                       needsRevision: needsRevision,
                                       completeQuest: completeQuest,
                                       context: context,

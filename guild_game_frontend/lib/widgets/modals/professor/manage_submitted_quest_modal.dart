@@ -21,8 +21,8 @@ void showQuestManagerModal({
           {required String rejectionReason, required String questId})
       needsRevision,
   required Function(String) completeQuest,
+  required Function(String) downloadFile,
 }) {
-  // final QuestProvider questProvider = QuestProvider();
   final TextEditingController rejectionReasonController =
       TextEditingController();
 
@@ -83,7 +83,7 @@ void showQuestManagerModal({
                   // Removed the Row for single child
                   ActionsSection(
                     buttons: [
-                      DownloadPdfButton(pdfName: pdfName),
+                      DownloadPdfButton(onCreate: () => downloadFile(pdfName)),
                       CompleteQuestButton(
                           onCreate: () => completeQuest(questId)),
                       QuestNeedsRevisiontButton(
