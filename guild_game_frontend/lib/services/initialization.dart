@@ -61,11 +61,11 @@ Future<bool> initializeData(
 // Web3 Staff --- END
 
   try {
-    await userProvider
-        .fetchUserData(wallet.address.hex)
-        .timeout(const Duration(seconds: 5));
+    // await userProvider
+    //     .fetchUserData(wallet.address.hex)
+    //     .timeout(const Duration(seconds: 5));
 
-    await questProvider.fetchQuests().timeout(const Duration(seconds: 5));
+    // await questProvider.fetchQuests().timeout(const Duration(seconds: 5));
 
     return true;
   } catch (error) {
