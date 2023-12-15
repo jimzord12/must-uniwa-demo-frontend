@@ -64,28 +64,27 @@ class RejectionQuestsScreen extends StatelessWidget {
                         ),
                         textAlign: TextAlign.center,
                       ),
-                    ...quests
-                      ..map<Widget>((quest) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 12.0),
-                          child: CustomButton(
-                            buttonText: quest.title,
-                            onPressed: () {
-                              if (userRole == 'student') {
-                                showRetryQuestModal(
-                                    context,
-                                    userProvider.pubAddress!,
-                                    quest.id!,
-                                    quest,
-                                    retryQuest);
-                              } else {
-                                showErrorDialog(context,
-                                    "You are not a student. You are not supposed to be here.");
-                              }
-                            },
-                          ),
-                        );
-                      }),
+                    ...quests.map((quest) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 12.0),
+                        child: CustomButton(
+                          buttonText: quest.title,
+                          onPressed: () {
+                            if (userRole == 'student') {
+                              showRetryQuestModal(
+                                  context,
+                                  userProvider.pubAddress!,
+                                  quest.id!,
+                                  quest,
+                                  retryQuest);
+                            } else {
+                              showErrorDialog(context,
+                                  "You are not a student. You are not supposed to be here.");
+                            }
+                          },
+                        ),
+                      );
+                    }),
                   ],
                 ),
               ),
