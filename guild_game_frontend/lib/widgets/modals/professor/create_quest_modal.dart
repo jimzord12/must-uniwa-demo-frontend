@@ -145,7 +145,7 @@ void showCreateQuestModal(BuildContext context, String walletAddress) {
                               createdBy: createdBy);
 
                           await questProvider.createQuest(quest);
-                          userProvider.fetchUserData(walletAddress);
+                          await userProvider.fetchUserData(walletAddress);
                           // if (ModalRoute.of(context)?.isCurrent ?? false) {
                           showSuccessDialog(
                               context, "Quest created successfully!");
