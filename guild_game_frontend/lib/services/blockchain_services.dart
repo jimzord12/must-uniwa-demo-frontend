@@ -1,3 +1,4 @@
+import 'package:guild_game_frontend/configs/blockchain_config.dart';
 import 'package:guild_game_frontend/models/web3/user_contract.g.dart';
 import 'package:guild_game_frontend/utils/general.dart';
 import 'package:http/http.dart';
@@ -13,6 +14,9 @@ class BlockchainService {
   BlockchainService(String rpcUrl, String privateKey, this._chainId) {
     _initializeWeb3Client(rpcUrl);
     _setUserWallet(privateKey);
+    _userContract = User_contract(
+        address: EthereumAddress.fromHex(BlockchainConfig.userContractAddress),
+        client: _web3client);
   }
 
   void _initializeWeb3Client(String rpcUrl) {
