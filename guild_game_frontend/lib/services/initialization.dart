@@ -61,11 +61,11 @@ Future<bool> initializeData(
 // Web3 Staff --- END
 
   try {
-    // await userProvider
-    //     .fetchUserData(wallet.address.hex)
-    //     .timeout(const Duration(seconds: 5));
+    await userProvider
+        .fetchUserData(wallet.address.hex)
+        .timeout(const Duration(seconds: 5));
 
-    // await questProvider.fetchQuests().timeout(const Duration(seconds: 5));
+    await questProvider.fetchQuests().timeout(const Duration(seconds: 5));
 
     return true;
   } catch (error) {
@@ -76,10 +76,10 @@ Future<bool> initializeData(
       print('');
 
       final String name = randomName(role);
-      // await userProvider
-      //     .createUser(wallet.address.hex, role.toString().split('.').last, name)
-      //     .timeout(const Duration(seconds: 5));
-      // await questProvider.fetchQuests().timeout(const Duration(seconds: 5));
+      await userProvider
+          .createUser(wallet.address.hex, role.toString().split('.').last, name)
+          .timeout(const Duration(seconds: 5));
+      await questProvider.fetchQuests().timeout(const Duration(seconds: 5));
 
       // Web3 -Tx Prep
       final createUserFunction = userContract.self.function('createUser');
