@@ -13,8 +13,8 @@ class CustomButton extends StatelessWidget {
     double buttonWidth = MediaQuery.of(context).size.width / 1.2;
     double buttonHeight = MediaQuery.of(context).size.height / 12;
 
-    if (buttonHeight > 75) buttonHeight = 75;
-    if (buttonWidth > 710) buttonWidth = 710;
+    // if (buttonHeight > 75) buttonHeight = 75;
+    // if (buttonWidth > 710) buttonWidth = 710;
     if (buttonWidth > 300) buttonWidth = 300;
 
     return SizedBox(
