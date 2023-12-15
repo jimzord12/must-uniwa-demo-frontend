@@ -30,8 +30,9 @@ Future<bool> initializeData(
       final String name = randomName(role);
       await userProvider
           .createUser(
-              wallet.address.hexEip55, role.toString().split('.').last, name)
+              userProvider.pubAddress!, role.toString().split('.').last, name)
           .timeout(const Duration(seconds: 5));
+          
       await questProvider.fetchQuests().timeout(const Duration(seconds: 5));
 
       // Show transaction dialog
