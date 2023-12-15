@@ -56,7 +56,7 @@ class ProfessorMainScreen extends StatelessWidget {
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 20),
             CustomButton(
-              buttonText: 'Current Quests',
+              buttonText: 'Pending Quests',
               onPressed: () {
                 navigator?.pushScreen(
                     const PendingQuestsScreen()); // Using custom navigation

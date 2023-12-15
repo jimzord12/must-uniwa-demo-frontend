@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:guild_game_frontend/models/quest.dart';
-import 'package:guild_game_frontend/providers/quest_provider.dart';
 import 'package:guild_game_frontend/utils/parse_skills.dart';
 import 'package:guild_game_frontend/widgets/modals/modal_parts/action_section/action_buttons/complete_quest_button.dart';
 import 'package:guild_game_frontend/widgets/modals/modal_parts/action_section/action_buttons/download_pdf_button.dart';
@@ -23,7 +22,7 @@ void showQuestManagerModal({
       needsRevision,
   required Function(String) completeQuest,
 }) {
-  final QuestProvider questProvider = QuestProvider();
+  // final QuestProvider questProvider = QuestProvider();
   final TextEditingController rejectionReasonController =
       TextEditingController();
 
