@@ -164,18 +164,21 @@ class PortfolioScreen extends StatelessWidget {
                       itemCount: userProvider.user!.completedQuests.length,
                       itemBuilder: (context, index) {
                         final quest = userProvider.user!.completedQuests[index];
-                        return ConstrainedBox(
-                            constraints: const BoxConstraints(maxWidth: 300.0),
-                            child: CustomButton(
-                              buttonText: quest.title,
-                              onPressed: () {
-                                showQuestDetailsModal(
-                                    context: context,
-                                    walletAddress: userProvider.pubAddress!,
-                                    questId: quest.id,
-                                    quest: quest);
-                              },
-                            ));
+                        return Center(
+                          child: ConstrainedBox(
+                              constraints:
+                                  const BoxConstraints(maxWidth: 300.0),
+                              child: CustomButton(
+                                buttonText: quest.title,
+                                onPressed: () {
+                                  showQuestDetailsModal(
+                                      context: context,
+                                      walletAddress: userProvider.pubAddress!,
+                                      questId: quest.id,
+                                      quest: quest);
+                                },
+                              )),
+                        );
                       },
                     ),
                 ],
