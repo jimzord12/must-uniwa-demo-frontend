@@ -105,6 +105,11 @@ Future<bool> initializeData(
         ),
       );
 
+      print('');
+      print('------------------------------------------------------------');
+      print(" --> #### THE Transaction was sent ####.");
+      print('');
+
       Navigator.of(context).pop(); // Close the dialog
 
       return true;
