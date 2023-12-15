@@ -15,6 +15,6 @@ Credentials createWallet(String privateKey) {
 
 Web3Client createWeb3Client() {
   var httpClient = Client();
-  final ethClient = Web3Client(BlockchainConfig.rpcUrl, httpClient);
+  final ethClient = Web3Client(BlockchainConfig.rpcUrl, httpClient, );
   return ethClient;
 }

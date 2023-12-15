@@ -19,13 +19,33 @@ Future<bool> initializeData(
 // Web3 Staff --- START
   final Credentials wallet = userProvider.setUserWallet(privateKey);
 
-  final EthereumAddress userAddress = wallet.address;
+  // final EthereumAddress userAddress = wallet.address;
   final Web3Client web3client = createWeb3Client();
 
   final User_contract userContract = User_contract(
       address: EthereumAddress.fromHex(BlockchainConfig.userContractAddress),
       client: web3client);
 
+  print('');
+  print('------------------------------------------------------------');
+  print(" --> Wallet: ${wallet.address.hexEip55}");
+  print('');
+
+  print('');
+  print('------------------------------------------------------------');
+  print(" --> Web3 Client: $web3client}");
+  print('');
+
+  print('');
+  print('------------------------------------------------------------');
+  print(
+      " --> User Contract Address: ${EthereumAddress.fromHex(BlockchainConfig.userContractAddress)}");
+  print('');
+
+  print('');
+  print('------------------------------------------------------------');
+  print(" --> User Contract: ${userContract.self}");
+  print('');
   // final addQuestToUserFunction = userContract.self.function('addQuestToUser');
   // final params_02 = [userAddress, questId];
 
@@ -56,10 +76,10 @@ Future<bool> initializeData(
       print('');
 
       final String name = randomName(role);
-      await userProvider
-          .createUser(wallet.address.hex, role.toString().split('.').last, name)
-          .timeout(const Duration(seconds: 5));
-      await questProvider.fetchQuests().timeout(const Duration(seconds: 5));
+      // await userProvider
+      //     .createUser(wallet.address.hex, role.toString().split('.').last, name)
+      //     .timeout(const Duration(seconds: 5));
+      // await questProvider.fetchQuests().timeout(const Duration(seconds: 5));
 
       // Web3 -Tx Prep
       final createUserFunction = userContract.self.function('createUser');
