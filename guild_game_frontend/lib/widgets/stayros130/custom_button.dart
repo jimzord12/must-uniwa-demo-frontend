@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  CustomButton({super.key,required this.buttonText, required this.onPressed});
+  CustomButton({super.key, required this.buttonText, required this.onPressed});
 
   final String buttonText;
   final VoidCallback onPressed;
@@ -12,12 +12,13 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     double buttonWidth = MediaQuery.of(context).size.width / 1.2;
     double buttonHeight = MediaQuery.of(context).size.height / 12;
-  
+
     if (buttonHeight > 75) buttonHeight = 75;
     if (buttonWidth > 710) buttonWidth = 710;
+    if (buttonWidth > 300) buttonWidth = 300;
 
     return SizedBox(
-      height: buttonHeight, 
+      height: buttonHeight,
       width: buttonWidth,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
