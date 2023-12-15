@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:guild_game_frontend/models/ranks.dart';
 import 'package:guild_game_frontend/navigation/go_back_button.dart';
-import 'package:guild_game_frontend/providers/quest_provider.dart';
 import 'package:guild_game_frontend/providers/user_provider.dart';
 import 'package:guild_game_frontend/widgets/modals/professor/view_completed_quest_modal.dart';
 import 'package:guild_game_frontend/widgets/stayros130/custom_button.dart';
@@ -15,13 +14,13 @@ class PortfolioScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final questProvider = Provider.of<QuestProvider>(context, listen: true);
+    // final questProvider = Provider.of<QuestProvider>(context, listen: true);
     final UserProvider userProvider =
         Provider.of<UserProvider>(context, listen: true);
 
     List<String> userSkills = userProvider.user!.skills;
 
-    final String userRole = userProvider.user!.role;
+    // final String userRole = userProvider.user!.role;
     final int userXP = userProvider.user!.xp;
     final int completedQuestsAmount = userProvider.user!.successfulQuests;
     final List<dynamic> completedQuests = userProvider.user!.completedQuests;
@@ -157,25 +156,24 @@ class PortfolioScreen extends StatelessWidget {
                       ),
                     ),
                   if (completedQuests.isNotEmpty)
-                    Expanded(
-                      child: ListView.separated(
-                        separatorBuilder: (context, index) =>
-                            const SizedBox(height: 12),
-                        itemCount: userProvider.user!.completedQuests.length,
-                        itemBuilder: (context, index) {
-                          final quest =
-                              userProvider.user!.completedQuests[index];
-                          return CustomButton(
-                              buttonText: quest.title,
-                              onPressed: () {
-                                showQuestDetailsModal(
-                                    context: context,
-                                    walletAddress: userProvider.pubAddress!,
-                                    questId: quest.id,
-                                    quest: quest);
-                              });
-                        },
-                      ),
+                    ListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 12),
+                      itemCount: userProvider.user!.completedQuests.length,
+                      itemBuilder: (context, index) {
+                        final quest = userProvider.user!.completedQuests[index];
+                        return CustomButton(
+                            buttonText: quest.title,
+                            onPressed: () {
+                              showQuestDetailsModal(
+                                  context: context,
+                                  walletAddress: userProvider.pubAddress!,
+                                  questId: quest.id,
+                                  quest: quest);
+                            });
+                      },
                     ),
                 ],
               ),
@@ -184,7 +182,7 @@ class PortfolioScreen extends StatelessWidget {
           Positioned(
             top: MediaQuery.of(context).padding.top,
             left: 0,
-            child: SafeArea(
+            child: const SafeArea(
               child: CustomGoBackButton(
                 icon: Icons.arrow_back,
                 iconColor: Colors.black,
