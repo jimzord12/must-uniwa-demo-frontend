@@ -19,7 +19,7 @@ Future<bool> initializeData(
         .timeout(const Duration(seconds: 5));
 
     await questProvider.fetchQuests().timeout(const Duration(seconds: 5));
-    
+
     return true;
   } catch (error) {
     if (error.toString().contains('User not found')) {
@@ -34,6 +34,7 @@ Future<bool> initializeData(
       // General error handling
       showErrorDialog(context,
           "Something went wrong with the Server. Please try again later.");
+      Navigator.of(context).pop(); // Close current modal
       return false;
     }
   }
