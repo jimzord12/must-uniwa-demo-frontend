@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:guild_game_frontend/configs/blockchain_config.dart';
 import 'package:guild_game_frontend/models/roles.dart';
 import 'package:guild_game_frontend/navigation/custom_navigation.dart';
+import 'package:guild_game_frontend/providers/blockchain_provider.dart';
 import 'package:guild_game_frontend/providers/quest_provider.dart';
 import 'package:guild_game_frontend/providers/user_provider.dart';
 import 'package:guild_game_frontend/screens/loading_screen.dart';
@@ -11,8 +13,7 @@ class GuildGameModuleWidget extends StatefulWidget {
   final String privKey;
 
   const GuildGameModuleWidget(
-      {Key? key, required this.role, required this.privKey})
-      : super(key: key);
+      {super.key, required this.role, required this.privKey});
 
   @override
   _GuildGameModuleWidgetState createState() => _GuildGameModuleWidgetState();
@@ -55,6 +56,11 @@ class _GuildGameModuleWidgetState extends State<GuildGameModuleWidget> {
         providers: [
           ChangeNotifierProvider(create: (_) => UserProvider()),
           ChangeNotifierProvider(create: (_) => QuestProvider()),
+          ChangeNotifierProvider(
+              create: (_) => BlockchainProvider(
+                  rpcUrl: BlockchainConfig.rpcUrl,
+                  privateKey: widget.privKey,
+                  chainId: BlockchainConfig.chainId)),
         ],
         child: Scaffold(
           body: _navigationStack.last,
