@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:guild_game_frontend/models/quest.dart';
+import 'package:guild_game_frontend/providers/blockchain_provider.dart';
 import 'package:guild_game_frontend/providers/quest_provider.dart';
 import 'package:guild_game_frontend/providers/user_provider.dart';
 import 'package:guild_game_frontend/utils/parse_skills.dart';
@@ -21,6 +22,8 @@ void showCreateQuestModal(BuildContext context, String walletAddress) {
   final questProvider = Provider.of<QuestProvider>(context, listen: false);
   final UserProvider userProvider =
       Provider.of<UserProvider>(context, listen: false);
+  final BlockchainProvider blockchainProvider =
+      Provider.of(context, listen: false);
 
   showModalBottomSheet(
     context: context,
@@ -130,6 +133,9 @@ void showCreateQuestModal(BuildContext context, String walletAddress) {
                           print('- desc: $desc');
 
                           int xpValue = int.parse(xp);
+
+                          await blockchainProvider.createQuest(title,
+                              int.parse(xp), parseSkills(requiredSkills));
 
                           Quest quest = Quest.newQuest(
                               title: title,
