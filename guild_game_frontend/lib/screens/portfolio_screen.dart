@@ -21,8 +21,10 @@ class PortfolioScreen extends StatelessWidget {
 
     List<String> userSkills = userProvider.user!.skills;
 
-    final int dummyXp = userProvider.user!.xp;
-    final int dummyQuestsCompleted = userProvider.user!.successfulQuests;
+    final String userRole = userProvider.user!.role;
+    final int userXP = userProvider.user!.xp;
+    final int completedQuestsAmount = userProvider.user!.successfulQuests;
+    final List<dynamic> completedQuests = userProvider.user!.completedQuests;
 
     // Splitting skills into two columns
     for (var i = 0; i < userSkills.length; i++) {
@@ -56,7 +58,7 @@ class PortfolioScreen extends StatelessWidget {
                             ),
                             TextSpan(
                                 text: Ranks()
-                                    .getRank(dummyXp)
+                                    .getRank(userXP)
                                     .toString()
                                     .split('.')
                                     .last,
@@ -84,7 +86,7 @@ class PortfolioScreen extends StatelessWidget {
                               ),
                             ),
                             TextSpan(
-                                text: dummyXp.toString(),
+                                text: userXP.toString(),
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,
@@ -108,7 +110,7 @@ class PortfolioScreen extends StatelessWidget {
                               ),
                             ),
                             TextSpan(
-                                text: dummyQuestsCompleted.toString(),
+                                text: completedQuestsAmount.toString(),
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,
@@ -144,7 +146,7 @@ class PortfolioScreen extends StatelessWidget {
                     'All the completed Quests:',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
-                  if (userSkills.isEmpty)
+                  if (completedQuests.isEmpty)
                     const Center(
                       child: Padding(
                         padding: EdgeInsets.only(top: 20),
@@ -154,7 +156,7 @@ class PortfolioScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                  if (!userSkills.isEmpty)
+                  if (completedQuests.isNotEmpty)
                     Expanded(
                       child: ListView.separated(
                         separatorBuilder: (context, index) =>
