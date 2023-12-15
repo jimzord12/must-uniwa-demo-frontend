@@ -66,6 +66,7 @@ class Quest {
       revisions: json['revisions'] as int? ?? 0,
       requiredSkills:
           (json['requiredSkills'] as List<dynamic>? ?? []).cast<String>(),
+      rejectedReason: json['rejectedReason'] as String? ?? '',
       createdBy: json['createdBy'] as String? ?? '',
       assignedTo: json['assignedTo'] as String? ?? '',
       isDone: json['isDone'] as bool? ?? false,

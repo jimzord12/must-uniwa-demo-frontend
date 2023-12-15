@@ -56,6 +56,13 @@ void showRetryQuestModal(BuildContext context, String walletAddress,
                   const SizedBox(
                     height: 24,
                   ),
+                  QuestDescription(
+                      title: 'Rejection Reason',
+                      textAlign: TextAlign.justify,
+                      content: quest.rejectionReason),
+                  const SizedBox(
+                    height: 24,
+                  ),
 
                   // Removed the Row for single child
                   ActionsSection(
