@@ -167,7 +167,7 @@ class PortfolioScreen extends StatelessWidget {
                         return Center(
                           child: ConstrainedBox(
                               constraints:
-                                  const BoxConstraints(maxWidth: 300.0),
+                                  const BoxConstraints(maxWidth: 420.0),
                               child: CustomButton(
                                 buttonText: quest.title,
                                 onPressed: () {

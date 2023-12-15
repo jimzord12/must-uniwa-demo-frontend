@@ -29,6 +29,9 @@ class PendingQuestsScreen extends StatelessWidget {
         print('-  rejectionReason: $rejectionReason');
         await questProvider.needsRevision(
             rejectionReason, userProvider.pubAddress!, questId);
+
+        await questProvider.completeQuest(userProvider.pubAddress!, questId);
+        await userProvider.fetchUserData(userProvider.pubAddress!);
         // if (ModalRoute.of(context)?.isCurrent ?? false) {
         showSuccessDialog(
             context, "The Quest was successfully sent back for revison.");
