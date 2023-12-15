@@ -35,6 +35,7 @@ Future<bool> initializeData(
       showErrorDialog(context,
           "Something went wrong with the Server. Please try again later.");
       Navigator.of(context).pop(); // Close current modal
+      Navigator.of(context).pop(); // Close current modal
       return false;
     }
   }
