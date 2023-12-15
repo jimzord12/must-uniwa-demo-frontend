@@ -59,7 +59,7 @@ void showRetryQuestModal(BuildContext context, String walletAddress,
                   QuestDescription(
                       title: 'Rejection Reason',
                       textAlign: TextAlign.justify,
-                      content: quest.rejectionReason),
+                      content: quest.rejectedReason ?? "No reason given."),
                   const SizedBox(
                     height: 24,
                   ),
