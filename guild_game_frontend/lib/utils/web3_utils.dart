@@ -1,3 +1,4 @@
+import 'package:guild_game_frontend/configs/blockchain_config.dart';
 import 'package:http/http.dart';
 import 'package:web3dart/web3dart.dart';
 
@@ -12,9 +13,8 @@ Credentials createWallet(String privateKey) {
   return wallet;
 }
 
-Web3Client createWeb3Client(String rpcUrl) {
+Web3Client createWeb3Client() {
   var httpClient = Client();
-  final ethClient = Web3Client(rpcUrl, httpClient);
+  final ethClient = Web3Client(BlockchainConfig.rpcUrl, httpClient);
   return ethClient;
 }
-

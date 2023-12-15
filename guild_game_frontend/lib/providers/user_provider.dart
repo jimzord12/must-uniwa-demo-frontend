@@ -32,10 +32,10 @@ class UserProvider with ChangeNotifier {
     // ... handle loading state
   }
 
-  Future<void> createUser(String address, String role) async {
+  Future<void> createUser(String address, String role, String name) async {
     isLoading = true;
     try {
-      user = await _userService.createUser(address, role);
+      user = await _userService.createUser(address, role, name);
       print("SUCCESS - Created the user: $address");
       // ... handle success
     } catch (error) {
