@@ -18,10 +18,10 @@ class ProfessorMainScreen extends StatelessWidget {
     final UserProvider userProvider =
         Provider.of<UserProvider>(context, listen: true);
 
-    final String userRole = userProvider.user!.role;
-
     Color pendingNotificationColor =
-        userRole == 'professor' ? Colors.red : Colors.transparent;
+        userProvider.user!.pendingReviewQuests.isEmpty
+            ? Colors.transparent
+            : Colors.red;
 
     GuildGameNavigator? navigator = GuildGameNavigator.of(context);
 
