@@ -40,6 +40,24 @@ class RejectionQuestsScreen extends StatelessWidget {
       }
     }
 
+    Future<void> forfeitQuest(String questId) async {
+      final String address = userProvider.pubAddress!;
+
+      try {
+        await questProvider.forfeitQuest(address, questId);
+        await userProvider.fetchUserData(address);
+
+        // if (ModalRoute.of(context)?.isCurrent ?? false) {
+        showSuccessDialog(context, "The Quest was successfully forfeited.");
+        // Navigator.of(context).pop(); // Close current modal
+        // }
+      } catch (e) {
+        print('Failed to retry quest: $e');
+        showErrorDialog(context, "Failed to forfeit quest. Please try again.");
+        // Optionally, show an error dialog or snackbar
+      }
+    }
+
     return Scaffold(
       body: Stack(
         children: [
@@ -72,11 +90,12 @@ class RejectionQuestsScreen extends StatelessWidget {
                           onPressed: () {
                             if (userRole == 'student') {
                               showRetryQuestModal(
-                                  context,
-                                  userProvider.pubAddress!,
-                                  quest.id!,
-                                  quest,
-                                  retryQuest);
+                                  context: context,
+                                  walletAddress: userProvider.pubAddress!,
+                                  questId: quest.id!,
+                                  quest: quest,
+                                  retryQuest: retryQuest,
+                                  forfeitQuest: forfeitQuest);
                             } else {
                               showErrorDialog(context,
                                   "You are not a student. You are not supposed to be here.");

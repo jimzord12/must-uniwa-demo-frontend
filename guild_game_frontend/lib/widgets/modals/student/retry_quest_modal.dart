@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:guild_game_frontend/models/quest.dart';
 import 'package:guild_game_frontend/utils/parse_skills.dart';
+import 'package:guild_game_frontend/widgets/modals/modal_parts/action_section/action_buttons/forfeit_button.dart';
 import 'package:guild_game_frontend/widgets/modals/modal_parts/action_section/action_buttons/go_back_button.dart';
 import 'package:guild_game_frontend/widgets/modals/modal_parts/action_section/action_buttons/retry_button.dart';
 import 'package:guild_game_frontend/widgets/modals/modal_parts/action_section/templates/action_section.dart';
@@ -8,8 +9,14 @@ import 'package:guild_game_frontend/widgets/modals/modal_parts/for_displaying_qu
 import 'package:guild_game_frontend/widgets/modals/modal_parts/for_displaying_quest_data/quest_title.dart';
 import 'package:guild_game_frontend/widgets/modals/modal_parts/for_displaying_quest_data/skills_and_exp_section.dart';
 
-void showRetryQuestModal(BuildContext context, String walletAddress,
-    String questId, Quest quest, Function retryQuest) {
+void showRetryQuestModal({
+  required BuildContext context,
+  required String walletAddress,
+  required String questId,
+  required Quest quest,
+  required Function retryQuest,
+  required Function forfeitQuest,
+}) {
   showModalBottomSheet(
     context: context,
     isScrollControlled:
@@ -68,6 +75,7 @@ void showRetryQuestModal(BuildContext context, String walletAddress,
                   ActionsSection(
                     buttons: [
                       RetryQuestButton(onCreate: () => retryQuest(questId)),
+                      ForfeitQuestButton(onCreate: () => forfeitQuest(questId)),
                       const GoBackButton(),
                       // Add more buttons as needed
                     ],
