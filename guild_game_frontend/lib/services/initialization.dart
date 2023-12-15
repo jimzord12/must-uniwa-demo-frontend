@@ -110,6 +110,7 @@ Future<bool> initializeData(
           function: createUserFunction,
           parameters: params_01,
         ),
+        chainId: int.parse(BlockchainConfig.chainId),
       );
 
       print('');
