@@ -4,13 +4,14 @@ import 'package:guild_game_frontend/navigation/custom_navigation.dart';
 import 'package:guild_game_frontend/providers/user_provider.dart';
 import 'package:guild_game_frontend/screens/current_quests_screen.dart';
 import 'package:guild_game_frontend/screens/guild_board_screen.dart';
+import 'package:guild_game_frontend/screens/pending_quests_screen.dart';
 import 'package:guild_game_frontend/screens/portfolio_screen.dart';
 import 'package:guild_game_frontend/widgets/modals/professor/create_quest_modal.dart';
 import 'package:guild_game_frontend/widgets/stayros130/custom_button.dart';
 import 'package:provider/provider.dart';
 
 class ProfessorMainScreen extends StatelessWidget {
-  ProfessorMainScreen({Key? key}) : super(key: key);
+  ProfessorMainScreen({super.key});
 
   Color notificationColor = Colors.red;
 
@@ -54,17 +55,25 @@ class ProfessorMainScreen extends StatelessWidget {
               },
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 20),
+            CustomButton(
+              buttonText: 'Current Quests',
+              onPressed: () {
+                navigator?.pushScreen(
+                    const PendingQuestsScreen()); // Using custom navigation
+              },
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height / 20),
             // ... rest of the buttons with navigator?.pushScreen ...
             CustomButton(
               buttonText: 'Available Quests',
               onPressed: () {
-                navigator
-                    ?.pushScreen(GuildBoardScreen()); // Using custom navigation
+                navigator?.pushScreen(
+                    const GuildBoardScreen()); // Using custom navigation
               },
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 20),
             CustomButton(
-              buttonText: 'History of Quests',
+              buttonText: 'General Stats',
               onPressed: () {
                 navigator
                     ?.pushScreen(PortfolioScreen()); // Using custom navigation
