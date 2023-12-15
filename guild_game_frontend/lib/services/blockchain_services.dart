@@ -86,7 +86,7 @@ class BlockchainService {
 
   Future<void> createQuest(String title, int xp, List<String> skills) async {
     final function = _userContract.self.function('createQuest');
-    final params = [title, xp, skills];
+    final params = [title, BigInt.from(xp), skills];
 
     await _web3client.sendTransaction(
       _wallet,
