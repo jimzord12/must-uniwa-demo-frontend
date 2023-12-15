@@ -12,7 +12,13 @@ void showErrorDialog(BuildContext context, String errorMessage) {
           ElevatedButton(
             child: const Text('Close'),
             onPressed: () {
-              Navigator.of(context).pop();
+              if (errorMessage ==
+                  "Something went wrong with the Server. Please try again later.") {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              } else {
+                Navigator.of(context).pop();
+              }
             },
           ),
         ],
