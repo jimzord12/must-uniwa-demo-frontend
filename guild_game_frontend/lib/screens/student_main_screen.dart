@@ -24,7 +24,7 @@ class StudentMainScreen extends StatelessWidget {
         userRole == 'professor' ? Colors.red : Colors.transparent;
     Color rejectedNotificationColor =
         userRole == 'student' ? Colors.red : Colors.transparent;
-    ;
+    
 
     if (userProvider.user!.pendingReviewQuests.isEmpty) {
       pendingNotificationColor = Colors.transparent;

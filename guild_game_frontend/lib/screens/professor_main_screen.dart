@@ -13,27 +13,26 @@ import 'package:provider/provider.dart';
 class ProfessorMainScreen extends StatelessWidget {
   ProfessorMainScreen({super.key});
 
-  Color notificationColor = Colors.red;
-
   @override
   Widget build(BuildContext context) {
     final UserProvider userProvider =
         Provider.of<UserProvider>(context, listen: true);
 
-    if (userProvider.user!.pendingReviewQuests.isEmpty) {
-      notificationColor = Colors.transparent;
-    }
+    final String userRole = userProvider.user!.role;
+
+    Color pendingNotificationColor =
+        userRole == 'professor' ? Colors.red : Colors.transparent;
 
     GuildGameNavigator? navigator = GuildGameNavigator.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            navigator?.popScreen(); // Using custom navigation to pop
-          },
-        ),
+        // leading: IconButton(
+        //   icon: const Icon(Icons.arrow_back),
+        //   onPressed: () {
+        //     navigator?.popScreen(); // Using custom navigation to pop
+        //   },
+        // ),
         title: Text(
             'Rank: ${Ranks().getRank(userProvider.user!.xp).toString().split('.').last}'),
       ),
@@ -55,12 +54,31 @@ class ProfessorMainScreen extends StatelessWidget {
               },
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 20),
-            CustomButton(
-              buttonText: 'Pending Quests',
-              onPressed: () {
-                navigator?.pushScreen(
-                    const PendingQuestsScreen()); // Using custom navigation
-              },
+            Stack(
+              children: [
+                CustomButton(
+                  buttonText: 'Pending Quests',
+                  onPressed: () {
+                    navigator?.pushScreen(
+                        const PendingQuestsScreen()); // Using custom navigation
+                  },
+                ),
+                Positioned(
+                  right: 2,
+                  top: 2,
+                  child: Container(
+                    padding: const EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      color: pendingNotificationColor,
+                      borderRadius: BorderRadius.circular(32),
+                    ),
+                    constraints: const BoxConstraints(
+                      minWidth: 38,
+                      minHeight: 38,
+                    ),
+                  ),
+                ),
+              ],
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 20),
             // ... rest of the buttons with navigator?.pushScreen ...
