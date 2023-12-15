@@ -1,10 +1,10 @@
 import 'dart:math';
 
-int convertRoleToNumber(String role) {
+BigInt convertRoleToNumber(String role) {
   if (role == 'student') {
-    return 0;
+    return BigInt.from(0);
   } else if (role == 'professor') {
-    return 1;
+    return BigInt.from(1);
   } else {
     throw ArgumentError('Invalid role');
   }
