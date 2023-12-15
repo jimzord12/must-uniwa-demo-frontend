@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guild_game_frontend/configs/blockchain_config.dart';
 import 'package:guild_game_frontend/models/web3/user_contract.g.dart';
 import 'package:guild_game_frontend/providers/quest_provider.dart';
 import 'package:guild_game_frontend/providers/user_provider.dart';
@@ -21,20 +22,21 @@ Future<bool> initializeData(
   final EthereumAddress userAddress = wallet.address;
   final Web3Client web3client = createWeb3Client();
 
-  final User_contract userContract =
-      User_contract(address: userAddress, client: web3client);
+  final User_contract userContract = User_contract(
+      address: EthereumAddress.fromHex(BlockchainConfig.userContractAddress),
+      client: web3client);
 
   // final addQuestToUserFunction = userContract.self.function('addQuestToUser');
   // final params_02 = [userAddress, questId];
 
-  final getUserDataFunction = userContract.self.function('getUser');
-  final params_03 = [wallet.address.hex, role.toString().split('.').last];
+  // final getUserDataFunction = userContract.self.function('getUser');
+  // final params_03 = [wallet.address.hex, role.toString().split('.').last];
 
-  final getUserQuestsFunction = userContract.self.function('getUserQuests');
-  final params_04 = [wallet.address.hex, role.toString().split('.').last];
+  // final getUserQuestsFunction = userContract.self.function('getUserQuests');
+  // final params_04 = [wallet.address.hex, role.toString().split('.').last];
 
-  final createQuest = userContract.self.function('createQuest');
-  final params_05 = [wallet.address.hex, role.toString().split('.').last];
+  // final createQuest = userContract.self.function('createQuest');
+  // final params_05 = [wallet.address.hex, role.toString().split('.').last];
 
 // Web3 Staff --- END
 
