@@ -53,7 +53,7 @@ class BlockchainProvider with ChangeNotifier {
 
       if (outerUserData[0][0] == '') {
         print(
-            "From BLockchain Provider: User not found, ${outerUserData[0][0]}");
+            "From Blockchain Provider: User not found, ${outerUserData[0][0]}");
         return;
       }
 
@@ -106,12 +106,16 @@ class BlockchainProvider with ChangeNotifier {
       List<dynamic> response = await _blockchainService.getUserQuests();
 
       // Convert each BigInt element to int and store it in userQuests
-      userQuests = response.map((e) => (e as BigInt).toInt()).toList();
+      if (response.isEmpty) {
+        return;
+      } else {
+        userQuests = response.map((e) => (e as BigInt).toInt()).toList();
 
-      for (var i = 0; i < userQuests.length; i++) {
-        final Quest? quest = await getSpecificQuest(userQuests[i]);
-        if (quest != null) {
-          completedQuests.add(quest);
+        for (var i = 0; i < userQuests.length; i++) {
+          final Quest? quest = await getSpecificQuest(userQuests[i]);
+          if (quest != null) {
+            completedQuests.add(quest);
+          }
         }
       }
 
