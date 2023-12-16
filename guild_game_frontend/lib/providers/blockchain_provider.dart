@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:guild_game_frontend/models/quest.dart';
 import 'package:guild_game_frontend/services/blockchain_services.dart';
 import 'package:guild_game_frontend/utils/general.dart';
+import 'package:web3dart/web3dart.dart';
 
 class BlockchainProvider with ChangeNotifier {
   late BlockchainService _blockchainService;
@@ -33,9 +34,10 @@ class BlockchainProvider with ChangeNotifier {
   }
 
   // Implementing addQuestToUser
-  Future<void> addQuestToUser(BigInt questId) async {
+  Future<void> addQuestToUser(String studentAddress, BigInt questId) async {
     try {
-      await _blockchainService.addQuestToUser(questId);
+      await _blockchainService.addQuestToUser(
+          EthereumAddress.fromHex(studentAddress), questId);
       // Notify listeners or update state as needed
       notifyListeners();
     } catch (e) {

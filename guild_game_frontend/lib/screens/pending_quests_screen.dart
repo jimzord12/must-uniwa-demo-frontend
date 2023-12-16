@@ -89,8 +89,16 @@ class PendingQuestsScreen extends StatelessWidget {
           title: "Completing Quest",
           context: context,
         );
+
+        if (questInQuestion.assignedTo == null) {
+          showErrorDialog(context,
+              "This Quest is not assigned to any Student. Please try again.");
+          print("Error at completeQuest!");
+          return;
+        }
         // 4. We add the Quest to the Student's Quests
-        await blockchainProvider.addQuestToUser(questnftId);
+        await blockchainProvider.addQuestToUser(
+            questInQuestion.assignedTo!, questnftId);
 
         await Future.delayed(const Duration(seconds: 6));
 

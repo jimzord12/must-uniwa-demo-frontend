@@ -67,9 +67,10 @@ class BlockchainService {
     );
   }
 
-  Future<void> addQuestToUser(BigInt questId) async {
+  Future<void> addQuestToUser(
+      EthereumAddress studentAddress, BigInt questId) async {
     final function = _userContract.self.function('addQuestToUser');
-    final params = [_userAddress, questId];
+    final params = [studentAddress, questId];
 
     await _web3client.sendTransaction(
       _wallet,
