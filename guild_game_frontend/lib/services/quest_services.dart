@@ -11,7 +11,12 @@ class QuestService {
   static const String baseURIWeb =
       "https://must-uniwa-game-server.onrender.com/";
 
+  static const bool production = true;
+
   static String get baseURI {
+    if (production == true) {
+      return baseURIWeb;
+    }
     if (Platform.isAndroid) {
       return baseURILocalAndroid;
     } else if (Platform.isWindows) {
