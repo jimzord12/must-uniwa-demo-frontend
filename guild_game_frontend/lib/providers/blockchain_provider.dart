@@ -69,10 +69,18 @@ class BlockchainProvider with ChangeNotifier {
       questCompleteAmount = userData[4];
       aquiredSkills = List<String>.from(userData[5]);
 
-      print("From BLockchain Provider: Quest Amount: $questCompleteAmount");
-      print("From BLockchain Provider: Skills: $aquiredSkills");
-      print("From BLockchain Provider: Total XP: $totalXp");
-      print("From BLockchain Provider: Completed Quests: $completedQuests");
+      // print("From BLockchain Provider: Quest Amount: $questCompleteAmount");
+      // print("From BLockchain Provider: Skills: $aquiredSkills");
+      // print("From BLockchain Provider: Total XP: $totalXp");
+      // print("From BLockchain Provider: Completed Quests: $completedQuests");
+      print("BLOCKCHAIN - TYPES");
+      print("");
+
+      print("Type of userData[1]: ${userData[1].runtimeType}");
+      print("Type of userData[2]: ${userData[2].runtimeType}");
+      print("Type of userData[3]: ${userData[3].runtimeType}");
+      print("Type of userData[4]: ${userData[4].runtimeType}");
+      print("Type of userData[5]: ${userData[5].runtimeType}");
 
       notifyListeners();
     } catch (e) {
