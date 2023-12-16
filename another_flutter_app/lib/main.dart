@@ -56,13 +56,13 @@ class _MyHomePageState extends State<MyHomePage> {
   AnotherAppUser professor_01 = AnotherAppUser(
       privateKey:
           "0b92f463b02f418512302a166bd4dd9f8724dc92c0083a7f7cae288e75227b50",
-      role: 'student',
+      role: 'professor',
       name: 'Professor 01'); // Metamask PC: DEAD_Genera-simple
 
   AnotherAppUser professor_02 = AnotherAppUser(
       privateKey:
           "df7ea54eb4e3f7664cc107e5643be49a26601f93362acd708e909dbfe5d941ae",
-      role: 'student',
+      role: 'professor',
       name: 'Professor 02'); // Metamask PC: Oracle-Acc
 
   void _selectUser(AnotherAppUser selectedUser) {

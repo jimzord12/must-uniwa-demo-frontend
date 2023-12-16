@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guild_game_frontend/widgets/modals/error_modal.dart';
 
 class CustomButton extends StatelessWidget {
   final String buttonText;
@@ -37,6 +38,7 @@ class CustomButton extends StatelessWidget {
             ? onPressed
             : () {
                 print("Button is inactive");
+                showErrorDialog(context, "Please select a user first.");
               },
         child: Text(
           buttonText,
