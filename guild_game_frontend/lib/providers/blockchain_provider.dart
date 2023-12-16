@@ -72,7 +72,7 @@ class BlockchainProvider with ChangeNotifier {
       print("Type of userData[3]: ${userData[3].runtimeType}");
       print("Type of userData[4]: ${userData[4].runtimeType}");
       print("Type of userData[5]: ${userData[5].runtimeType}");
-      if (userData[2].isNotEmpty) {
+      if (userData[5].isNotEmpty) {
         print(
             "Type of Skills Element: userData[2]: ${userData[5][0].runtimeType}");
       }
@@ -86,7 +86,12 @@ class BlockchainProvider with ChangeNotifier {
       totalXp = (userData[3] as BigInt).toInt();
       // questCompleteAmount = (userData[4] as BigInt).toInt();
       questCompleteAmount = (userData[4] as BigInt).toInt();
-      aquiredSkills = List<String>.from(userData[5]);
+
+      if (userData[5].isEmpty) {
+        aquiredSkills = [];
+      } else {
+        aquiredSkills = List<String>.from(userData[5]);
+      }
 
       // print("From BLockchain Provider: Quest Amount: $questCompleteAmount");
       // print("From BLockchain Provider: Skills: $aquiredSkills");
