@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.23;
+pragma solidity ^0.8.10;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -21,7 +21,12 @@ contract QuestNFT is ERC721, Ownable {
 
     constructor() ERC721("QuestNFT", "QUEST") {}
 
-    function createQuest(string memory title, uint256 xp, string[] memory skills, address professor) public returns (uint256) {
+    function createQuest(
+        string memory title,
+        uint256 xp,
+        string[] memory skills,
+        address professor
+    ) public returns (uint256) {
         _tokenIds.increment();
         uint256 newQuestId = _tokenIds.current();
         _mint(professor, newQuestId);
