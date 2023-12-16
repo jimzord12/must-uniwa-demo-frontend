@@ -32,11 +32,12 @@ class PortfolioScreen extends StatelessWidget {
         : blockchainProvider.completedQuests;
     final userRole = blockchainProvider.userRole;
 
-    // List<String> userSkills = userProvider.user!.skills;
-    // final String userRole = userProvider.user!.role;
-    // final int userXP = userProvider.user!.xp;
-    // final int completedQuestsAmount = userProvider.user!.successfulQuests;
-    // final List<dynamic> completedQuests = userProvider.user!.completedQuests;
+    print(" - PORTOFOLIO SCREEN: userSkills: $userSkills");
+    print(" - PORTOFOLIO SCREEN: userRole: $userRole");
+    print(" - PORTOFOLIO SCREEN: userXP: $userXP");
+    print(
+        " - PORTOFOLIO SCREEN: completedQuestsAmount: $completedQuestsAmount");
+    print(" - PORTOFOLIO SCREEN: completedQuests: $completedQuests");
 
     // Splitting skills into two columns
     for (var i = 0; i < userSkills.length; i++) {
