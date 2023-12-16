@@ -16,10 +16,10 @@ class GuildGameModuleWidget extends StatefulWidget {
       {super.key, required this.role, required this.privKey});
 
   @override
-  _GuildGameModuleWidgetState createState() => _GuildGameModuleWidgetState();
+  GuildGameModuleWidgetState createState() => GuildGameModuleWidgetState();
 }
 
-class _GuildGameModuleWidgetState extends State<GuildGameModuleWidget> {
+class GuildGameModuleWidgetState extends State<GuildGameModuleWidget> {
   final List<Widget> _navigationStack = [];
 
   @override

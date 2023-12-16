@@ -130,6 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => GuildGameModuleWidget(
+                        key: UniqueKey(),
                         role: currentUser!.role,
                         privKey: currentUser!.privateKey,
                         // role: 'professor',
