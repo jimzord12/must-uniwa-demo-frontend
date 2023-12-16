@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  CustomButton({super.key, required this.buttonText, required this.onPressed});
-
   final String buttonText;
   final VoidCallback onPressed;
-  Color buttonColor = Colors.blue;
+  final Color buttonColor;
+  final bool isActive;
   double buttonElevation = 10;
+
+  CustomButton(
+      {super.key,
+      required this.buttonText,
+      required this.onPressed,
+      this.buttonColor = Colors.blue,
+      this.isActive = true});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +33,11 @@ class CustomButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.0),
           ),
         ),
-        onPressed: onPressed,
+        onPressed: isActive
+            ? onPressed
+            : () {
+                print("Button is inactive");
+              },
         child: Text(
           buttonText,
           style: const TextStyle(
