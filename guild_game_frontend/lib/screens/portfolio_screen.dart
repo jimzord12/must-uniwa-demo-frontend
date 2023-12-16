@@ -139,8 +139,13 @@ class PortfolioScreen extends StatelessWidget {
                       subtitle: Row(
                         children: [
                           if (userRole == 'professor')
-                            const Text(
-                                'The professors will be able to add their skills in a future update')
+                            const Flexible(
+                              fit: FlexFit.loose,
+                              child: Text(
+                                'The professors will be able to add their skills in a future update',
+                                softWrap: true,
+                              ),
+                            )
                           else if (userRole == 'student')
                             userSkills.isEmpty
                                 ? const Text("You have no available skills")

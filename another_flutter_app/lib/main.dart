@@ -85,16 +85,19 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             if (currentUser == null)
-              const Text(
-                'Please Select a User to before entering the Guild Game: ',
-                style: TextStyle(fontSize: 20),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  'Please Select a User before entering the Guild Game: ',
+                  style: TextStyle(fontSize: 18),
+                ),
               )
             else
               Text(
                 'You are logged in as: ${currentUser!.name}',
                 style: const TextStyle(fontSize: 20),
               ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 48),
             CustomButton(
                 buttonText: "Student 01",
                 buttonColor: Colors.amber.shade800,

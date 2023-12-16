@@ -55,7 +55,7 @@ class PendingQuestsScreen extends StatelessWidget {
         await userProvider.fetchUserData(userProvider.pubAddress!);
         await blockchainProvider
             .getUserData()
-            .timeout(const Duration(seconds: 5));
+            .timeout(const Duration(seconds: 15));
 
         // ✨💩 This is happening because I'm bored of changing the Smart Contract code...
 
