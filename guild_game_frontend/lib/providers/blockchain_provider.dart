@@ -149,13 +149,14 @@ class BlockchainProvider with ChangeNotifier {
   Future<Quest?> getSpecificQuest(int questId) async {
     try {
       List<dynamic> response = await _blockchainService.getQuestData(questId);
+      List<dynamic> questDataFromCOntract = response[0];
 
       return Quest.newQuest(
-          requiredSkills: List<String>.from(response[4]),
-          xp: (response[3] as BigInt).toInt(),
+          requiredSkills: List<String>.from(questDataFromCOntract[4]),
+          xp: (questDataFromCOntract[3] as BigInt).toInt(),
           desc: "Come From Blockchain",
-          title: response[0] as String,
-          createdBy: response[1] as String);
+          title: questDataFromCOntract[0] as String,
+          createdBy: questDataFromCOntract[1] as String);
     } catch (e) {
       print("Error in getSpecificQuest: $e");
     }
