@@ -9,9 +9,9 @@ class BlockchainProvider with ChangeNotifier {
   late int questCompleteAmount;
   late List<String> aquiredSkills;
   late int totalXp;
-  late List<Quest> completedQuests;
   late List<int> userQuests;
   late String userRole;
+  final List<Quest> completedQuests = [];
 
   // Constructor
   BlockchainProvider(
@@ -47,7 +47,7 @@ class BlockchainProvider with ChangeNotifier {
   Future<void> getUserData() async {
     try {
       List<dynamic> outerUserData = await _blockchainService.getUserData();
-      await getUserQuests();
+      await getUserQuests(); // this one populates the completedQuests list
 
       print("getUserData: ${outerUserData[0]}");
 
@@ -87,7 +87,6 @@ class BlockchainProvider with ChangeNotifier {
       // questCompleteAmount = (userData[4] as BigInt).toInt();
       questCompleteAmount = (userData[4] as BigInt).toInt();
       aquiredSkills = List<String>.from(userData[5]);
-      completedQuests = [];
 
       // print("From BLockchain Provider: Quest Amount: $questCompleteAmount");
       // print("From BLockchain Provider: Skills: $aquiredSkills");
