@@ -126,7 +126,8 @@ class BlockchainProvider with ChangeNotifier {
 
         for (var i = 0; i < userQuests.length; i++) {
           final Quest? quest = await getSpecificQuest(userQuests[i]);
-          if (quest != null) {
+          if (quest != null &&
+              (quest.assignedTo != '' || quest.assignedTo != null)) {
             completedQuests.add(quest);
           }
         }
