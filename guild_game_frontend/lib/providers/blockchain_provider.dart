@@ -105,14 +105,16 @@ class BlockchainProvider with ChangeNotifier {
     try {
       List<dynamic> response = await _blockchainService.getUserQuests();
       print("getUser QUESTS: $response");
+      final List<dynamic> userQuestsFromContract = response[0];
 
       // Convert each BigInt element to int and store it in userQuests
-      if (response.isEmpty) {
+      if (userQuestsFromContract.isEmpty) {
         return;
       } else {
-        print("(NOT EMPTY) getUser QUESTS: $response[0]");
+        print("(NOT EMPTY) getUser QUESTS: $userQuestsFromContract");
 
-        userQuests = response.map((e) => (e as BigInt).toInt()).toList();
+        userQuests =
+            userQuestsFromContract.map((e) => (e as BigInt).toInt()).toList();
 
         for (var i = 0; i < userQuests.length; i++) {
           final Quest? quest = await getSpecificQuest(userQuests[i]);
