@@ -22,10 +22,14 @@ class PortfolioScreen extends StatelessWidget {
     final BlockchainProvider blockchainProvider =
         Provider.of<BlockchainProvider>(context, listen: true);
 
-    final userSkills = blockchainProvider.aquiredSkills;
+    final userSkills = blockchainProvider.aquiredSkills.isEmpty
+        ? []
+        : blockchainProvider.aquiredSkills;
     final userXP = blockchainProvider.totalXp;
     final completedQuestsAmount = blockchainProvider.questCompleteAmount;
-    final completedQuests = blockchainProvider.completedQuests;
+    final completedQuests = blockchainProvider.completedQuests.isEmpty
+        ? []
+        : blockchainProvider.completedQuests;
     final userRole = blockchainProvider.userRole;
 
     // List<String> userSkills = userProvider.user!.skills;
