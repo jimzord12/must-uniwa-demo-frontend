@@ -63,7 +63,9 @@ class BlockchainProvider with ChangeNotifier {
       print("");
 
       print("Type of userData[1]: ${userData[1].runtimeType}");
-      print("Type of userData[2]: ${userData[2].runtimeType}");
+      print("Type of Quest List userData[2]: ${userData[2].runtimeType}");
+      print(
+          "Type of Quest Element: userData[2]: ${userData[2][0].runtimeType}");
       print("Type of userData[3]: ${userData[3].runtimeType}");
       print("Type of userData[4]: ${userData[4].runtimeType}");
       print("Type of userData[5]: ${userData[5].runtimeType}");
