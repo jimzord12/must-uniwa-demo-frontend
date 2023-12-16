@@ -100,7 +100,9 @@ class PendingQuestsScreen extends StatelessWidget {
         await blockchainProvider.addQuestToUser(
             questInQuestion.assignedTo!, questnftId);
 
-        await Future.delayed(const Duration(seconds: 6));
+        await Future.delayed(const Duration(seconds: 8));
+
+        await blockchainProvider.getUserData();
 
         Navigator.of(context).pop(); // Close the dialog
 
