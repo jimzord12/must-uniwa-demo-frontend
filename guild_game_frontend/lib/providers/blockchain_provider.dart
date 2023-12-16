@@ -155,8 +155,8 @@ class BlockchainProvider with ChangeNotifier {
           requiredSkills: List<String>.from(questDataFromCOntract[4]),
           xp: (questDataFromCOntract[3] as BigInt).toInt(),
           desc: "Come From Blockchain",
-          title: questDataFromCOntract[0] as String,
-          createdBy: questDataFromCOntract[1] as String);
+          title: questDataFromCOntract[0],
+          createdBy: questDataFromCOntract[1].hex);
     } catch (e) {
       print("Error in getSpecificQuest: $e");
     }
