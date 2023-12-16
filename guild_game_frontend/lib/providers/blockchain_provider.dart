@@ -109,6 +109,8 @@ class BlockchainProvider with ChangeNotifier {
 
       // Convert each BigInt element to int and store it in userQuests
       if (userQuestsFromContract.isEmpty) {
+        print("getUser QUESTS:IS EMPTY!");
+
         return;
       } else {
         print("(NOT EMPTY) getUser QUESTS: $userQuestsFromContract");

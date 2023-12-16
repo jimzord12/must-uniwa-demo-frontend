@@ -41,7 +41,7 @@ class CurrentQuestsScreen extends StatelessWidget {
       }
     }
 
-    Future<void> uploadFileHandler(String questId) async {
+    Future<bool> uploadFileHandler(String questId) async {
       final String address = userProvider.pubAddress!;
 
       try {
@@ -58,10 +58,12 @@ class CurrentQuestsScreen extends StatelessWidget {
         await userProvider.fetchUserData(address);
 
         showSuccessDialog(context, "Your PDF Files was uploaded successfully!");
+        return true;
         // Simulating successful file upload
       } catch (e) {
         // Handle the error
         showErrorDialog(context, e.toString());
+        return false;
       }
     }
 

@@ -64,9 +64,9 @@ void showSubmitOrForfeitQuestModal({
                   ),
                   ActionsSection(
                     buttons: [
-                      UploadPdfButton(
-                        onCreate: () => uploadFileHandler(questId),
-                      ),
+                      UploadPdfButton(onCreate: () {
+                        return uploadFileHandler(questId);
+                      }),
                       ForfeitQuestButton(
                         onCreate: () => forfeitQuest(questId),
                       ),
