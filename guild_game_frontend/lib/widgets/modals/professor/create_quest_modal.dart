@@ -146,6 +146,8 @@ void showCreateQuestModal(BuildContext context, String walletAddress) {
 
                           await Future.delayed(const Duration(seconds: 6));
 
+                          Navigator.of(context).pop(); // Close the dialog
+
                           Quest quest = Quest.newQuest(
                               title: title,
                               desc: desc,

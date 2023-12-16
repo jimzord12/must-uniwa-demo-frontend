@@ -94,6 +94,8 @@ class PendingQuestsScreen extends StatelessWidget {
 
         await Future.delayed(const Duration(seconds: 6));
 
+        Navigator.of(context).pop(); // Close the dialog
+
         // if (ModalRoute.of(context)?.isCurrent ?? false) {
         showSuccessDialog(context,
             "Congratulation! The Quest was successfully completed. It shall forever be stored inside the unbreakable blockchain's blocks. ");

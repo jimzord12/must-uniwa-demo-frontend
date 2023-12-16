@@ -104,11 +104,14 @@ class BlockchainProvider with ChangeNotifier {
   Future<void> getUserQuests() async {
     try {
       List<dynamic> response = await _blockchainService.getUserQuests();
+      print("getUser QUESTS: $response");
 
       // Convert each BigInt element to int and store it in userQuests
       if (response.isEmpty) {
         return;
       } else {
+        print("(NOT EMPTY) getUser QUESTS: $response[0]");
+
         userQuests = response.map((e) => (e as BigInt).toInt()).toList();
 
         for (var i = 0; i < userQuests.length; i++) {
