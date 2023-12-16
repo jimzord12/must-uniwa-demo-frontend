@@ -59,6 +59,15 @@ class BlockchainProvider with ChangeNotifier {
       // Extract the inner array
       List<dynamic> userData = outerUserData[0];
 
+      print("BLOCKCHAIN - TYPES");
+      print("");
+
+      print("Type of userData[1]: ${userData[1].runtimeType}");
+      print("Type of userData[2]: ${userData[2].runtimeType}");
+      print("Type of userData[3]: ${userData[3].runtimeType}");
+      print("Type of userData[4]: ${userData[4].runtimeType}");
+      print("Type of userData[5]: ${userData[5].runtimeType}");
+
       // convertRoleToString takes a BigInt and returns a 'student' or 'professor
       userRole = convertRoleToString(userData[1]);
       // userQuests = userData[2];
@@ -73,14 +82,6 @@ class BlockchainProvider with ChangeNotifier {
       // print("From BLockchain Provider: Skills: $aquiredSkills");
       // print("From BLockchain Provider: Total XP: $totalXp");
       // print("From BLockchain Provider: Completed Quests: $completedQuests");
-      print("BLOCKCHAIN - TYPES");
-      print("");
-
-      print("Type of userData[1]: ${userData[1].runtimeType}");
-      print("Type of userData[2]: ${userData[2].runtimeType}");
-      print("Type of userData[3]: ${userData[3].runtimeType}");
-      print("Type of userData[4]: ${userData[4].runtimeType}");
-      print("Type of userData[5]: ${userData[5].runtimeType}");
 
       notifyListeners();
     } catch (e) {
