@@ -28,7 +28,7 @@ class UploadPdfButtonState extends State<UploadPdfButton> {
           ? () async {
               bool wasSuccessful = await widget.onCreate();
               setState(() {
-                isButtonEnabled = wasSuccessful;
+                isButtonEnabled = !wasSuccessful;
               });
             }
           : () {},
