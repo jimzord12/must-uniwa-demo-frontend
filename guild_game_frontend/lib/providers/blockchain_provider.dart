@@ -61,8 +61,8 @@ class BlockchainProvider with ChangeNotifier {
 
       // convertRoleToString takes a BigInt and returns a 'student' or 'professor
       userRole = convertRoleToString(userData[1]);
-      userQuests = userData[2];
-      // userQuests = List<int>.from(userData[2]);
+      // userQuests = userData[2];
+      userQuests = List<int>.from(userData[2]);
       // totalXp = (userData[3] as BigInt).toInt();
       totalXp = userData[3];
       // questCompleteAmount = (userData[4] as BigInt).toInt();
