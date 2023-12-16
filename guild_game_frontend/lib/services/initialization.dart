@@ -45,6 +45,9 @@ Future<bool> initializeData(
       // Call createUser method of BlockchainProvider
       await blockchainProvider.createUser(name, role, <String>[]);
 
+      // Wait for 6 seconds
+      await Future.delayed(const Duration(seconds: 6));
+
       Navigator.of(context).pop(); // Close the dialog
       return true;
     } else {

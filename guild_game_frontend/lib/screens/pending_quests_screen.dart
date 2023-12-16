@@ -9,6 +9,7 @@ import 'package:guild_game_frontend/widgets/modals/error_modal.dart';
 import 'package:guild_game_frontend/widgets/modals/professor/manage_submitted_quest_modal.dart';
 import 'package:guild_game_frontend/widgets/modals/student/view_completed_quest_modal.dart';
 import 'package:guild_game_frontend/widgets/modals/success_modal.dart';
+import 'package:guild_game_frontend/widgets/modals/web3_tx_modal.dart';
 import 'package:guild_game_frontend/widgets/stayros130/custom_button.dart';
 import 'package:provider/provider.dart';
 
@@ -82,9 +83,16 @@ class PendingQuestsScreen extends StatelessWidget {
             continue;
           }
         }
-
+        showWaitForTransactionDialog(
+          content:
+              "The Quest NFT is been transfered to the Student's Wallet...",
+          title: "Completing Quest",
+          context: context,
+        );
         // 4. We add the Quest to the Student's Quests
         await blockchainProvider.addQuestToUser(questnftId);
+
+        await Future.delayed(const Duration(seconds: 6));
 
         // if (ModalRoute.of(context)?.isCurrent ?? false) {
         showSuccessDialog(context,

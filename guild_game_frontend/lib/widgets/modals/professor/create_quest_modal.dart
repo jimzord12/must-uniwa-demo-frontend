@@ -10,6 +10,7 @@ import 'package:guild_game_frontend/widgets/modals/modal_parts/action_section/ac
 import 'package:guild_game_frontend/widgets/modals/modal_parts/action_section/templates/action_section.dart';
 import 'package:guild_game_frontend/widgets/modals/modal_parts/generic/custom_input_field.dart';
 import 'package:guild_game_frontend/widgets/modals/success_modal.dart';
+import 'package:guild_game_frontend/widgets/modals/web3_tx_modal.dart';
 import 'package:provider/provider.dart';
 
 void showCreateQuestModal(BuildContext context, String walletAddress) {
@@ -134,8 +135,16 @@ void showCreateQuestModal(BuildContext context, String walletAddress) {
 
                           int xpValue = int.parse(xp);
 
+                          showWaitForTransactionDialog(
+                            content: "The Quest NFT is been minted...",
+                            title: "Creating a Quest",
+                            context: context,
+                          );
+
                           await blockchainProvider.createQuest(title,
                               int.parse(xp), parseSkills(requiredSkills));
+
+                          await Future.delayed(const Duration(seconds: 6));
 
                           Quest quest = Quest.newQuest(
                               title: title,
