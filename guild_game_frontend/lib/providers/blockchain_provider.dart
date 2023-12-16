@@ -71,13 +71,14 @@ class BlockchainProvider with ChangeNotifier {
       print("Type of userData[5]: ${userData[5].runtimeType}");
 
       // convertRoleToString takes a BigInt and returns a 'student' or 'professor
-      userRole = convertRoleToString(userData[1]);
+      userRole = convertRoleToString(userData[1] as BigInt);
       // userQuests = userData[2];
-      userQuests = List<int>.from(userData[2]);
+      userQuests =
+          (userData[2] as List).map((e) => (e as BigInt).toInt()).toList();
       // totalXp = (userData[3] as BigInt).toInt();
-      totalXp = userData[3];
+      totalXp = (userData[3] as BigInt).toInt();
       // questCompleteAmount = (userData[4] as BigInt).toInt();
-      questCompleteAmount = userData[4];
+      questCompleteAmount = (userData[4] as BigInt).toInt();
       aquiredSkills = List<String>.from(userData[5]);
 
       // print("From BLockchain Provider: Quest Amount: $questCompleteAmount");
