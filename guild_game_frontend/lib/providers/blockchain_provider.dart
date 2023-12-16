@@ -47,6 +47,7 @@ class BlockchainProvider with ChangeNotifier {
   Future<void> getUserData() async {
     try {
       List<dynamic> outerUserData = await _blockchainService.getUserData();
+      await getUserQuests();
 
       print("getUserData: ${outerUserData[0]}");
 
@@ -80,6 +81,7 @@ class BlockchainProvider with ChangeNotifier {
       // questCompleteAmount = (userData[4] as BigInt).toInt();
       questCompleteAmount = (userData[4] as BigInt).toInt();
       aquiredSkills = List<String>.from(userData[5]);
+      completedQuests = [];
 
       // print("From BLockchain Provider: Quest Amount: $questCompleteAmount");
       // print("From BLockchain Provider: Skills: $aquiredSkills");
@@ -99,6 +101,13 @@ class BlockchainProvider with ChangeNotifier {
 
       // Convert each BigInt element to int and store it in userQuests
       userQuests = response.map((e) => (e as BigInt).toInt()).toList();
+
+      for (var i = 0; i < userQuests.length; i++) {
+        final Quest? quest = await getSpecificQuest(userQuests[i]);
+        if (quest != null) {
+          completedQuests.add(quest);
+        }
+      }
 
       notifyListeners();
 
