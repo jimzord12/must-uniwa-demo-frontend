@@ -128,6 +128,8 @@ class BlockchainProvider with ChangeNotifier {
           final Quest? quest = await getSpecificQuest(userQuests[i]);
           if (quest != null &&
               (quest.assignedTo != '' || quest.assignedTo != null)) {
+            print("[$i] - Quest Title: ${quest.title}");
+            print("[$i] - Quest Assigned To: ${quest.assignedTo}");
             completedQuests.add(quest);
           }
         }
