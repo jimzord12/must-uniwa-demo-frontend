@@ -26,7 +26,7 @@ class PortfolioScreen extends StatelessWidget {
     final userXP = blockchainProvider.totalXp;
     final completedQuestsAmount = blockchainProvider.questCompleteAmount;
     final completedQuests = blockchainProvider.completedQuests;
-    // final userRole = blockchainProvider.userRole;
+    final userRole = blockchainProvider.userRole;
 
     // List<String> userSkills = userProvider.user!.skills;
     // final String userRole = userProvider.user!.role;
@@ -133,19 +133,23 @@ class PortfolioScreen extends StatelessWidget {
                     child: ListTile(
                       title: const Text('Available Skills:'),
                       subtitle: Row(
-                        children: userSkills.isEmpty
-                            ? [const Text("You have no available skills")]
-                            : [
-                                Column(children: [
-                                  Text(skillColumn1),
-                                ]),
-                                Expanded(
-                                    child: Column(
-                                  children: [
-                                    Text(skillColumn2),
-                                  ],
-                                ))
-                              ],
+                        children: [
+                          if (userRole == 'professor')
+                            const Text(
+                                'The professors will be able to add their skills in a future update')
+                          else if (userRole == 'student')
+                            userSkills.isEmpty
+                                ? const Text("You have no available skills")
+                                : Column(children: [
+                                    Text(skillColumn1),
+                                  ]),
+                          Expanded(
+                              child: Column(
+                            children: [
+                              Text(skillColumn2),
+                            ],
+                          )),
+                        ],
                       ),
                     ),
                   ),

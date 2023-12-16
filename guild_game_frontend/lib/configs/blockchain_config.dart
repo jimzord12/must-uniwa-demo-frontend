@@ -3,7 +3,7 @@ class BlockchainConfig {
   static int chainId = 20241;
 
   static String questContractAddress =
-      "0xb767a879a07B64C633A3B916Eefe9fFbbA2b5532";
+      "0x63a890eD5161bE562079a4B2dbbFeB42C245c07C";
   static String userContractAddress =
-      "0xE2A9BD00876b688A4b091f613d7Bf236f339b0c0";
+      "0x1c721398aE47EE5C7a13D7c9778924B878bc42C9";
 }
