@@ -63,5 +63,11 @@ class QuestProvider with ChangeNotifier {
     return base64PdfContent;
   }
 
+  Future<Quest> getQuestById(String questId) async {
+    final quest = await _questService.getQuestById(questId);
+    await fetchQuests(); // Refresh the quests list
+    return quest;
+  }
+
   // ... other methods
 }

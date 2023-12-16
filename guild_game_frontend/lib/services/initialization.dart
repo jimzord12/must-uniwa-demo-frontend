@@ -23,7 +23,7 @@ Future<bool> initializeData(
         .fetchUserData(wallet.address.hex)
         .timeout(const Duration(seconds: 5));
     await questProvider.fetchQuests().timeout(const Duration(seconds: 5));
-    await blockchainProvider.getUserData();
+    await blockchainProvider.getUserData().timeout(const Duration(seconds: 5));
     return true;
   } catch (error) {
     if (error.toString().contains('User not found')) {
@@ -32,7 +32,7 @@ Future<bool> initializeData(
           .createUser(
               userProvider.pubAddress!, role.toString().split('.').last, name)
           .timeout(const Duration(seconds: 5));
-          
+
       await questProvider.fetchQuests().timeout(const Duration(seconds: 5));
 
       // Show transaction dialog

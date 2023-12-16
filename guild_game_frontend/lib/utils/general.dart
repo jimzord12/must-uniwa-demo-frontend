@@ -10,6 +10,16 @@ BigInt convertRoleToNumber(String role) {
   }
 }
 
+String convertRoleToString(BigInt role) {
+  if (role == BigInt.from(0)) {
+    return 'student';
+  } else if (role == BigInt.from(1)) {
+    return 'professor';
+  } else {
+    throw ArgumentError('Invalid role');
+  }
+}
+
 String randomName(String role) {
   final random = Random();
   final randomNumber =

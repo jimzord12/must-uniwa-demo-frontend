@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:guild_game_frontend/models/quest.dart';
 import 'package:guild_game_frontend/services/blockchain_services.dart';
+import 'package:guild_game_frontend/utils/general.dart';
 
 class BlockchainProvider with ChangeNotifier {
   late BlockchainService _blockchainService;
@@ -9,6 +10,8 @@ class BlockchainProvider with ChangeNotifier {
   late List<String> aquiredSkills;
   late int totalXp;
   late List<Quest> completedQuests;
+  late List<int> userQuests;
+  late String userRole;
 
   // Constructor
   BlockchainProvider(
@@ -30,7 +33,7 @@ class BlockchainProvider with ChangeNotifier {
   }
 
   // Implementing addQuestToUser
-  Future<void> addQuestToUser(String questId) async {
+  Future<void> addQuestToUser(BigInt questId) async {
     try {
       await _blockchainService.addQuestToUser(questId);
       // Notify listeners or update state as needed
@@ -41,20 +44,24 @@ class BlockchainProvider with ChangeNotifier {
     }
   }
 
-  // Implementing getUserData
   Future<void> getUserData() async {
     try {
       List<dynamic> userData = await _blockchainService.getUserData();
+
+      print("getUserData: $userData");
 
       if (userData[0] == '') {
         print("From BLockchain Provider: User not found");
         return;
       }
-
-      questCompleteAmount = userData[4];
-      aquiredSkills = userData[6];
-      totalXp = userData[3];
-      completedQuests = userData[2];
+      // convertRoleToString takes a BigInt and returns a 'student' or 'professor
+      userRole = convertRoleToString(userData[1]);
+      userQuests = (userData[2] as List<dynamic>)
+          .map((e) => (e as BigInt).toInt())
+          .toList(); // Assuming it's a list of BigInt
+      totalXp = (userData[3] as BigInt).toInt();
+      questCompleteAmount = (userData[4] as BigInt).toInt();
+      aquiredSkills = List<String>.from(userData[5]);
 
       print("From BLockchain Provider: Quest Amount: $questCompleteAmount");
       print("From BLockchain Provider: Skills: $aquiredSkills");
@@ -70,8 +77,10 @@ class BlockchainProvider with ChangeNotifier {
   // Implementing getUserQuests
   Future<void> getUserQuests() async {
     try {
-      List<dynamic> userQuests = await _blockchainService.getUserQuests();
-      // completedQuests = userQuests; //TODO: Fix this
+      List<dynamic> response = await _blockchainService.getUserQuests();
+
+      // Convert each BigInt element to int and store it in userQuests
+      userQuests = response.map((e) => (e as BigInt).toInt()).toList();
 
       notifyListeners();
 
@@ -91,6 +100,22 @@ class BlockchainProvider with ChangeNotifier {
       print("Error in createQuest: $e");
       // Handle exception or notify UI
     }
+  }
+
+  Future<Quest?> getSpecificQuest(int questId) async {
+    try {
+      List<dynamic> response = await _blockchainService.getQuestData(questId);
+
+      return Quest.newQuest(
+          requiredSkills: List<String>.from(response[4]),
+          xp: (response[3] as BigInt).toInt(),
+          desc: "Come From Blockchain",
+          title: response[0] as String,
+          createdBy: response[1] as String);
+    } catch (e) {
+      print("Error in getSpecificQuest: $e");
+    }
+    return null;
   }
 
   // Additional methods to interact with other smart contract functions

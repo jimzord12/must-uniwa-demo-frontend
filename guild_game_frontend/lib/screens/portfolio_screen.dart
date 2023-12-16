@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:guild_game_frontend/models/ranks.dart';
 import 'package:guild_game_frontend/navigation/go_back_button.dart';
+import 'package:guild_game_frontend/providers/blockchain_provider.dart';
 import 'package:guild_game_frontend/providers/user_provider.dart';
 import 'package:guild_game_frontend/widgets/modals/professor/view_completed_quest_modal.dart';
 import 'package:guild_game_frontend/widgets/stayros130/custom_button.dart';
@@ -18,12 +19,20 @@ class PortfolioScreen extends StatelessWidget {
     final UserProvider userProvider =
         Provider.of<UserProvider>(context, listen: true);
 
-    List<String> userSkills = userProvider.user!.skills;
+    final BlockchainProvider blockchainProvider =
+        Provider.of<BlockchainProvider>(context, listen: true);
 
+    final userSkills = blockchainProvider.aquiredSkills;
+    final userXP = blockchainProvider.totalXp;
+    final completedQuestsAmount = blockchainProvider.questCompleteAmount;
+    final completedQuests = blockchainProvider.completedQuests;
+    // final userRole = blockchainProvider.userRole;
+
+    // List<String> userSkills = userProvider.user!.skills;
     // final String userRole = userProvider.user!.role;
-    final int userXP = userProvider.user!.xp;
-    final int completedQuestsAmount = userProvider.user!.successfulQuests;
-    final List<dynamic> completedQuests = userProvider.user!.completedQuests;
+    // final int userXP = userProvider.user!.xp;
+    // final int completedQuestsAmount = userProvider.user!.successfulQuests;
+    // final List<dynamic> completedQuests = userProvider.user!.completedQuests;
 
     // Splitting skills into two columns
     for (var i = 0; i < userSkills.length; i++) {

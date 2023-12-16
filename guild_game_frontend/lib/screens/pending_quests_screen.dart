@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:guild_game_frontend/models/quest.dart';
 import 'package:guild_game_frontend/navigation/go_back_button.dart';
+import 'package:guild_game_frontend/providers/blockchain_provider.dart';
 import 'package:guild_game_frontend/providers/quest_provider.dart';
 import 'package:guild_game_frontend/providers/user_provider.dart';
 import 'package:guild_game_frontend/utils/pdf_convert_and_open.dart';
@@ -19,6 +21,8 @@ class PendingQuestsScreen extends StatelessWidget {
         Provider.of<UserProvider>(context, listen: true);
     final QuestProvider questProvider =
         Provider.of<QuestProvider>(context, listen: true);
+    final BlockchainProvider blockchainProvider =
+        Provider.of<BlockchainProvider>(context, listen: true);
 
     final List<dynamic> quests = userProvider.user!.pendingReviewQuests;
     double screenHeight = MediaQuery.of(context).size.height;
@@ -48,6 +52,40 @@ class PendingQuestsScreen extends StatelessWidget {
       try {
         await questProvider.completeQuest(userProvider.pubAddress!, questId);
         await userProvider.fetchUserData(userProvider.pubAddress!);
+        await blockchainProvider
+            .getUserData()
+            .timeout(const Duration(seconds: 5));
+
+        // ✨💩 This is happening because I'm bored of changing the Smart Contract code...
+
+        // 1. We get the Quest Data from MongoDB using the ID
+        final Quest questInQuestion = await questProvider.getQuestById(questId);
+
+        // 2. Getting All Professor's Quests from the Blockchain
+        await blockchainProvider
+            .getUserQuests(); // Returns an array of the Quests' NFT IDs. ex. [1, 4, 13]
+
+        late BigInt questnftId;
+
+        // 3. We retrieve the data for every single quest using the Quest Contract
+        // Super bad 💩 architucture xD!
+        for (var i = 0; i < blockchainProvider.userQuests.length; i++) {
+          final quest = await blockchainProvider
+              .getSpecificQuest(blockchainProvider.userQuests[i]);
+
+          // If the title of the quest is the same as the one we are looking for
+          if (quest?.title == questInQuestion.title) {
+            // It means that we found the NFT ID of the quest we are looking for
+            questnftId = BigInt.from(blockchainProvider.userQuests[i]);
+            break;
+          } else {
+            continue;
+          }
+        }
+
+        // 4. We add the Quest to the Student's Quests
+        await blockchainProvider.addQuestToUser(questnftId);
+
         // if (ModalRoute.of(context)?.isCurrent ?? false) {
         showSuccessDialog(context,
             "Congratulation! The Quest was successfully completed. It shall forever be stored inside the unbreakable blockchain's blocks. ");

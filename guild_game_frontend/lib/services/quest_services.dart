@@ -205,5 +205,19 @@ class QuestService {
     }
   }
 
+  Future<Quest> getQuestById(String questId) async {
+    final url = Uri.parse('${baseURI}api/quest/$questId');
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      // Assuming the server returns a JSON object that can be parsed into a Quest object
+      return Quest.fromJson(json.decode(response.body));
+    } else if (response.statusCode == 404) {
+      throw Exception('Quest not found');
+    } else {
+      throw Exception('Failed to get quest by ID: ${response.body}');
+    }
+  }
+
   // ... other methods
 }

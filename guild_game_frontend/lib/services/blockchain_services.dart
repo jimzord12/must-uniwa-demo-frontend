@@ -1,4 +1,5 @@
 import 'package:guild_game_frontend/configs/blockchain_config.dart';
+import 'package:guild_game_frontend/models/web3/quest_contract.g.dart';
 import 'package:guild_game_frontend/models/web3/user_contract.g.dart';
 import 'package:guild_game_frontend/utils/general.dart';
 import 'package:http/http.dart';
@@ -9,6 +10,7 @@ class BlockchainService {
   late Credentials _wallet;
   late EthereumAddress _userAddress;
   late User_contract _userContract;
+  late Quest_contract _questContract;
   final int _chainId;
 
   BlockchainService(String rpcUrl, String privateKey, this._chainId) {
@@ -16,6 +18,9 @@ class BlockchainService {
     _setUserWallet(privateKey);
     _userContract = User_contract(
         address: EthereumAddress.fromHex(BlockchainConfig.userContractAddress),
+        client: _web3client);
+    _questContract = Quest_contract(
+        address: EthereumAddress.fromHex(BlockchainConfig.questContractAddress),
         client: _web3client);
   }
 
@@ -47,7 +52,22 @@ class BlockchainService {
     );
   }
 
-  Future<void> addQuestToUser(String questId) async {
+  Future<void> createQuest(String title, int xp, List<String> skills) async {
+    final function = _userContract.self.function('createQuest');
+    final params = [title, BigInt.from(xp), skills];
+
+    await _web3client.sendTransaction(
+      _wallet,
+      Transaction.callContract(
+        contract: _userContract.self,
+        function: function,
+        parameters: params,
+      ),
+      chainId: _chainId,
+    );
+  }
+
+  Future<void> addQuestToUser(BigInt questId) async {
     final function = _userContract.self.function('addQuestToUser');
     final params = [_userAddress, questId];
 
@@ -84,18 +104,14 @@ class BlockchainService {
     );
   }
 
-  Future<void> createQuest(String title, int xp, List<String> skills) async {
-    final function = _userContract.self.function('createQuest');
-    final params = [title, BigInt.from(xp), skills];
+  Future<List<dynamic>> getQuestData(int questId) async {
+    final function = _questContract.self.function('getQuest');
+    final params = [BigInt.from(questId)];
 
-    await _web3client.sendTransaction(
-      _wallet,
-      Transaction.callContract(
-        contract: _userContract.self,
-        function: function,
-        parameters: params,
-      ),
-      chainId: _chainId,
+    return await _web3client.call(
+      contract: _questContract.self,
+      function: function,
+      params: params,
     );
   }
 
