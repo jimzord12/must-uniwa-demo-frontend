@@ -184,9 +184,9 @@ class PortfolioScreen extends StatelessWidget {
                       physics: const NeverScrollableScrollPhysics(),
                       separatorBuilder: (context, index) =>
                           const SizedBox(height: 12),
-                      itemCount: userProvider.user!.completedQuests.length,
+                      itemCount: completedQuests.length,
                       itemBuilder: (context, index) {
-                        final quest = userProvider.user!.completedQuests[index];
+                        final quest = completedQuests[index];
                         return Center(
                           child: ConstrainedBox(
                               constraints:

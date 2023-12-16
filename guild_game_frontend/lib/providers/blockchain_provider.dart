@@ -133,6 +133,8 @@ class BlockchainProvider with ChangeNotifier {
             completedQuests.add(quest);
           }
         }
+
+        print("Completed Quests: $completedQuests");
       }
 
       notifyListeners();
