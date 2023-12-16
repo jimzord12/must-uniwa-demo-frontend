@@ -46,19 +46,22 @@ class BlockchainProvider with ChangeNotifier {
 
   Future<void> getUserData() async {
     try {
-      List<dynamic> userData = await _blockchainService.getUserData();
+      List<dynamic> outerUserData = await _blockchainService.getUserData();
 
-      print("getUserData: $userData");
+      print("getUserData: ${outerUserData[0]}");
 
-      if (userData[0] == '') {
-        print("From BLockchain Provider: User not found");
+      if (outerUserData[0][0] == '') {
+        print(
+            "From BLockchain Provider: User not found, ${outerUserData[0][0]}");
         return;
       }
+
+      // Extract the inner array
+      List<dynamic> userData = outerUserData[0];
+
       // convertRoleToString takes a BigInt and returns a 'student' or 'professor
       userRole = convertRoleToString(userData[1]);
-      userQuests = (userData[2] as List<dynamic>)
-          .map((e) => (e as BigInt).toInt())
-          .toList(); // Assuming it's a list of BigInt
+      userQuests = List<int>.from(userData[2]);
       totalXp = (userData[3] as BigInt).toInt();
       questCompleteAmount = (userData[4] as BigInt).toInt();
       aquiredSkills = List<String>.from(userData[5]);
