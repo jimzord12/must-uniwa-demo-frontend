@@ -3,7 +3,7 @@ import 'package:guild_game_frontend/navigation/go_back_button.dart';
 import 'package:guild_game_frontend/providers/quest_provider.dart';
 import 'package:guild_game_frontend/providers/user_provider.dart';
 import 'package:guild_game_frontend/widgets/modals/error_modal.dart';
-import 'package:guild_game_frontend/widgets/modals/professor/view_completed_quest_modal.dart';
+import 'package:guild_game_frontend/widgets/modals/view_completed_quest_modal.dart';
 import 'package:guild_game_frontend/widgets/modals/student/accept_quest_modal.dart';
 import 'package:guild_game_frontend/widgets/modals/success_modal.dart';
 import 'package:guild_game_frontend/widgets/stayros130/custom_button.dart';

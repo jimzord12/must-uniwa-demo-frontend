@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:guild_game_frontend/models/ranks.dart';
 import 'package:guild_game_frontend/providers/quest_provider.dart';
 import 'package:guild_game_frontend/providers/user_provider.dart';
-import 'package:guild_game_frontend/widgets/modals/professor/view_completed_quest_modal.dart';
+import 'package:guild_game_frontend/widgets/modals/view_completed_quest_modal.dart';
 import 'package:guild_game_frontend/widgets/stayros130/custom_button.dart';
 import 'package:provider/provider.dart';
 

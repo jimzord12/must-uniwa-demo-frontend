@@ -7,8 +7,9 @@ import 'package:guild_game_frontend/providers/user_provider.dart';
 import 'package:guild_game_frontend/utils/pdf_convert_and_open.dart';
 import 'package:guild_game_frontend/widgets/modals/error_modal.dart';
 import 'package:guild_game_frontend/widgets/modals/professor/manage_submitted_quest_modal.dart';
-import 'package:guild_game_frontend/widgets/modals/student/view_completed_quest_modal.dart';
+
 import 'package:guild_game_frontend/widgets/modals/success_modal.dart';
+import 'package:guild_game_frontend/widgets/modals/view_completed_quest_modal.dart';
 import 'package:guild_game_frontend/widgets/modals/web3_tx_modal.dart';
 import 'package:guild_game_frontend/widgets/stayros130/custom_button.dart';
 import 'package:provider/provider.dart';
@@ -156,7 +157,7 @@ class PendingQuestsScreen extends StatelessWidget {
                                 if (userProvider.user!.role == 'student') {
                                   showQuestDetailsModal(
                                       context: context,
-                                      walletAddress: userProvider.pubAddress!,
+                                      // walletAddress: userProvider.pubAddress!,
                                       questId: quest.id,
                                       quest: quest);
                                 } else {

@@ -9,7 +9,7 @@ import 'package:guild_game_frontend/widgets/modals/modal_parts/for_displaying_qu
 
 void showQuestDetailsModal({
   required BuildContext context,
-  required String walletAddress,
+  // required String walletAddress,
   required String questId,
   required Quest quest,
 }) {
@@ -19,6 +19,15 @@ void showQuestDetailsModal({
         true, // Allows the modal to take up more than half the screen
     backgroundColor: Colors.transparent,
     builder: (BuildContext context) {
+
+print(" ===  showQuestDetailsModal ===");
+print(" -  questId: $questId");
+print(" -  quest: $quest");
+print(" -  quest.title: ${quest.title}");
+print(" -  quest.desc: ${quest.desc}");
+print(" -  quest.xp: ${quest.xp}");
+print(" -  quest.requiredSkills: ${quest.requiredSkills}");
+
       return FractionallySizedBox(
         heightFactor: 0.9,
         child: SafeArea(
