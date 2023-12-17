@@ -1,5 +1,5 @@
 class Quest {
-  final String? id;
+  String? id;
   // final int? questId;
   final int xp;
   final String desc;
@@ -35,13 +35,14 @@ class Quest {
 
   // New Quest
   Quest.newQuest({
-    // required this.questId,
+    // required this.questId,\
+    this.id,
     required this.requiredSkills,
     required this.xp,
     required this.desc,
     required this.title,
     required this.createdBy,
-  })  : id = null,
+  })  :
         // questId = null,
         creationDate = DateTime.now(),
         submissionDates = [],

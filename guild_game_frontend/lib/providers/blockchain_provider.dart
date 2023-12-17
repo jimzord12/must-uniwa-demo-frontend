@@ -130,6 +130,7 @@ class BlockchainProvider with ChangeNotifier {
               (quest.assignedTo != '' || quest.assignedTo != null)) {
             print("[$i] - Quest Title: ${quest.title}");
             print("[$i] - Quest Assigned To: ${quest.assignedTo}");
+            quest.id = userQuests[i].toString();
             completedQuests.add(quest);
           }
         }

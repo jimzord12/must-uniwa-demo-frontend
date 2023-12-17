@@ -197,7 +197,7 @@ class PortfolioScreen extends StatelessWidget {
                                   showQuestDetailsModal(
                                       context: context,
                                       // walletAddress: userProvider.pubAddress!,
-                                      questId: quest.id,
+                                      questId: quest.id ?? "777",
                                       quest: quest);
                                 },
                               )),
