@@ -131,6 +131,8 @@ class BlockchainProvider with ChangeNotifier {
         userQuests =
             userQuestsFromContract.map((e) => (e as BigInt).toInt()).toList();
 
+        List<String> existingQuestTitles = [];
+
         for (var i = 0; i < userQuests.length; i++) {
           final Quest? quest = await getSpecificQuest(userQuests[i]);
           if (quest != null &&
@@ -140,8 +142,13 @@ class BlockchainProvider with ChangeNotifier {
                       '0x0000000000000000000000000000000000000000')) {
             print("[$i] - Quest Title: ${quest.title}");
             print("[$i] - Quest Assigned To: ${quest.assignedTo}");
-            quest.id = userQuests[i].toString();
-            completedQuests.add(quest);
+            if (existingQuestTitles.contains(quest.title)) {
+              continue;
+            } else {
+              existingQuestTitles.add(quest.title);
+              quest.id = userQuests[i].toString();
+              completedQuests.add(quest);
+            }
           }
         }
 
