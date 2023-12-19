@@ -49,7 +49,6 @@ class BlockchainProvider with ChangeNotifier {
   Future<void> getUserData() async {
     try {
       List<dynamic> outerUserData = await _blockchainService.getUserData();
-      await getUserQuests(); // this one populates the completedQuests list
 
       print("getUserData: ${outerUserData[0]}");
 
@@ -101,6 +100,8 @@ class BlockchainProvider with ChangeNotifier {
         }
       }
 
+      await getUserQuests(); // this one populates the completedQuests list
+
       // print("From BLockchain Provider: Quest Amount: $questCompleteAmount");
       // print("From BLockchain Provider: Skills: $aquiredSkills");
       // print("From BLockchain Provider: Total XP: $totalXp");
@@ -133,7 +134,7 @@ class BlockchainProvider with ChangeNotifier {
         for (var i = 0; i < userQuests.length; i++) {
           final Quest? quest = await getSpecificQuest(userQuests[i]);
           if (quest != null &&
-              (quest.assignedTo != '' || quest.assignedTo != null)) {
+              (quest.assignedTo != '' && quest.assignedTo != null)) {
             print("[$i] - Quest Title: ${quest.title}");
             print("[$i] - Quest Assigned To: ${quest.assignedTo}");
             quest.id = userQuests[i].toString();
