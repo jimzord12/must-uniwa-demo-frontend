@@ -92,7 +92,13 @@ class BlockchainProvider with ChangeNotifier {
       if (userData[5].isEmpty) {
         aquiredSkills = [];
       } else {
-        aquiredSkills = List<String>.from(userData[5]);
+        for (var i = 0; i < userData[5].length; i++) {
+          if (userRole == 'student') {
+            aquiredSkills.add(userData[5][i]);
+          } else {
+            aquiredSkills = [];
+          }
+        }
       }
 
       // print("From BLockchain Provider: Quest Amount: $questCompleteAmount");
