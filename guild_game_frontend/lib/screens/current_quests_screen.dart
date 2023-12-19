@@ -53,6 +53,8 @@ class CurrentQuestsScreen extends StatelessWidget {
         final Map<String, String>? result =
             await uploadFile(context, address, questId);
 
+        print("******* Upload File Result: $result");
+
         if (result == null) {
           Navigator.of(context).pop(); // Close the dialog
           throw Exception("Failed to upload file");
