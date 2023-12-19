@@ -49,6 +49,8 @@ Future<Map<String, String>?> uploadFile(
     }
   } catch (e) {
     print("Error from: uploadFile, " + e.toString());
+    Navigator.of(context).pop(); // Close the dialog
+
     rethrow;
   }
   return null;
