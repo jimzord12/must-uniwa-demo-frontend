@@ -9,8 +9,8 @@ class BlockchainProvider with ChangeNotifier {
 
   late int questCompleteAmount;
   late List<String> aquiredSkills = [];
-  late int totalXp;
-  late List<int> userQuests;
+  late int totalXp = 0;
+  late List<int> userQuests = [];
   late String userRole;
   final List<Quest> completedQuests = [];
 
