@@ -7,6 +7,7 @@ import 'package:guild_game_frontend/widgets/modals/error_modal.dart';
 import 'package:guild_game_frontend/widgets/modals/professor/delete_quest_modal.dart';
 import 'package:guild_game_frontend/widgets/modals/student/submit_or_forfeit_quest_modal.dart';
 import 'package:guild_game_frontend/widgets/modals/success_modal.dart';
+import 'package:guild_game_frontend/widgets/modals/web3_tx_modal.dart';
 import 'package:guild_game_frontend/widgets/stayros130/custom_button.dart';
 import 'package:provider/provider.dart';
 
@@ -45,6 +46,10 @@ class CurrentQuestsScreen extends StatelessWidget {
       final String address = userProvider.pubAddress!;
 
       try {
+        showWaitForTransactionDialog(
+            context: context,
+            title: "Uploading PDF File",
+            content: "Please wait while your PDF File is being uploaded.");
         final Map<String, String>? result =
             await uploadFile(context, address, questId);
 
@@ -56,6 +61,8 @@ class CurrentQuestsScreen extends StatelessWidget {
             result['fileName']!, result['base64String']!, address, questId);
 
         await userProvider.fetchUserData(address);
+
+        Navigator.of(context).pop(); // Close the dialog
 
         showSuccessDialog(context, "Your PDF Files was uploaded successfully!");
         return true;
