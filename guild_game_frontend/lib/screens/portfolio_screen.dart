@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guild_game_frontend/models/quest.dart';
 import 'package:guild_game_frontend/models/ranks.dart';
 import 'package:guild_game_frontend/navigation/go_back_button.dart';
 import 'package:guild_game_frontend/providers/blockchain_provider.dart';
@@ -28,7 +29,7 @@ class PortfolioScreen extends StatelessWidget {
     final completedQuestsAmount = blockchainProvider.questCompleteAmount;
     final completedQuests = blockchainProvider.completedQuests.isEmpty
         ? []
-        : Set<String>.from(blockchainProvider.completedQuests).toList();
+        : Set<Quest>.from(blockchainProvider.completedQuests).toList();
     final userRole = blockchainProvider.userRole;
 
     print(" - PORTOFOLIO SCREEN: userSkills: $userSkills");
