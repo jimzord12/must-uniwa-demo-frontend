@@ -34,20 +34,21 @@ class Quest {
   });
 
   // New Quest
-  Quest.newQuest({
-    // required this.questId,\
-    this.id,
-    required this.requiredSkills,
-    required this.xp,
-    required this.desc,
-    required this.title,
-    required this.createdBy,
-  })  :
+  Quest.newQuest(
+      {
+      // required this.questId,\
+      this.id,
+      required this.requiredSkills,
+      required this.xp,
+      required this.desc,
+      required this.title,
+      required this.createdBy,
+      this.assignedTo})
+      :
         // questId = null,
         creationDate = DateTime.now(),
         submissionDates = [],
         revisions = 0,
-        assignedTo = null, // You might want to assign later
         isDone = false,
         completedDate = null,
         rejectedReason = null,
