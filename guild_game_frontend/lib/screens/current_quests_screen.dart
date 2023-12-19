@@ -54,6 +54,7 @@ class CurrentQuestsScreen extends StatelessWidget {
             await uploadFile(context, address, questId);
 
         if (result == null) {
+          Navigator.of(context).pop(); // Close the dialog
           throw Exception("Failed to upload file");
         }
 
@@ -61,8 +62,6 @@ class CurrentQuestsScreen extends StatelessWidget {
             result['fileName']!, result['base64String']!, address, questId);
 
         await userProvider.fetchUserData(address);
-
-        Navigator.of(context).pop(); // Close the dialog
 
         showSuccessDialog(context, "Your PDF Files was uploaded successfully!");
         return true;
