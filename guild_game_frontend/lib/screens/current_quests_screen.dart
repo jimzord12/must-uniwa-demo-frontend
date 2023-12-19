@@ -56,7 +56,6 @@ class CurrentQuestsScreen extends StatelessWidget {
         print("******* Upload File Result: $result");
 
         if (result == null) {
-          Navigator.of(context).pop(); // Close the dialog
           throw Exception("Failed to upload file");
         }
 

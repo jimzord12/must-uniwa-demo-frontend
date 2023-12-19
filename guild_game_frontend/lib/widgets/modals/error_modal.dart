@@ -13,7 +13,8 @@ void showErrorDialog(BuildContext context, String errorMessage) {
             child: const Text('Close'),
             onPressed: () {
               if (errorMessage ==
-                  "Something went wrong with the Server. Please try again later.") {
+                      "Something went wrong with the Server. Please try again later." ||
+                  errorMessage.contains('PDF file Duplicate Name!')) {
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
               } else {
