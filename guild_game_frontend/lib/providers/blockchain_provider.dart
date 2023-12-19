@@ -13,6 +13,7 @@ class BlockchainProvider with ChangeNotifier {
   late List<int> userQuests = [];
   late String userRole;
   final List<Quest> completedQuests = [];
+  List<String> existingQuestTitles = [];
 
   // Constructor
   BlockchainProvider(
@@ -130,8 +131,6 @@ class BlockchainProvider with ChangeNotifier {
 
         userQuests =
             userQuestsFromContract.map((e) => (e as BigInt).toInt()).toList();
-
-        List<String> existingQuestTitles = [];
 
         for (var i = 0; i < userQuests.length; i++) {
           final Quest? quest = await getSpecificQuest(userQuests[i]);
