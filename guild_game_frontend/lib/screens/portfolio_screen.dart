@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:guild_game_frontend/models/ranks.dart';
 import 'package:guild_game_frontend/navigation/go_back_button.dart';
 import 'package:guild_game_frontend/providers/blockchain_provider.dart';
-import 'package:guild_game_frontend/providers/user_provider.dart';
 import 'package:guild_game_frontend/widgets/modals/view_completed_quest_modal.dart';
 import 'package:guild_game_frontend/widgets/stayros130/custom_button.dart';
 import 'package:provider/provider.dart';
@@ -16,8 +15,8 @@ class PortfolioScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final questProvider = Provider.of<QuestProvider>(context, listen: true);
-    final UserProvider userProvider =
-        Provider.of<UserProvider>(context, listen: true);
+    // final UserProvider userProvider =
+    //     Provider.of<UserProvider>(context, listen: true);
 
     final BlockchainProvider blockchainProvider =
         Provider.of<BlockchainProvider>(context, listen: true);

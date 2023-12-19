@@ -8,7 +8,7 @@ class BlockchainProvider with ChangeNotifier {
   late BlockchainService _blockchainService;
 
   late int questCompleteAmount;
-  late List<String> aquiredSkills;
+  late List<String> aquiredSkills = [];
   late int totalXp;
   late List<int> userQuests;
   late String userRole;
