@@ -28,7 +28,7 @@ class PortfolioScreen extends StatelessWidget {
     final completedQuestsAmount = blockchainProvider.questCompleteAmount;
     final completedQuests = blockchainProvider.completedQuests.isEmpty
         ? []
-        : blockchainProvider.completedQuests;
+        : Set<String>.from(blockchainProvider.completedQuests).toList();
     final userRole = blockchainProvider.userRole;
 
     print(" - PORTOFOLIO SCREEN: userSkills: $userSkills");
